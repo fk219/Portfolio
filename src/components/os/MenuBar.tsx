@@ -8,6 +8,7 @@ import {
 } from "react";
 import { profile } from "@/data/profile";
 import { formatMenuBarParts, useClickOutside, useNow } from "@/lib/hooks";
+import { useMediaPlayer } from "@/lib/media-player";
 import { useOS } from "@/lib/os-context";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 
@@ -59,6 +60,7 @@ export function MenuBar() {
   const menuBarRef = useRef<HTMLElement>(null);
   const now = useNow(15000);
   const { day, time } = formatMenuBarParts(now);
+  const { currentTrack, isPlaying } = useMediaPlayer();
 
   useClickOutside(
     [menuBarRef],
@@ -578,6 +580,24 @@ export function MenuBar() {
         >
           <SystemIcon name="search" size={16} />
         </button>
+        {isPlaying && (
+          <button
+            type="button"
+            className="menu-bar__status menu-bar__now-playing"
+            aria-label={`Now playing ${currentTrack.title} by ${currentTrack.artist}. Open Music.`}
+            title={`${currentTrack.title} — ${currentTrack.artist}`}
+            onClick={() => openApp("music")}
+          >
+            <span className="menu-bar__equalizer" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            <span className="menu-bar__now-playing-title">
+              {currentTrack.title}
+            </span>
+          </button>
+        )}
         <button
           type="button"
           className="menu-bar__status menu-bar__status--icon menu-bar__iphone"

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { OSProvider } from "@/lib/os-context";
+import { MediaPlayerProvider } from "@/lib/media-player";
 import "./globals.css";
 import "@/styles/icons.css";
 import "@/styles/os.css";
@@ -73,7 +74,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body>
-        <OSProvider>{children}</OSProvider>
+        <MediaPlayerProvider>
+          <OSProvider>{children}</OSProvider>
+        </MediaPlayerProvider>
       </body>
     </html>
   );

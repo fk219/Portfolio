@@ -1,17 +1,24 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { formatMenuBarParts, useNow } from "@/lib/hooks";
+import { useMediaPlayer } from "@/lib/media-player";
 
 export function IOSStatusBar({
   tone = "light",
   onOpenControlCenter,
+  onOpenNowPlaying,
+  onSwitchToMac,
 }: {
   tone?: "light" | "dark";
   onOpenControlCenter?: () => void;
+  onOpenNowPlaying?: () => void;
+  onSwitchToMac?: () => void;
 }) {
   const now = useNow(10000);
   const { time } = formatMenuBarParts(now);
+  const { currentTrack, isPlaying } = useMediaPlayer();
 
   const right = (
     <>
@@ -31,21 +38,74 @@ export function IOSStatusBar({
   return (
     <div className={`ios-statusbar ios-statusbar--${tone}`}>
       <span className="ios-statusbar__time">{time || "9:41"}</span>
-      <span className="ios-island" aria-hidden="true">
-        <span className="ios-island__camera" />
-      </span>
-      {onOpenControlCenter ? (
+      {isPlaying && onOpenNowPlaying ? (
         <button
           type="button"
-          className="ios-statusbar__right"
-          aria-label="Open Control Center"
-          onClick={onOpenControlCenter}
+          className="ios-island ios-island--playing"
+          onClick={onOpenNowPlaying}
+          aria-label={`Now playing ${currentTrack.title}. Open Music.`}
+          style={
+            {
+              "--island-cover-from": currentTrack.cover.from,
+              "--island-cover-to": currentTrack.cover.to,
+            } as CSSProperties
+          }
         >
-          {right}
+          <span className="ios-island__cover" aria-hidden="true" />
+          <span className="ios-island__bars" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </span>
         </button>
+      ) : isPlaying ? (
+        <span
+          className="ios-island ios-island--playing"
+          aria-hidden="true"
+          style={
+            {
+              "--island-cover-from": currentTrack.cover.from,
+              "--island-cover-to": currentTrack.cover.to,
+            } as CSSProperties
+          }
+        >
+          <span className="ios-island__cover" aria-hidden="true" />
+          <span className="ios-island__bars" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </span>
+        </span>
       ) : (
-        <span className="ios-statusbar__right">{right}</span>
+        <span className="ios-island" aria-hidden="true">
+          <span className="ios-island__camera" />
+        </span>
       )}
+      <div className="ios-statusbar__right">
+        {onOpenControlCenter ? (
+          <button
+            type="button"
+            className="ios-statusbar__cc-trigger"
+            aria-label="Open Control Center"
+            onClick={onOpenControlCenter}
+          >
+            {right}
+          </button>
+        ) : (
+          <span className="ios-statusbar__status-icons">{right}</span>
+        )}
+        {onSwitchToMac && (
+          <button
+            type="button"
+            className="ios-mac-handoff"
+            onClick={onSwitchToMac}
+            aria-label="Switch to Mac desktop"
+          >
+            <SystemIcon name="mac" size={10} />
+            <span>Mac</span>
+          </button>
+        )}
+      </div>
     </div>
   );
 }

@@ -1397,6 +1397,78 @@
   white-space: nowrap;
 }
 
+.safari__address input {
+  min-width: 0;
+  flex: 1;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 11px;
+}
+
+.safari__address input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.safari__address:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.safari__address-go {
+  display: flex;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: var(--text-secondary);
+}
+
+.safari__address-go:hover {
+  background: var(--control);
+  color: var(--text);
+}
+
+.safari__open-external {
+  display: flex;
+  width: 27px;
+  height: 27px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: var(--text-secondary);
+}
+
+.safari__open-external:hover {
+  background: var(--control);
+  color: var(--text);
+}
+
+.safari__viewport.is-web {
+  overflow: hidden;
+  background: #fff;
+}
+
+.safari-web {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+
+.safari-web iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+}
+
 .safari__reload {
   display: flex;
   flex: 0 0 auto;
@@ -4666,6 +4738,48 @@
   height: 11px;
   border: 0;
   background: #f7f5ef;
+}
+
+.music__progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 17px;
+}
+
+.music__progress > span {
+  min-width: 29px;
+  color: #95928c;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.music__progress > span:last-child {
+  text-align: right;
+}
+
+.music__progress input {
+  flex: 1;
+  height: 3px;
+  --range-track: rgba(255, 255, 255, 0.17);
+  --accent: #f1efe9;
+}
+
+.music__progress input::-webkit-slider-thumb {
+  width: 11px;
+  height: 11px;
+  border: 0;
+  background: #f7f5ef;
+}
+
+.music__track-duration {
+  flex: 0 0 auto;
+  padding-right: 3px;
+  color: #95928c;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-variant-numeric: tabular-nums;
 }
 
 .music__status {

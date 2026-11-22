@@ -1,19 +1,20 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { useEscape, useFocusTrap } from "@/lib/hooks";
+import { useMediaPlayer } from "@/lib/media-player";
 import { useOS } from "@/lib/os-context";
 
 export function IOSControlCenter({
   onClose,
   onLock,
-  onOpenSettings,
+  onOpenMusic,
   onSwitchToMac,
 }: {
   onClose: () => void;
   onLock: () => void;
-  onOpenSettings: () => void;
+  onOpenMusic: () => void;
   onSwitchToMac: () => void;
 }) {
   const {
@@ -27,6 +28,11 @@ export function IOSControlCenter({
     updateSettings,
     wifiEnabled,
   } = useOS();
+  const {
+    currentTrack,
+    isPlaying,
+    toggle: toggleMusic,
+  } = useMediaPlayer();
   const [volume, setVolume] = useState(64);
   const rootRef = useRef<HTMLDivElement>(null);
   useFocusTrap(rootRef, true);
@@ -92,19 +98,40 @@ export function IOSControlCenter({
             <span className="ios-cc-tile__label">Connectivity</span>
           </section>
 
-          <button
-            type="button"
+          <div
             className="ios-cc-tile ios-cc-tile--media"
-            onClick={onOpenSettings}
-            aria-label="Open iPhone settings"
+            style={
+              {
+                "--cc-cover-from": currentTrack.cover.from,
+                "--cc-cover-to": currentTrack.cover.to,
+              } as CSSProperties
+            }
           >
-            <span className="ios-cc-media-icon">FK</span>
-            <span>
-              <strong>Portfolio OS</strong>
-              <small>Always on</small>
-            </span>
-            <SystemIcon name="play" size={18} />
-          </button>
+            <button
+              type="button"
+              className="ios-cc-media-main"
+              onClick={onOpenMusic}
+              aria-label={`Open Music. ${currentTrack.title} by ${currentTrack.artist}.`}
+            >
+              <span className="ios-cc-media-cover" aria-hidden="true" />
+              <span>
+                <strong>{currentTrack.title}</strong>
+                <small>{currentTrack.artist}</small>
+              </span>
+            </button>
+            <button
+              type="button"
+              className="ios-cc-media-play"
+              onClick={toggleMusic}
+              aria-label={
+                isPlaying
+                  ? `Pause ${currentTrack.title}`
+                  : `Play ${currentTrack.title}`
+              }
+            >
+              <SystemIcon name={isPlaying ? "pause" : "play"} size={17} />
+            </button>
+          </div>
 
           <section className="ios-cc-tile ios-cc-tile--focus" aria-label="Focus">
             <span className="ios-cc-focus-icon">

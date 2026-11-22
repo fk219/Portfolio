@@ -320,6 +320,9 @@ export function IOSAppIcon({
     case "safari":
       icon = <AppIcon app="safari" size={size} />;
       break;
+    case "music":
+      icon = <AppIcon app="music" size={size} />;
+      break;
     case "photos":
       icon = <AppIcon app="photos" size={size} />;
       break;

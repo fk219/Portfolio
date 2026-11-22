@@ -26,6 +26,8 @@ export type SystemIconName =
   | "power"
   | "moon"
   | "sun"
+  | "cloud"
+  | "cloud-rain"
   | "display"
   | "volume"
   | "volume-off"
@@ -58,7 +60,9 @@ export type SystemIconName =
   | "gear"
   | "mail"
   | "iphone"
-  | "mac";
+  | "mac"
+  | "house"
+  | "globe";
 
 interface SystemIconProps extends Omit<SVGProps<SVGSVGElement>, "name"> {
   name: SystemIconName;
@@ -194,6 +198,15 @@ const strokePaths: Partial<Record<SystemIconName, ReactNode>> = {
     <>
       <circle cx="12" cy="12" r="4" />
       <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+    </>
+  ),
+  cloud: (
+    <path d="M7 18.5a4.5 4.5 0 0 1-.3-9 6 6 0 0 1 11.4 1.4A3.8 3.8 0 0 1 17.4 18.5Z" />
+  ),
+  "cloud-rain": (
+    <>
+      <path d="M7 16a4.5 4.5 0 0 1-.3-9 6 6 0 0 1 11.4 1.4A3.8 3.8 0 0 1 17.4 16Z" />
+      <path d="M8.5 19v1.5M12.2 19v1.5M15.9 19v1.5" />
     </>
   ),
   display: (
@@ -360,6 +373,19 @@ const strokePaths: Partial<Record<SystemIconName, ReactNode>> = {
     <>
       <rect x="2.8" y="4" width="18.4" height="12.2" rx="1.8" />
       <path d="M8.4 19.6h7.2M12 16.2v3.4" />
+    </>
+  ),
+  house: (
+    <>
+      <path d="m3.2 10.8 8.8-7.2 8.8 7.2" />
+      <path d="M5.2 9.4V20h13.6V9.4" />
+      <path d="M9.6 20v-5.2h4.8V20" />
+    </>
+  ),
+  globe: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3.4 12h17.2M12 3a16.8 16.8 0 0 1 0 18M12 3a16.8 16.8 0 0 0 0 18" />
     </>
   ),
 };

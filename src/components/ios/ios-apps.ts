@@ -8,6 +8,7 @@ export type IOSAppId =
   | "links"
   | "notes"
   | "calculator"
+  | "music"
   | "clock"
   | "contact"
   | "settings";
@@ -31,6 +32,6 @@ export const IOS_HOME_APPS: IOSAppDefinition[] = [
   { id: "experience", name: "Experience" },
   { id: "links", name: "Links" },
   { id: "notes", name: "Notes" },
-  { id: "calculator", name: "Calculator" },
+  { id: "music", name: "Music" },
   { id: "clock", name: "Clock" },
 ];

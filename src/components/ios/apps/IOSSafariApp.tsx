@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { ProjectArtwork } from "@/components/apps/ProjectArtwork";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { profile } from "@/data/profile";
 import { certifications } from "@/data/career";
 import { featuredProjects, projects } from "@/data/projects";
+import { useFocusTrap } from "@/lib/hooks";
+import { resolveWebAddress, webAddressLabel } from "@/lib/web-url";
 
 export function IOSSafariApp({
   onOpenProject,
@@ -14,9 +16,69 @@ export function IOSSafariApp({
   onOpenProject: (slug: string) => void;
 }) {
   const viewportRef = useRef<HTMLDivElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const sheetInputRef = useRef<HTMLInputElement>(null);
+  const [webUrl, setWebUrl] = useState<string | null>(null);
+  const [webKey, setWebKey] = useState(0);
+  const [address, setAddress] = useState("furqan.local");
+  const [addressSheetOpen, setAddressSheetOpen] = useState(false);
+  const [addressDraft, setAddressDraft] = useState("");
+
+  useFocusTrap(sheetRef, addressSheetOpen, sheetInputRef);
+
+  const openAddressSheet = () => {
+    setAddressDraft(address === "furqan.local" ? "" : address);
+    setAddressSheetOpen(true);
+  };
+
+  const navigate = (raw: string) => {
+    const resolved = resolveWebAddress(raw);
+    if (!resolved) return;
+    setWebUrl(resolved.url);
+    setAddress(
+      resolved.isSearch
+        ? raw.trim()
+        : resolved.url.replace(/^https?:\/\//, ""),
+    );
+    setWebKey((key) => key + 1);
+    setAddressSheetOpen(false);
+  };
+
+  const submitAddress = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (addressDraft.trim().toLowerCase() === "furqan.local") {
+      goHome();
+      return;
+    }
+    navigate(addressDraft);
+  };
+
+  const goHome = () => {
+    setWebUrl(null);
+    setAddress("furqan.local");
+    setAddressSheetOpen(false);
+  };
+
+  const reload = () => {
+    if (webUrl) {
+      setWebKey((key) => key + 1);
+      return;
+    }
+    viewportRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="ios-app-view ios-safari">
+      {webUrl ? (
+        <div className="ios-safari__web">
+          <iframe
+            key={`${webUrl}-${webKey}`}
+            src={webUrl}
+            title={webAddressLabel(webUrl)}
+            referrerPolicy="no-referrer"
+          />
+        </div>
+      ) : (
       <div className="ios-app-view__scroll ios-safari__scroll" ref={viewportRef}>
         <article className="ios-site">
           <header className="ios-site__header">
@@ -187,34 +249,130 @@ export function IOSSafariApp({
           </footer>
         </article>
       </div>
+      )}
 
       <div className="ios-safari__toolbar">
         <button
           type="button"
           className="ios-safari__nav"
-          onClick={() =>
-            viewportRef.current?.querySelector("#ios-site-work")?.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            })
-          }
-          aria-label="Jump to work"
+          onClick={() => {
+            if (webUrl) {
+              goHome();
+              return;
+            }
+            viewportRef.current
+              ?.querySelector("#ios-site-work")
+              ?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }}
+          aria-label={webUrl ? "Portfolio home" : "Jump to work"}
         >
-          <SystemIcon name="list" size={16} />
+          <SystemIcon name={webUrl ? "house" : "list"} size={16} />
         </button>
-        <span className="ios-safari__address">
-          <SystemIcon name="lock" size={10} />
-          furqan.local
-        </span>
+        <button
+          type="button"
+          className="ios-safari__address"
+          onClick={openAddressSheet}
+          aria-label="Enter a website or search"
+        >
+          <SystemIcon name={webUrl ? "globe" : "lock"} size={10} />
+          <span>{address}</span>
+        </button>
+        {webUrl && (
+          <a
+            href={webUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="ios-safari__nav"
+            aria-label="Open in a new browser tab"
+          >
+            <SystemIcon name="external" size={15} />
+          </a>
+        )}
         <button
           type="button"
           className="ios-safari__nav"
-          onClick={() => viewportRef.current?.scrollTo({ top: 0, behavior: "smooth" })}
-          aria-label="Scroll to top"
+          onClick={reload}
+          aria-label={webUrl ? "Reload page" : "Scroll to top"}
         >
           <SystemIcon name="refresh" size={15} />
         </button>
       </div>
+
+      {addressSheetOpen && (
+        <div
+          className="ios-browser-sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Enter a website"
+          onKeyDown={(event) => {
+            if (event.key === "Escape") {
+              event.stopPropagation();
+              setAddressSheetOpen(false);
+            }
+          }}
+        >
+          <button
+            type="button"
+            className="ios-browser-sheet__backdrop"
+            aria-label="Close address bar"
+            onClick={() => setAddressSheetOpen(false)}
+          />
+          <div className="ios-browser-sheet__panel" ref={sheetRef}>
+            <header className="ios-browser-sheet__header">
+              <span>
+                <SystemIcon name="globe" size={14} />
+                New Page
+              </span>
+              <button
+                type="button"
+                onClick={() => setAddressSheetOpen(false)}
+                aria-label="Close"
+              >
+                <SystemIcon name="close" size={13} />
+              </button>
+            </header>
+            <form onSubmit={submitAddress} className="ios-browser-sheet__form">
+              <SystemIcon name="search" size={14} />
+              <input
+                autoFocus
+                ref={sheetInputRef}
+                value={addressDraft}
+                onChange={(event) => setAddressDraft(event.target.value)}
+                placeholder="Search Wikipedia or enter a website"
+                aria-label="Address or search"
+                spellCheck={false}
+                autoCapitalize="none"
+                autoComplete="off"
+              />
+              <button type="submit">Go</button>
+            </form>
+            <div className="ios-browser-sheet__links">
+              <button
+                type="button"
+                onClick={() => navigate("https://en.wikipedia.org/wiki/Main_Page")}
+              >
+                Wikipedia
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate("https://example.com")}
+              >
+                Example
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate("https://news.ycombinator.com/")}
+              >
+                Hacker News
+              </button>
+            </div>
+            <p>
+              Search runs through Wikipedia. Some sites refuse to be embedded;
+              use “Open in a new tab” when a page stays blank.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

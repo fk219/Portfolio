@@ -3,10 +3,12 @@
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { useNow } from "@/lib/hooks";
 import { useOS } from "@/lib/os-context";
+import { useDubaiWeather, WEATHER_ICON_NAMES } from "@/lib/weather";
 
 export function DesktopWidgets() {
   const { openApp } = useOS();
   const now = useNow(30000);
+  const weather = useDubaiWeather();
   const current = now ?? new Date(2026, 10, 22, 9, 41);
   const timeParts = new Intl.DateTimeFormat("en-US", {
     hour: "numeric",
@@ -38,6 +40,15 @@ export function DesktopWidgets() {
         <span className="desktop-widget__topline">
           <SystemIcon name="clock" size={12} />
           <span>Portfolio</span>
+          {weather && (
+            <span
+              className="desktop-widget__weather"
+              title={`Live weather in ${weather.city} from Open-Meteo`}
+            >
+              <SystemIcon name={WEATHER_ICON_NAMES[weather.icon]} size={11} />
+              {weather.temperature}&deg;
+            </span>
+          )}
         </span>
         <span className="desktop-widget__time">
           {time}

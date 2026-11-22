@@ -20,6 +20,7 @@ import { IOSCareerApp } from "./apps/IOSCareerApp";
 import { IOSLinksApp } from "./apps/IOSLinksApp";
 import { IOSNotesApp } from "./apps/IOSNotesApp";
 import { IOSCalculatorApp } from "./apps/IOSCalculatorApp";
+import { IOSMusicApp } from "./apps/IOSMusicApp";
 import { IOSClockApp } from "./apps/IOSClockApp";
 import { IOSContactApp } from "./apps/IOSContactApp";
 import { IOSSettingsApp } from "./apps/IOSSettingsApp";
@@ -162,6 +163,8 @@ export function IOSExperience() {
         return <IOSNotesApp />;
       case "calculator":
         return <IOSCalculatorApp />;
+      case "music":
+        return <IOSMusicApp />;
       case "clock":
         return <IOSClockApp />;
       case "contact":
@@ -241,6 +244,10 @@ export function IOSExperience() {
               <IOSLockScreen
                 wallpaper={settings.wallpaper}
                 onUnlock={() => setLocked(false)}
+                onOpenMusic={() => {
+                  setLocked(false);
+                  openApp("music");
+                }}
               />
             ) : activeApp ? (
               <div
@@ -266,6 +273,10 @@ export function IOSExperience() {
                   ? undefined
                   : () => setControlCenter(true)
               }
+              onOpenNowPlaying={
+                locked ? undefined : () => openApp("music")
+              }
+              onSwitchToMac={goToMac}
             />
 
             {!locked && activeApp && !controlCenter && !searching && (
@@ -282,7 +293,7 @@ export function IOSExperience() {
                   setControlCenter(false);
                   setLocked(true);
                 }}
-                onOpenSettings={() => openApp("settings")}
+                onOpenMusic={() => openApp("music")}
                 onSwitchToMac={goToMac}
               />
             )}
@@ -300,7 +311,7 @@ export function IOSExperience() {
 
       <div className="ios-stage__hint">
         <span>Same portfolio. Two operating systems.</span>
-        <span>Open Settings inside the phone to switch back.</span>
+        <span>Use Mac desktop, top right, to switch back.</span>
       </div>
     </div>
   );

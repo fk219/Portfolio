@@ -1,11 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import { featuredProjects, projects } from "@/data/projects";
 import { profile } from "@/data/profile";
 import { careerRoles, certifications, education } from "@/data/career";
 import { useOS } from "@/lib/os-context";
+import { resolveWebAddress, webAddressLabel } from "@/lib/web-url";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { ProjectArtwork } from "./ProjectArtwork";
 
@@ -14,12 +20,67 @@ export function Safari({ section }: { section?: string }) {
   const pageRef = useRef<HTMLDivElement>(null);
   const [activeSlug, setActiveSlug] = useState(projects[0]?.slug ?? "");
   const [reloadKey, setReloadKey] = useState(0);
+  const [webUrl, setWebUrl] = useState<string | null>(null);
+  const [addressDraft, setAddressDraft] = useState("furqan.local");
+  const [webHistory, setWebHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [webKey, setWebKey] = useState(0);
   const activeProject =
     projects.find((project) => project.slug === activeSlug) ?? projects[0];
   const previewImage = activeProject?.screenshots[0];
 
+  const goHome = () => {
+    setWebUrl(null);
+    setAddressDraft("furqan.local");
+    setReloadKey((key) => key + 1);
+  };
+
+  const openWebAddress = (raw: string) => {
+    const resolved = resolveWebAddress(raw);
+    if (!resolved) return;
+    const label = resolved.isSearch
+      ? raw.trim()
+      : resolved.url.replace(/^https?:\/\//, "");
+    setWebUrl(resolved.url);
+    setAddressDraft(label);
+    const nextHistory = webHistory.slice(0, historyIndex + 1);
+    nextHistory.push(resolved.url);
+    setWebHistory(nextHistory);
+    setHistoryIndex(nextHistory.length - 1);
+    setWebKey((key) => key + 1);
+  };
+
+  const submitAddress = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    openWebAddress(addressDraft);
+  };
+
+  const goBackInWeb = () => {
+    if (historyIndex <= 0) return;
+    const nextIndex = historyIndex - 1;
+    const nextUrl = webHistory[nextIndex];
+    setHistoryIndex(nextIndex);
+    setWebUrl(nextUrl);
+    setAddressDraft(nextUrl.replace(/^https?:\/\//, ""));
+    setWebKey((key) => key + 1);
+  };
+
+  const goForwardInWeb = () => {
+    if (historyIndex >= webHistory.length - 1) return;
+    const nextIndex = historyIndex + 1;
+    const nextUrl = webHistory[nextIndex];
+    setHistoryIndex(nextIndex);
+    setWebUrl(nextUrl);
+    setAddressDraft(nextUrl.replace(/^https?:\/\//, ""));
+    setWebKey((key) => key + 1);
+  };
+
   useEffect(() => {
     if (!section) return;
+    if (webUrl) {
+      setWebUrl(null);
+      setAddressDraft("furqan.local");
+    }
     const targetId =
       section === "about"
         ? "safari-about"
@@ -41,6 +102,10 @@ export function Safari({ section }: { section?: string }) {
   }, [section]);
 
   const handleReload = () => {
+    if (webUrl) {
+      setWebKey((key) => key + 1);
+      return;
+    }
     pageRef.current?.scrollTo({ top: 0, behavior: "smooth" });
     setReloadKey((key) => key + 1);
   };
@@ -52,45 +117,100 @@ export function Safari({ section }: { section?: string }) {
           <button
             type="button"
             className="safari__tool"
-            disabled
-            aria-label="Back, no browsing history"
-            title="No previous page"
+            disabled={historyIndex <= 0}
+            aria-label="Back"
+            title={historyIndex > 0 ? "Back" : "No previous page"}
+            onClick={goBackInWeb}
           >
             <SystemIcon name="chevron-left" size={17} />
           </button>
           <button
             type="button"
             className="safari__tool"
-            disabled
-            aria-label="Forward, no browsing history"
-            title="No next page"
+            disabled={historyIndex >= webHistory.length - 1}
+            aria-label="Forward"
+            title={
+              historyIndex < webHistory.length - 1
+                ? "Forward"
+                : "No next page"
+            }
+            onClick={goForwardInWeb}
           >
             <SystemIcon name="chevron-right" size={17} />
           </button>
+          <button
+            type="button"
+            className="safari__tool"
+            onClick={goHome}
+            aria-label="Portfolio home"
+            title="Portfolio home"
+          >
+            <SystemIcon name="house" size={15} />
+          </button>
         </div>
 
-        <div className="safari__address" role="group" aria-label="Current page">
-          <SystemIcon name="lock" size={11} />
-          <span>furqan.local</span>
+        <form
+          className="safari__address"
+          role="search"
+          onSubmit={(event) => {
+            event.preventDefault();
+            if (addressDraft.trim().toLowerCase() === "furqan.local") {
+              goHome();
+              return;
+            }
+            submitAddress(event);
+          }}
+        >
+          <SystemIcon name={webUrl ? "globe" : "lock"} size={11} />
+          <input
+            value={addressDraft}
+            onChange={(event) => setAddressDraft(event.target.value)}
+            onFocus={(event) => event.currentTarget.select()}
+            aria-label="Address or search"
+            placeholder="Search Wikipedia or enter a website"
+            spellCheck={false}
+            autoCapitalize="none"
+            autoComplete="off"
+          />
+          <button
+            type="submit"
+            className="safari__address-go"
+            aria-label="Go to address"
+            title="Go"
+          >
+            <SystemIcon name="arrow-right" size={12} />
+          </button>
           <button
             type="button"
             className="safari__reload"
             onClick={handleReload}
-            aria-label="Reload page and return to the top"
+            aria-label={webUrl ? "Reload page" : "Reload page and return to the top"}
             title="Reload"
           >
             <span
               className={`safari__reload-icon ${
                 reloadKey > 0 ? "is-spinning" : ""
               }`}
-              key={reloadKey}
+              key={reloadKey + webKey}
             >
               <SystemIcon name="refresh" size={13} />
             </span>
           </button>
-        </div>
+        </form>
 
         <div className="safari__toolbar-end">
+          {webUrl && (
+            <a
+              className="safari__open-external"
+              href={webUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open the page in a new browser tab"
+              title="Open in a new tab"
+            >
+              <SystemIcon name="external" size={14} />
+            </a>
+          )}
           <button
             type="button"
             className="safari__resume-button"
@@ -102,7 +222,20 @@ export function Safari({ section }: { section?: string }) {
         </div>
       </div>
 
-      <div className="safari__viewport" ref={pageRef}>
+      <div
+        className={`safari__viewport ${webUrl ? "is-web" : ""}`}
+        ref={pageRef}
+      >
+        {webUrl ? (
+          <div className="safari-web">
+            <iframe
+              key={`${webUrl}-${webKey}`}
+              src={webUrl}
+              title={webAddressLabel(webUrl)}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        ) : (
         <article className="safari-page">
           <header className="safari-site-header">
             <a href="#safari-top" className="safari-site-mark">
@@ -459,6 +592,7 @@ export function Safari({ section }: { section?: string }) {
             </button>
           </footer>
         </article>
+        )}
       </div>
     </div>
   );

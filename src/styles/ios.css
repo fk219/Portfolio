@@ -392,23 +392,112 @@
   box-shadow: 0 0 3px rgba(45, 80, 140, 0.6);
 }
 
+.ios-island--playing {
+  justify-content: center;
+  gap: 6px;
+  padding-right: 0;
+  border: 0;
+  color: #fff;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+button.ios-island--playing:hover {
+  background: #111;
+}
+
+.ios-island__cover {
+  width: 21px;
+  height: 21px;
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.36), transparent 42%),
+    linear-gradient(145deg, var(--island-cover-from), var(--island-cover-to));
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.ios-island__bars {
+  display: flex;
+  height: 13px;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.ios-island__bars i {
+  display: block;
+  width: 2.5px;
+  border-radius: 2px;
+  background: #fff;
+  animation: ios-island-bars 780ms ease-in-out infinite alternate;
+}
+
+.ios-island__bars i:nth-child(1) {
+  height: 55%;
+  animation-delay: -220ms;
+}
+
+.ios-island__bars i:nth-child(2) {
+  height: 100%;
+  animation-delay: -80ms;
+}
+
+.ios-island__bars i:nth-child(3) {
+  height: 70%;
+  animation-delay: -360ms;
+}
+
 .ios-statusbar__right {
   display: flex;
   grid-column: 3;
   align-items: center;
   justify-self: end;
+  gap: 5px;
+  pointer-events: auto;
+}
+
+.ios-statusbar__cc-trigger {
+  display: flex;
+  align-items: center;
   gap: 6px;
   border: 0;
-  padding: 8px 0 8px 10px;
+  padding: 8px 0 8px 4px;
   background: none;
   color: inherit;
-  pointer-events: auto;
   font: inherit;
   cursor: pointer;
 }
 
+.ios-statusbar__status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .ios-statusbar__right svg {
   display: block;
+}
+
+.ios-mac-handoff {
+  display: none;
+  min-height: 21px;
+  align-items: center;
+  gap: 3px;
+  padding: 0 7px;
+  border: 0.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: inherit;
+  font: inherit;
+  font-size: 8px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(14px);
+  cursor: pointer;
+}
+
+.ios-statusbar--dark .ios-mac-handoff {
+  border-color: rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 .ios-signal {
@@ -1924,11 +2013,175 @@
   justify-content: center;
   gap: 5px;
   min-height: 34px;
+  overflow: hidden;
+  padding: 0 8px;
+  border: 0;
   border-radius: 10px;
   background: rgba(118, 118, 128, 0.12);
   color: #4d514e;
+  font: inherit;
   font-size: 11px;
   font-weight: 500;
+  cursor: pointer;
+}
+
+.ios-safari__address span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ios-safari__address:active {
+  background: rgba(118, 118, 128, 0.2);
+}
+
+.ios-safari__web {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: #fff;
+}
+
+.ios-safari__web iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+}
+
+.ios-browser-sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 8px calc(9px + env(safe-area-inset-bottom));
+}
+
+.ios-browser-sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(8, 11, 15, 0.38);
+  backdrop-filter: blur(4px);
+}
+
+.ios-browser-sheet__panel {
+  position: relative;
+  width: 100%;
+  padding: 14px;
+  border: 0.5px solid rgba(0, 0, 0, 0.08);
+  border-radius: 22px;
+  background: var(--ios-card);
+  color: var(--ios-label);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.18);
+  animation: ios-sheet-in 280ms var(--ease-out) both;
+}
+
+.ios-browser-sheet__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ios-browser-sheet__header > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ios-secondary);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ios-browser-sheet__header > button {
+  display: flex;
+  width: 26px;
+  height: 26px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ios-fill);
+  color: var(--ios-secondary);
+  cursor: pointer;
+}
+
+.ios-browser-sheet__form {
+  display: flex;
+  height: 42px;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  padding: 0 10px;
+  border-radius: 12px;
+  background: var(--ios-fill);
+  color: var(--ios-secondary);
+}
+
+.ios-browser-sheet__form input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ios-label);
+  font: inherit;
+  font-size: 13px;
+}
+
+.ios-browser-sheet__form button {
+  min-height: 29px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--ios-blue);
+  color: #fff;
+  font: inherit;
+  font-size: 10.5px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.ios-browser-sheet__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.ios-browser-sheet__links button {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--ios-separator);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ios-label);
+  font: inherit;
+  font-size: 9.5px;
+  cursor: pointer;
+}
+
+.ios-browser-sheet__panel > p {
+  margin-top: 11px;
+  color: var(--ios-secondary);
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+@keyframes ios-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .ios-safari__nav {
@@ -2772,6 +3025,355 @@
   line-height: 1.6;
 }
 
+/* Music --------------------------------------------------------------------- */
+
+.ios-music__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 4px 20px 15px;
+}
+
+.ios-music__header h1 {
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 750;
+  letter-spacing: -0.052em;
+  line-height: 1;
+}
+
+.ios-music__badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 3px;
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: var(--ios-fill);
+  color: var(--ios-secondary);
+  font-size: 8px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ios-music__badge > span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ios-green);
+}
+
+.ios-music__now {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 16px;
+  padding: 17px 17px 15px;
+  border-radius: 24px;
+  background: var(--ios-card);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.ios-music__art {
+  position: relative;
+  display: flex;
+  width: min(70vw, 218px);
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 26% 18%, rgba(255, 255, 255, 0.35), transparent 35%),
+    radial-gradient(circle at 85% 76%, rgba(255, 255, 255, 0.16), transparent 45%),
+    linear-gradient(145deg, var(--music-cover-from), var(--music-cover-to));
+  box-shadow:
+    0 18px 34px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+
+.ios-music__ring {
+  position: absolute;
+  inset: 12%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+}
+
+.ios-music__ring::after {
+  position: absolute;
+  inset: 24%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  content: "";
+}
+
+.ios-music__art-mark {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: -0.08em;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.2);
+}
+
+.ios-music__equalizer {
+  position: absolute;
+  right: 17px;
+  bottom: 16px;
+  left: 17px;
+  display: flex;
+  height: 34px;
+  align-items: flex-end;
+  gap: 4px;
+  opacity: 0.8;
+}
+
+.ios-music__equalizer i {
+  flex: 1;
+  height: var(--bar-height);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.78);
+  transform-origin: bottom;
+  animation: ios-music-bars 900ms ease-in-out infinite alternate;
+  animation-delay: var(--bar-delay);
+  animation-play-state: paused;
+}
+
+.ios-music__art.is-playing .ios-music__equalizer i {
+  animation-play-state: running;
+}
+
+.ios-music__meta {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.ios-music__meta > span {
+  color: var(--ios-secondary);
+  font-size: 8.5px;
+  font-weight: 650;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.ios-music__meta h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+}
+
+.ios-music__meta p {
+  color: var(--ios-secondary);
+  font-size: 11px;
+}
+
+.ios-music__progress {
+  width: 100%;
+  margin-top: 17px;
+}
+
+.ios-music__progress input,
+.ios-music__volume input {
+  width: 100%;
+  height: 3px;
+  --range-track: var(--ios-fill);
+  --accent: var(--ios-secondary);
+}
+
+.ios-music__progress input::-webkit-slider-thumb,
+.ios-music__volume input::-webkit-slider-thumb {
+  width: 11px;
+  height: 11px;
+  border: 0;
+  background: var(--ios-label);
+}
+
+.ios-music__progress > div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+  color: var(--ios-tertiary);
+  font-size: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ios-music__controls {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  margin-top: 10px;
+}
+
+.ios-music__controls > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: var(--ios-label);
+  cursor: pointer;
+}
+
+.ios-music__controls > button:active {
+  opacity: 0.55;
+}
+
+.ios-music__play {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: var(--ios-label) !important;
+  color: var(--ios-bg) !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+}
+
+.ios-music__volume {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 7px;
+  margin-top: 13px;
+  color: var(--ios-secondary);
+}
+
+.ios-music__volume input {
+  flex: 1;
+}
+
+.ios-music__queue {
+  margin: 18px 16px 0;
+  padding: 13px 15px 3px;
+  border-radius: 19px;
+  background: var(--ios-card);
+}
+
+.ios-music__queue-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 5px;
+}
+
+.ios-music__queue-heading h2 {
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.ios-music__queue-heading span {
+  color: var(--ios-secondary);
+  font-size: 9px;
+}
+
+.ios-music__track {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  min-height: 53px;
+  padding: 7px 0;
+  border: 0;
+  border-top: 1px solid var(--ios-separator);
+  background: transparent;
+  color: var(--ios-label);
+  text-align: left;
+  cursor: pointer;
+}
+
+.ios-music__track-art {
+  width: 35px;
+  height: 35px;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 28% 20%, rgba(255, 255, 255, 0.35), transparent 42%),
+    linear-gradient(145deg, var(--track-from), var(--track-to));
+}
+
+.ios-music__track-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ios-music__track-copy strong {
+  overflow: hidden;
+  font-size: 11.5px;
+  font-weight: 550;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ios-music__track-copy small {
+  overflow: hidden;
+  color: var(--ios-secondary);
+  font-size: 8.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ios-music__track.is-active .ios-music__track-copy strong {
+  color: var(--ios-blue);
+}
+
+.ios-music__track-time {
+  flex: 0 0 auto;
+  color: var(--ios-tertiary);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ios-music__tiny-bars {
+  display: flex;
+  height: 13px;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.ios-music__tiny-bars i {
+  width: 2.5px;
+  border-radius: 2px;
+  background: var(--ios-blue);
+  animation: ios-music-bars 720ms ease-in-out infinite alternate;
+}
+
+.ios-music__tiny-bars i:nth-child(1) {
+  height: 55%;
+  animation-delay: -120ms;
+}
+
+.ios-music__tiny-bars i:nth-child(2) {
+  height: 100%;
+}
+
+.ios-music__tiny-bars i:nth-child(3) {
+  height: 70%;
+  animation-delay: -260ms;
+}
+
+@keyframes ios-music-bars {
+  0% {
+    transform: scaleY(0.35);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
 /* Calculator ---------------------------------------------------------------- */
 
 .ios-app-window:has(.ios-calculator) {
@@ -3363,6 +3965,164 @@
   line-height: 1;
 }
 
+.ios-lock__widgets {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.ios-lock-widget {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border: 0.5px solid rgba(255, 255, 255, 0.17);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.11);
+  color: #fff;
+  font: inherit;
+  text-align: left;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px) saturate(140%);
+}
+
+.ios-lock-widget--weather {
+  cursor: default;
+}
+
+.ios-lock-widget--work {
+  cursor: pointer;
+}
+
+.ios-lock-widget--work:active {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.ios-lock-widget__copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.ios-lock-widget__copy strong {
+  font-size: 10.5px;
+  font-weight: 650;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.ios-lock-widget--weather .ios-lock-widget__copy strong {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.ios-lock-widget__copy small {
+  overflow: hidden;
+  max-width: 128px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 8.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ios-lock-widget__pulse {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #5be49b;
+  box-shadow: 0 0 9px rgba(91, 228, 155, 0.9);
+}
+
+.ios-lock-player {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 9px;
+  padding: 8px 9px;
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  background: rgba(46, 51, 56, 0.5);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(30px) saturate(150%);
+}
+
+.ios-lock-player__main {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ios-lock-player__art {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border-radius: 9px;
+  background:
+    radial-gradient(circle at 26% 18%, rgba(255, 255, 255, 0.34), transparent 38%),
+    linear-gradient(145deg, var(--lock-cover-from), var(--lock-cover-to));
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
+}
+
+.ios-lock-player__copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ios-lock-player__copy strong {
+  overflow: hidden;
+  font-size: 10.5px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ios-lock-player__copy small {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 8.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ios-lock-player__toggle {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  cursor: pointer;
+}
+
+.ios-lock-player__toggle:active {
+  background: rgba(255, 255, 255, 0.26);
+}
+
 .ios-lock__bottom {
   position: absolute;
   right: 14px;
@@ -3574,51 +4334,83 @@
 }
 
 .ios-cc-tile--media {
+  position: relative;
   grid-column: span 1;
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  min-height: 92px;
-}
-
-.ios-cc-media-icon {
-  display: flex;
-  width: 30px;
-  height: 30px;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  border-radius: 8px;
-  background: linear-gradient(145deg, #5d6e82, #11161e);
-  color: #ffe0b2;
-  font-size: 9px;
-  font-weight: 700;
+  gap: 8px;
+  min-height: 96px;
+  padding-bottom: 33px;
 }
 
-.ios-cc-tile--media > span:nth-child(2) {
+.ios-cc-media-main {
   display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ios-cc-media-cover {
+  width: 33px;
+  height: 33px;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.37), transparent 40%),
+    linear-gradient(145deg, var(--cc-cover-from), var(--cc-cover-to));
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.24);
+}
+
+.ios-cc-media-main > span:last-child {
+  display: flex;
+  min-width: 0;
   flex-direction: column;
   gap: 1px;
 }
 
-.ios-cc-tile--media strong {
-  font-size: 10.5px;
+.ios-cc-media-main strong {
+  overflow: hidden;
+  font-size: 10px;
   font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.ios-cc-tile--media small {
+.ios-cc-media-main small {
+  overflow: hidden;
   color: rgba(255, 255, 255, 0.48);
   font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.ios-cc-tile--media > svg {
+.ios-cc-media-play {
   position: absolute;
-  right: 15px;
-  bottom: 15px;
-  color: rgba(255, 255, 255, 0.5);
+  right: 12px;
+  bottom: 11px;
+  display: flex;
+  width: 26px;
+  height: 26px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  cursor: pointer;
 }
 
-.ios-cc-tile--media {
-  position: relative;
+.ios-cc-media-play:active {
+  background: rgba(255, 255, 255, 0.24);
 }
 
 .ios-cc-tile--focus {
@@ -4011,6 +4803,15 @@
   }
 }
 
+@keyframes ios-island-bars {
+  0% {
+    transform: scaleY(0.42);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
 /* Mobile -------------------------------------------------------------------- */
 
 @media (max-width: 940px) {
@@ -4070,7 +4871,11 @@
   }
 
   .ios-statusbar__right {
-    gap: 5px;
+    gap: 4px;
+  }
+
+  .ios-mac-handoff {
+    display: inline-flex;
   }
 
   .ios-home {
@@ -4136,6 +4941,59 @@
 
   .ios-lock__bottom {
     bottom: calc(18px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 360px) {
+  .ios-signal {
+    display: none;
+  }
+
+  .ios-statusbar__cc-trigger {
+    padding-left: 0;
+  }
+
+  .ios-lock__time {
+    font-size: 71px;
+  }
+
+  .ios-lock__content {
+    padding-top: 88px;
+  }
+
+  .ios-lock__widgets {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 940px) and (max-height: 500px) {
+  .ios-lock__content {
+    padding-top: 52px;
+  }
+
+  .ios-lock__date {
+    font-size: 12px;
+  }
+
+  .ios-lock__time {
+    font-size: 56px;
+  }
+
+  .ios-lock__widgets {
+    display: none;
+  }
+
+  .ios-lock__bottom {
+    bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+
+  .ios-lock-player,
+  .ios-notification {
+    max-width: 560px;
+  }
+
+  .ios-lock__hint {
+    margin-top: 6px;
   }
 }
 

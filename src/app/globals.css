@@ -613,6 +613,10 @@ kbd {
   }
 }
 
+.media-player-audio {
+  display: none;
+}
+
 .os-text-button {
   min-height: 24px;
 }
