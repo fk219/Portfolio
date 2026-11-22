@@ -253,6 +253,7 @@ export function IOSExperience() {
                 theme={resolvedTheme}
                 wallpaper={settings.wallpaper}
                 onOpenApp={openApp}
+                onOpenProject={openProject}
                 onOpenSearch={() => setSearching(true)}
                 onOpenControlCenter={() => setControlCenter(true)}
               />

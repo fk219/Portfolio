@@ -26,7 +26,7 @@ npm start
 
 Set `NEXT_PUBLIC_SITE_URL` when deploying so Open Graph and canonical metadata resolve against the public domain. Vercel deployments fall back to `VERCEL_URL` automatically.
 
-Use `?skipIntro=1` to skip the startup sequence during development or screenshots.
+Use `?skipIntro=1` to skip the startup sequence during development or screenshots. Add `?experience=ios` to open directly in the iPhone experience.
 
 ## What is included
 

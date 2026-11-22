@@ -2,7 +2,9 @@
 
 import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
+import { ProjectArtwork } from "@/components/apps/ProjectArtwork";
 import { Wallpaper } from "@/components/os/Wallpaper";
+import { featuredProjects } from "@/data/projects";
 import { useNow } from "@/lib/hooks";
 import type { ResolvedTheme, WallpaperId } from "@/lib/types";
 import { IOSAppIcon } from "./IOSAppIcon";
@@ -12,15 +14,18 @@ export function IOSHomeScreen({
   theme,
   wallpaper,
   onOpenApp,
+  onOpenProject,
   onOpenSearch,
   onOpenControlCenter,
 }: {
   theme: ResolvedTheme;
   wallpaper: WallpaperId;
   onOpenApp: (app: IOSAppId) => void;
+  onOpenProject: (slug: string) => void;
   onOpenSearch: () => void;
   onOpenControlCenter: () => void;
 }) {
+  const featured = featuredProjects[0];
   const now = useNow(10000);
   const current = now ?? new Date(2026, 10, 22, 9, 41);
   const time = new Intl.DateTimeFormat("en-US", {
@@ -127,6 +132,28 @@ export function IOSHomeScreen({
             </button>
           ))}
         </div>
+
+        {featured && (
+          <button
+            type="button"
+            className="ios-widget ios-widget--feature"
+            onClick={() => onOpenProject(featured.slug)}
+            aria-label={`Open the ${featured.name} case study`}
+          >
+            <span className="ios-feature__art" aria-hidden="true">
+              <ProjectArtwork project={featured} compact />
+            </span>
+            <span className="ios-feature__shade" aria-hidden="true" />
+            <span className="ios-feature__copy">
+              <span className="ios-feature__kicker">Selected work</span>
+              <strong>{featured.name}</strong>
+              <small>{featured.tagline}</small>
+            </span>
+            <span className="ios-feature__arrow">
+              <SystemIcon name="arrow-right" size={12} />
+            </span>
+          </button>
+        )}
 
         <button
           type="button"

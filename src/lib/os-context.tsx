@@ -223,6 +223,21 @@ export function OSProvider({ children }: { children: ReactNode }) {
     }
   }, [settings]);
 
+  useEffect(() => {
+    if (!settingsReady) return;
+    const params = new URLSearchParams(window.location.search);
+    const requestedExperience = params.get("experience");
+    if (requestedExperience !== "ios" && requestedExperience !== "mac") {
+      return;
+    }
+    setSettings((current) =>
+      current.experience === requestedExperience
+        ? current
+        : { ...current, experience: requestedExperience },
+    );
+    // Apply the deep link once the stored settings have hydrated.
+  }, [settingsReady]);
+
   const getWindowId = useCallback((appId: AppId) => `app:${appId}`, []);
 
   const openApp = useCallback(
