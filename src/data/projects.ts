@@ -68,7 +68,7 @@ export const projects: Project[] = [
       "Seller tools for creating, marking, relisting, and deleting listings, plus an admin ledger for inventory and users.",
     ],
     repo: "https://github.com/fk219/FolioFind",
-    demo: "https://foliofind.vercel.app",
+    demo: "https://foliofind.furqankhan.dev",
     screenshots: [
       {
         src: "/projects/foliofind/home.png",
@@ -124,8 +124,8 @@ export const projects: Project[] = [
       "Admin tools for doctors, availability, bulk slot generation, manual blocking, and an appointment desk.",
     ],
     repo: "https://github.com/fk219/Klinikly",
-    demo: "https://klinikly-nine.vercel.app",
-    adminDemo: "https://klinikly-admin.vercel.app",
+    demo: "https://klinikly.furqankhan.dev",
+    adminDemo: "https://klinikly-admin.furqankhan.dev",
     screenshots: [
       {
         src: "/projects/klinikly/home.png",
@@ -183,8 +183,8 @@ export const projects: Project[] = [
     contextNote:
       "The live demo uses Stripe mock mode. No payment is collected when you enroll.",
     repo: "https://github.com/fk219/Learn-Hub",
-    demo: "https://learn-hub-amber.vercel.app",
-    adminDemo: "https://learn-hub-admin.vercel.app",
+    demo: "https://learnhub.furqankhan.dev",
+    adminDemo: "https://learnhub-admin.furqankhan.dev",
     screenshots: [
       {
         src: "/projects/learnhub/home.png",
@@ -240,8 +240,8 @@ export const projects: Project[] = [
       "A separate admin dashboard for revenue and order charts, product CRUD, inventory, order status, and customers.",
       "Cloudinary image uploads and transactional email notifications behind the shop.",
     ],
-    demo: "https://hooked-on-cakes.vercel.app",
-    adminDemo: "https://hooked-on-cakes-admin.vercel.app/admin/",
+    demo: "https://hookedoncakes.furqankhan.dev",
+    adminDemo: "https://hookedoncakes-admin.furqankhan.dev/admin/",
     screenshots: [
       {
         src: "/projects/hooked-on-cakes/home.png",
@@ -292,7 +292,7 @@ export const projects: Project[] = [
     contextNote:
       "The browser implementation rebuilds an earlier DPI project. Its original C++ engine and sample captures remain in the repository.",
     repo: "https://github.com/fk219/Packet_Analyzer",
-    demo: "https://packet-analyzer-swart.vercel.app",
+    demo: "https://packetlab.furqankhan.dev",
     screenshots: [
       {
         src: "/projects/packet-lab/home.png",
@@ -344,7 +344,7 @@ export const projects: Project[] = [
     contextNote:
       "This is a simulation, not a connection to UPI or a bank. It also shows a real limitation: a receiver cannot verify funds offline, so an offline double-spend is possible until one packet settles.",
     repo: "https://github.com/fk219/UPI_Without_Internet",
-    demo: "https://upi-without-internet-two.vercel.app",
+    demo: "https://upimesh.furqankhan.dev",
     screenshots: [
       {
         src: "/projects/upi-offline-mesh/home.png",
@@ -396,7 +396,7 @@ export const projects: Project[] = [
     contextNote:
       "The live demo uses lexical hash-256 embeddings rather than a transformer, and the interface says so. The original C++ vector database is preserved in the repository.",
     repo: "https://github.com/fk219/Your-OWN-AI",
-    demo: "https://vector-field-gamma.vercel.app",
+    demo: "https://vectorfield.furqankhan.dev",
     screenshots: [
       {
         src: "/projects/vector-field/home.png",
