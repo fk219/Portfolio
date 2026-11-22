@@ -2,6 +2,8 @@
 
 An interactive macOS-inspired portfolio for Furqan Khan, built with Next.js 16, React 19, and TypeScript.
 
+**Live:** [portfolio-eta-five-57.vercel.app](https://portfolio-eta-five-57.vercel.app)
+
 The desktop is not a screenshot. It is a small working operating system: the menu bar opens real menus, the Dock launches applications, windows move and resize, and the portfolio content lives inside Finder, Safari, Mail, Notes, Terminal, Photos, Calendar, Music, Preview, and System Settings.
 
 ## Run locally
