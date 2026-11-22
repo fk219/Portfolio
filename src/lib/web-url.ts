@@ -19,9 +19,9 @@ export function resolveWebAddress(input: string): ResolvedAddress | null {
   }
 
   return {
-    // Search engines block framing, so in-app search uses Wikipedia's
-    // article search, which renders inside the browser view.
-    url: `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(value)}&ns0=1`,
+    // Most search engines block framing; Marginalia is an independent search
+    // engine that renders inside the in-app browser.
+    url: `https://search.marginalia.nu/search?query=${encodeURIComponent(value)}`,
     isSearch: true,
   };
 }

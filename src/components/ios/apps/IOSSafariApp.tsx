@@ -338,7 +338,7 @@ export function IOSSafariApp({
                 ref={sheetInputRef}
                 value={addressDraft}
                 onChange={(event) => setAddressDraft(event.target.value)}
-                placeholder="Search Wikipedia or enter a website"
+                placeholder="Search the web or enter a website"
                 aria-label="Address or search"
                 spellCheck={false}
                 autoCapitalize="none"
@@ -355,20 +355,20 @@ export function IOSSafariApp({
               </button>
               <button
                 type="button"
+                onClick={() => navigate("https://openlibrary.org/")}
+              >
+                Open Library
+              </button>
+              <button
+                type="button"
                 onClick={() => navigate("https://example.com")}
               >
                 Example
               </button>
-              <button
-                type="button"
-                onClick={() => navigate("https://news.ycombinator.com/")}
-              >
-                Hacker News
-              </button>
             </div>
             <p>
-              Search runs through Wikipedia. Some sites refuse to be embedded;
-              use “Open in a new tab” when a page stays blank.
+              Web search runs through Marginalia. Some sites refuse to be
+              embedded; use “Open in a new tab” when a page stays blank.
             </p>
           </div>
         </div>

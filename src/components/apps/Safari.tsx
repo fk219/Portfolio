@@ -167,7 +167,7 @@ export function Safari({ section }: { section?: string }) {
             onChange={(event) => setAddressDraft(event.target.value)}
             onFocus={(event) => event.currentTarget.select()}
             aria-label="Address or search"
-            placeholder="Search Wikipedia or enter a website"
+            placeholder="Search the web or enter a website"
             spellCheck={false}
             autoCapitalize="none"
             autoComplete="off"
