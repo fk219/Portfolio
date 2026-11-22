@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { profile } from "@/data/profile";
+import { careerRoles, certifications, education } from "@/data/career";
 import { featuredProjects } from "@/data/projects";
 import { copyText } from "@/lib/clipboard";
 import { SystemIcon } from "@/components/icons/SystemIcon";
@@ -21,6 +22,24 @@ export function Resume() {
     "",
     profile.summary,
     "",
+    "Experience",
+    ...careerRoles
+      .filter((role) => role.resume)
+      .map(
+        (role) =>
+          `${role.role} - ${role.organization}, ${role.location} (${role.period}): ${role.summary}`,
+      ),
+    ...(certifications.length > 0
+      ? [
+          "",
+          "Certifications",
+          ...certifications.map(
+            (certification) =>
+              `${certification.name} - ${certification.issuer}, ${certification.issued}`,
+          ),
+        ]
+      : []),
+    "",
     "Selected work",
     ...featuredProjects.map(
       (project) =>
@@ -30,6 +49,12 @@ export function Resume() {
     "Toolkit",
     ...Object.entries(profile.skills).map(
       ([group, skills]) => `${group}: ${skills.join(", ")}`,
+    ),
+    "",
+    "Education",
+    ...education.map(
+      (entry) =>
+        `${entry.qualification} - ${entry.institution} (${entry.period})${entry.grade ? `, ${entry.grade}` : ""}`,
     ),
     "",
     "The most current resume and academic details are available on request.",
@@ -62,13 +87,20 @@ export function Resume() {
             <SystemIcon name="copy" size={12} />
             Copy text
           </button>
-          <button
-            type="button"
+          <a
             className="os-primary-button"
-            onClick={() => window.print()}
+            href="/furqan-khan-resume.pdf"
+            download
           >
             <SystemIcon name="download" size={12} />
-            Print / Save PDF
+            Download PDF
+          </a>
+          <button
+            type="button"
+            className="os-secondary-button"
+            onClick={() => window.print()}
+          >
+            Print
           </button>
         </div>
       </div>

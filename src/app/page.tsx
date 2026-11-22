@@ -1,4 +1,4 @@
-﻿import { Desktop } from "@/components/os/Desktop";
+﻿import { ExperienceShell } from "@/components/ExperienceShell";
 import { ResumeSheet } from "@/components/apps/ResumeSheet";
 import { profile } from "@/data/profile";
 import { featuredProjects, projects } from "@/data/projects";
@@ -6,13 +6,14 @@ import { featuredProjects, projects } from "@/data/projects";
 export default function HomePage() {
   return (
     <>
-      <Desktop />
+      <ExperienceShell />
       <div className="print-only-resume" aria-hidden="true">
         <ResumeSheet />
       </div>
       <noscript>
         <style>{`
-          .os-shell { display: none !important; }
+          .os-shell,
+          .experience-loading { display: none !important; }
           .no-js-portfolio {
             min-height: 100vh;
             margin: 0;

@@ -554,8 +554,51 @@ kbd {
     font-size: 8.8pt;
   }
 
+  .print-only-resume .resume__education-list {
+    grid-template-columns: 1fr 1fr;
+    gap: 6pt 18pt;
+  }
+
+  .print-only-resume .resume__education-list div {
+    break-inside: avoid;
+  }
+
+  .print-only-resume .resume__education-list p {
+    font-size: 8.8pt;
+  }
+
   .print-only-resume .resume__education-title {
     font-size: 10pt;
+  }
+
+  .print-only-resume .resume__role {
+    break-inside: avoid;
+    padding-top: 6pt;
+  }
+
+  .print-only-resume .resume__role-org {
+    font-size: 7.8pt;
+  }
+
+  .print-only-resume .resume__role > p:last-child {
+    font-size: 9pt;
+  }
+
+  .print-only-resume .resume__certifications {
+    grid-template-columns: 1fr 1fr;
+    gap: 5pt 18pt;
+  }
+
+  .print-only-resume .resume__certifications > div {
+    break-inside: avoid;
+  }
+
+  .print-only-resume .resume__certifications strong {
+    font-size: 9.4pt;
+  }
+
+  .print-only-resume .resume__certifications span {
+    font-size: 7.8pt;
   }
 
   .print-only-resume .resume__footer {

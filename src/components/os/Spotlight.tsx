@@ -36,6 +36,8 @@ const spotlightApps: Array<{ id: DockAppId; name: string; subtitle: string }> = 
   { id: "calendar", name: "Calendar", subtitle: "See the date" },
   { id: "music", name: "Music", subtitle: "Generated focus audio" },
   { id: "terminal", name: "Terminal", subtitle: "Run a few commands" },
+  { id: "career", name: "Career", subtitle: "Experience and certifications" },
+  { id: "links", name: "Links", subtitle: "GitHub, email, and the work" },
   { id: "settings", name: "System Settings", subtitle: "Make it yours" },
 ];
 

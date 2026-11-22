@@ -1,0 +1,199 @@
+"use client";
+
+import { useRef, useState } from "react";
+import { SystemIcon } from "@/components/icons/SystemIcon";
+import { useEscape, useFocusTrap } from "@/lib/hooks";
+import { useOS } from "@/lib/os-context";
+
+export function IOSControlCenter({
+  onClose,
+  onLock,
+  onOpenSettings,
+  onSwitchToMac,
+}: {
+  onClose: () => void;
+  onLock: () => void;
+  onOpenSettings: () => void;
+  onSwitchToMac: () => void;
+}) {
+  const {
+    bluetoothEnabled,
+    focusEnabled,
+    resolvedTheme,
+    settings,
+    toggleBluetooth,
+    toggleFocus,
+    toggleWifi,
+    updateSettings,
+    wifiEnabled,
+  } = useOS();
+  const [volume, setVolume] = useState(64);
+  const rootRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(rootRef, true);
+  useEscape(true, onClose);
+
+  return (
+    <div
+      className="ios-control-center"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Control Center"
+    >
+      <button
+        type="button"
+        className="ios-control-center__backdrop"
+        aria-label="Close Control Center"
+        onClick={onClose}
+      />
+      <div className="ios-control-center__panel" ref={rootRef}>
+        <div className="ios-control-center__topline">
+          <span>Control Center</span>
+          <button
+            type="button"
+            className="ios-control-center__close"
+            onClick={onClose}
+            aria-label="Close Control Center"
+          >
+            <SystemIcon name="close" size={13} />
+          </button>
+        </div>
+
+        <div className="ios-cc-grid">
+          <section className="ios-cc-tile ios-cc-tile--connectivity" aria-label="Connectivity">
+            <div className="ios-cc-connectivity-row">
+              <button
+                type="button"
+                className={`ios-cc-toggle ${wifiEnabled ? "is-on" : ""}`}
+                onClick={toggleWifi}
+                aria-pressed={wifiEnabled}
+                aria-label={`Wi-Fi ${wifiEnabled ? "on" : "off"}`}
+              >
+                <SystemIcon name={wifiEnabled ? "wifi" : "wifi-off"} size={17} />
+              </button>
+              <button
+                type="button"
+                className={`ios-cc-toggle ${bluetoothEnabled ? "is-on" : ""}`}
+                onClick={toggleBluetooth}
+                aria-pressed={bluetoothEnabled}
+                aria-label={`Bluetooth ${bluetoothEnabled ? "on" : "off"}`}
+              >
+                <SystemIcon name="bluetooth" size={17} />
+              </button>
+              <button
+                type="button"
+                className={`ios-cc-toggle ${focusEnabled ? "is-on" : ""}`}
+                onClick={toggleFocus}
+                aria-pressed={focusEnabled}
+                aria-label={`Focus ${focusEnabled ? "on" : "off"}`}
+              >
+                <SystemIcon name="focus" size={16} />
+              </button>
+            </div>
+            <span className="ios-cc-tile__label">Connectivity</span>
+          </section>
+
+          <button
+            type="button"
+            className="ios-cc-tile ios-cc-tile--media"
+            onClick={onOpenSettings}
+            aria-label="Open iPhone settings"
+          >
+            <span className="ios-cc-media-icon">FK</span>
+            <span>
+              <strong>Portfolio OS</strong>
+              <small>Always on</small>
+            </span>
+            <SystemIcon name="play" size={18} />
+          </button>
+
+          <section className="ios-cc-tile ios-cc-tile--focus" aria-label="Focus">
+            <span className="ios-cc-focus-icon">
+              <SystemIcon name={focusEnabled ? "moon" : "sun"} size={18} />
+            </span>
+            <span>
+              <strong>{focusEnabled ? "Focus" : "Do Not Disturb"}</strong>
+              <small>{focusEnabled ? "On" : "Off"}</small>
+            </span>
+            <button
+              type="button"
+              className={`ios-cc-pill ${focusEnabled ? "is-on" : ""}`}
+              onClick={toggleFocus}
+              aria-pressed={focusEnabled}
+            >
+              {focusEnabled ? "On" : "Off"}
+            </button>
+          </section>
+
+          <section className="ios-cc-tile ios-cc-tile--slider" aria-label="Brightness">
+            <SystemIcon name="sun" size={16} />
+            <input
+              type="range"
+              min="60"
+              max="100"
+              value={settings.brightness}
+              aria-label="Brightness"
+              onChange={(event) =>
+                updateSettings({ brightness: Number(event.target.value) })
+              }
+            />
+          </section>
+
+          <section className="ios-cc-tile ios-cc-tile--slider" aria-label="Volume">
+            <SystemIcon name="volume" size={16} />
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={volume}
+              aria-label="Volume"
+              onChange={(event) => setVolume(Number(event.target.value))}
+            />
+          </section>
+
+          <button
+            type="button"
+            className="ios-cc-tile ios-cc-tile--appearance"
+            onClick={() =>
+              updateSettings({
+                appearance: resolvedTheme === "dark" ? "light" : "dark",
+              })
+            }
+          >
+            <SystemIcon name={resolvedTheme === "dark" ? "sun" : "moon"} size={17} />
+            <span>{resolvedTheme === "dark" ? "Light mode" : "Dark mode"}</span>
+          </button>
+
+          <button
+            type="button"
+            className="ios-cc-tile ios-cc-tile--mac"
+            onClick={onSwitchToMac}
+          >
+            <SystemIcon name="mac" size={18} />
+            <span>Mac desktop</span>
+          </button>
+
+          <button
+            type="button"
+            className="ios-cc-tile ios-cc-tile--lock"
+            onClick={onLock}
+          >
+            <SystemIcon name="lock" size={18} />
+            <span>Lock iPhone</span>
+          </button>
+        </div>
+
+        <p className="ios-control-center__footnote">
+          {settings.experience === "ios" ? "iPhone experience" : "Portfolio OS"}
+        </p>
+        <button
+          type="button"
+          className="ios-control-center__handle"
+          onClick={onClose}
+          aria-label="Close Control Center"
+        >
+          <span aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+  );
+}

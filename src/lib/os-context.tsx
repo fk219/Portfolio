@@ -26,6 +26,7 @@ import {
 } from "./window-manager";
 import type {
   AppId,
+  ExperienceMode,
   OSWindow,
   OSSettings,
   OverlayId,
@@ -45,6 +46,7 @@ interface OpenAppOptions {
 interface OSContextValue {
   phase: Phase;
   hydrated: boolean;
+  settingsReady: boolean;
   isCompact: boolean;
   windows: OSWindow[];
   activeWindow?: OSWindow;
@@ -75,6 +77,7 @@ interface OSContextValue {
   closeApp: (appId: AppId) => void;
   updateSettings: (patch: Partial<OSSettings>) => void;
   resetSettings: () => void;
+  switchExperience: (experience: ExperienceMode) => void;
   toggleOverlay: (overlay: OverlayId) => void;
   openOverlay: (overlay: OverlayId) => void;
   closeOverlay: () => void;
@@ -97,6 +100,7 @@ const SESSION_KEY = "furqan-portfolio-os-entered";
 const SETTINGS_KEY = "furqan-portfolio-os-settings";
 
 const defaultSettings: OSSettings = {
+  experience: "mac",
   appearance: "light",
   wallpaper: "hunza",
   dockSize: 52,
@@ -105,6 +109,7 @@ const defaultSettings: OSSettings = {
 };
 
 const validThemes: ThemeMode[] = ["light", "dark", "auto"];
+const validExperiences: ExperienceMode[] = ["mac", "ios"];
 const validWallpapers: WallpaperId[] = [
   "hunza",
   "sonoma",
@@ -119,6 +124,7 @@ export function OSProvider({ children }: { children: ReactNode }) {
   );
   const [phase, setPhase] = useState<Phase>("boot");
   const [hydrated, setHydrated] = useState(false);
+  const [settingsReady, setSettingsReady] = useState(false);
   const [settings, setSettings] = useState<OSSettings>(defaultSettings);
   const [overlay, setOverlay] = useState<OverlayId | null>(null);
   const [wifiEnabled, setWifiEnabled] = useState(true);
@@ -173,6 +179,11 @@ export function OSProvider({ children }: { children: ReactNode }) {
       if (raw) {
         const parsed = JSON.parse(raw) as Partial<OSSettings>;
         setSettings((current) => ({
+          experience:
+            parsed.experience &&
+            validExperiences.includes(parsed.experience)
+              ? parsed.experience
+              : current.experience,
           appearance:
             parsed.appearance && validThemes.includes(parsed.appearance)
               ? parsed.appearance
@@ -199,6 +210,7 @@ export function OSProvider({ children }: { children: ReactNode }) {
       // Storage can be unavailable in private or restricted contexts.
     } finally {
       settingsLoaded.current = true;
+      setSettingsReady(true);
     }
   }, []);
 
@@ -355,7 +367,15 @@ export function OSProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const resetSettings = useCallback(() => {
-    setSettings(defaultSettings);
+    setSettings((current) => ({
+      ...defaultSettings,
+      experience: current.experience,
+    }));
+  }, []);
+
+  const switchExperience = useCallback((experience: ExperienceMode) => {
+    setSettings((current) => ({ ...current, experience }));
+    setOverlay(null);
   }, []);
 
   const toggleOverlay = useCallback((nextOverlay: OverlayId) => {
@@ -461,7 +481,9 @@ export function OSProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (!hydrated || phase !== "desktop") return;
+    if (!hydrated || phase !== "desktop" || settings.experience !== "mac") {
+      return;
+    }
 
     const handleKeyDown = (event: KeyboardEvent) => {
       const modifier = event.metaKey || event.ctrlKey;
@@ -565,6 +587,7 @@ export function OSProvider({ children }: { children: ReactNode }) {
     openSettings,
     overlay,
     phase,
+    settings.experience,
     state.activeWindowId,
   ]);
 
@@ -572,6 +595,7 @@ export function OSProvider({ children }: { children: ReactNode }) {
     () => ({
       phase,
       hydrated,
+      settingsReady,
       isCompact,
       windows: state.windows,
       activeWindow,
@@ -602,6 +626,7 @@ export function OSProvider({ children }: { children: ReactNode }) {
       closeApp,
       updateSettings,
       resetSettings,
+      switchExperience,
       toggleOverlay,
       openOverlay,
       closeOverlay,
@@ -651,9 +676,11 @@ export function OSProvider({ children }: { children: ReactNode }) {
       restart,
       restoreWindow,
       settings,
+      settingsReady,
       shutDown,
       sleepComputer,
       state.windows,
+      switchExperience,
       toggleMaximizeActiveWindow,
       toggleMaximizeWindow,
       toggleOverlay,

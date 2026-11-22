@@ -22,6 +22,8 @@ const launchpadApps: LaunchpadApp[] = [
   { id: "calendar", name: "Calendar" },
   { id: "music", name: "Music" },
   { id: "terminal", name: "Terminal" },
+  { id: "career", name: "Career" },
+  { id: "links", name: "Links" },
   { id: "settings", name: "System Settings" },
   { id: "projects", name: "Projects" },
 ];

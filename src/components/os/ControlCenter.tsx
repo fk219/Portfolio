@@ -168,6 +168,14 @@ export function ControlCenter() {
         <button
           type="button"
           className="cc-footer-button"
+          onClick={() => updateSettings({ experience: "ios" })}
+        >
+          <SystemIcon name="iphone" size={14} />
+          iPhone
+        </button>
+        <button
+          type="button"
+          className="cc-footer-button"
           onClick={lockScreen}
         >
           <SystemIcon name="lock" size={14} />

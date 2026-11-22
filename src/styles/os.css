@@ -487,6 +487,173 @@
 }
 
 /* -------------------------------------------------------------------------- */
+/* Desktop widgets                                                            */
+/* -------------------------------------------------------------------------- */
+
+.desktop-widgets {
+  position: fixed;
+  top: 84px;
+  left: 22px;
+  z-index: 1;
+  display: flex;
+  width: 120px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.desktop-widget {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border: 0.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 21px;
+  padding: 13px;
+  text-align: left;
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  box-shadow:
+    0 16px 30px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  cursor: pointer;
+  transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
+}
+
+.desktop-widget:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 20px 36px rgba(0, 0, 0, 0.23),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.desktop-widget--clock {
+  min-height: 125px;
+  background:
+    radial-gradient(circle at 82% 8%, rgba(255, 211, 152, 0.24), transparent 42%),
+    linear-gradient(155deg, rgba(26, 39, 47, 0.93), rgba(11, 20, 25, 0.9));
+  color: #f7f2e9;
+}
+
+.desktop-widget--project {
+  min-height: 104px;
+  background:
+    radial-gradient(circle at 90% 8%, rgba(219, 133, 81, 0.22), transparent 44%),
+    linear-gradient(155deg, rgba(248, 236, 216, 0.94), rgba(226, 211, 188, 0.9));
+  color: #352b21;
+}
+
+.desktop-widget__topline {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 7.5px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.desktop-widget--project .desktop-widget__topline {
+  color: rgba(53, 43, 33, 0.52);
+}
+
+.desktop-widget__topline svg {
+  opacity: 0.8;
+}
+
+.desktop-widget__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #5c9277;
+  box-shadow: 0 0 0 3px rgba(92, 146, 119, 0.12);
+}
+
+.desktop-widget__time {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin-top: 7px;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 330;
+  letter-spacing: -0.065em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.desktop-widget__time small {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 550;
+  letter-spacing: 0.02em;
+}
+
+.desktop-widget__date {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.desktop-widget__accent {
+  position: absolute;
+  right: 13px;
+  bottom: 13px;
+  left: 13px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(255, 213, 166, 0.7), transparent);
+}
+
+.desktop-widget__count {
+  margin-top: 5px;
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 450;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.desktop-widget__caption {
+  margin-top: 2px;
+  color: rgba(53, 43, 33, 0.68);
+  font-size: 8.5px;
+  font-weight: 600;
+}
+
+.desktop-widget__caption small {
+  display: block;
+  margin-top: 2px;
+  color: rgba(53, 43, 33, 0.46);
+  font-size: 6.5px;
+  font-weight: 500;
+}
+
+.desktop-widget__arrow {
+  position: absolute;
+  right: 11px;
+  bottom: 11px;
+  display: flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(53, 43, 33, 0.08);
+  color: rgba(53, 43, 33, 0.55);
+}
+
+@media (max-width: 1360px) {
+  .desktop-widgets {
+    display: none;
+  }
+}
+
 /* Windows                                                                    */
 /* -------------------------------------------------------------------------- */
 
@@ -521,6 +688,34 @@
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25),
     0 6px 18px rgba(0, 0, 0, 0.13), 0 0 0 0.5px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.dock__item.is-bouncing .dock__icon {
+  animation: dock-bounce 660ms var(--ease-out);
+}
+
+@keyframes dock-bounce {
+  0% {
+    translate: 0 0;
+  }
+  28% {
+    translate: 0 -17px;
+  }
+  52% {
+    translate: 0 0;
+  }
+  70% {
+    translate: 0 -6px;
+  }
+  86% {
+    translate: 0 0;
+  }
+  94% {
+    translate: 0 -2px;
+  }
+  100% {
+    translate: 0 0;
+  }
 }
 
 .os-window.is-minimized {
@@ -902,6 +1097,12 @@
   color: var(--accent-text);
   font-size: 12px;
   font-weight: 500;
+}
+
+.welcome-banner__links {
+  display: flex;
+  align-items: center;
+  gap: 13px;
 }
 
 .welcome-banner__copy button:hover {

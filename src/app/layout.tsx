@@ -6,6 +6,8 @@ import "@/styles/icons.css";
 import "@/styles/os.css";
 import "@/styles/apps.css";
 import "@/styles/overlays.css";
+import "@/styles/career.css";
+import "@/styles/ios.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Furqan Khan | Portfolio OS",
   description:
-    "An interactive macOS-inspired portfolio for Furqan Khan, a full-stack developer and Master of Computer Applications graduate.",
+    "An interactive macOS and iPhone portfolio for Furqan Khan, founder of FKodeLabs, full-stack developer, and MCA graduate based in Dubai.",
   applicationName: "Portfolio OS",
   authors: [{ name: "Furqan Khan", url: "https://github.com/fk219" }],
   creator: "Furqan Khan",
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Furqan Khan | Portfolio OS",
     description:
-      "Explore Furqan Khan's work through an interactive desktop: a working Finder, Safari, Mail, Notes, Terminal, and more.",
+      "Explore Furqan Khan's work through an interactive macOS desktop and iPhone: projects, experience, certifications, and contact details.",
     type: "website",
     locale: "en_US",
   },

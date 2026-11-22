@@ -580,6 +580,15 @@ export function MenuBar() {
         </button>
         <button
           type="button"
+          className="menu-bar__status menu-bar__status--icon menu-bar__iphone"
+          aria-label="Open iPhone experience"
+          title="iPhone Experience"
+          onClick={() => updateSettings({ experience: "ios" })}
+        >
+          <SystemIcon name="iphone" size={16} />
+        </button>
+        <button
+          type="button"
           className="menu-bar__clock"
           aria-label={`${day} ${time || "9:41 AM"}. Open Notification Center.`}
           aria-expanded={overlay === "notification-center"}

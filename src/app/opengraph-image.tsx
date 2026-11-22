@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Furqan Khan, full-stack developer. An interactive macOS-inspired portfolio.";
+  "Furqan Khan, founder of FKodeLabs and full-stack developer. An interactive macOS and iPhone portfolio.";
 export const size = {
   width: 1200,
   height: 630,
@@ -107,9 +107,9 @@ export default function OpenGraphImage() {
                 lineHeight: 1.3,
               }}
             >
-              <span style={{ display: "flex" }}>Full-stack developer.</span>
+              <span style={{ display: "flex" }}>Founder, FKodeLabs.</span>
               <span style={{ display: "flex" }}>
-                Master of Computer Applications.
+                Full-stack developer &amp; MCA.
               </span>
             </span>
             <span
@@ -121,7 +121,7 @@ export default function OpenGraphImage() {
                 letterSpacing: "0.01em",
               }}
             >
-              An interactive macOS-inspired portfolio.
+              An interactive macOS + iPhone portfolio.
             </span>
           </div>
 

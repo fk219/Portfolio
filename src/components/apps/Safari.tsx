@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { featuredProjects, projects } from "@/data/projects";
 import { profile } from "@/data/profile";
+import { careerRoles, certifications, education } from "@/data/career";
 import { useOS } from "@/lib/os-context";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { ProjectArtwork } from "./ProjectArtwork";
@@ -24,11 +25,13 @@ export function Safari({ section }: { section?: string }) {
         ? "safari-about"
         : section === "work"
           ? "safari-work"
-          : section === "toolkit"
-            ? "safari-toolkit"
-            : section === "contact"
-              ? "safari-contact"
-              : "safari-top";
+          : section === "career" || section === "experience"
+            ? "safari-career"
+            : section === "toolkit"
+              ? "safari-toolkit"
+              : section === "contact"
+                ? "safari-contact"
+                : "safari-top";
     const timer = window.setTimeout(() => {
       pageRef.current
         ?.querySelector<HTMLElement>(`#${targetId}`)
@@ -111,8 +114,8 @@ export function Safari({ section }: { section?: string }) {
             </a>
             <nav aria-label="Portfolio website">
               <a href="#safari-work">Work</a>
+              <a href="#safari-career">Career</a>
               <a href="#safari-about">About</a>
-              <a href="#safari-toolkit">Toolkit</a>
               <a href="#safari-contact">Contact</a>
             </nav>
           </header>
@@ -130,9 +133,9 @@ export function Safari({ section }: { section?: string }) {
                 <em>data model up.</em>
               </h2>
               <p className="safari-hero__intro">
-                I&apos;m Furqan Khan, a full-stack developer with a Master of
-                Computer Applications. I work across the API, the interface,
-                and the states in between.
+                I&apos;m Furqan Khan, founder of FKodeLabs and a full-stack
+                developer with an MCA from Manipal University Jaipur. I work
+                across the API, the interface, and the systems in between.
               </p>
               <div className="safari-hero__actions">
                 <a className="safari-button safari-button--dark" href="#safari-work">
@@ -155,15 +158,19 @@ export function Safari({ section }: { section?: string }) {
                 <span>{profile.education}</span>
               </div>
               <div className="safari-fact">
-                <span className="safari-fact__label">Focus</span>
-                <span>Full-stack systems and interface craft</span>
+                <span className="safari-fact__label">Company</span>
+                <span>Founder, {profile.company}</span>
               </div>
               <div className="safari-fact">
                 <span className="safari-fact__label">Projects</span>
                 <span>
-                  {projects.length} shipped · {featuredProjects.length} case
-                  studies
+                  {projects.length} shipped · {certifications.length}{" "}
+                  certifications
                 </span>
+              </div>
+              <div className="safari-fact">
+                <span className="safari-fact__label">Based in</span>
+                <span>{profile.location}</span>
               </div>
               <div className="safari-hero__aside-footer">
                 <span className="safari-live-dot" aria-hidden="true" />
@@ -252,9 +259,101 @@ export function Safari({ section }: { section?: string }) {
             </div>
           </section>
 
+          <section className="safari-career" id="safari-career">
+            <div className="safari-section-heading">
+              <div>
+                <span className="safari-section-kicker">02 / Career</span>
+                <h3>Experience that compounds.</h3>
+              </div>
+              <p>
+                Full-stack engineering, AI automation, and marketing
+                intelligence across FKodeLabs, Danube Properties, and
+                PrepInsta.
+              </p>
+            </div>
+
+            <div className="safari-career__timeline">
+              {careerRoles.map((role) => (
+                <article key={role.id} className="safari-career__role">
+                  <span className="safari-career__period">{role.period}</span>
+                  <div>
+                    <h4>
+                      {role.role}
+                      {role.current && <em>Now</em>}
+                    </h4>
+                    <p className="safari-career__org">
+                      {role.organization} · {role.location}
+                    </p>
+                    <p>{role.summary}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="safari-career__subhead">
+              <div>
+                <span className="safari-section-kicker">Credentials</span>
+                <h4>Certifications</h4>
+              </div>
+              <span>
+                {certifications.length} verified credentials across AI, project
+                delivery, and cybersecurity.
+              </span>
+            </div>
+
+            <div className="safari-certifications">
+              {certifications.map((certification) =>
+                certification.credentialUrl ? (
+                  <a
+                    key={certification.id}
+                    href={certification.credentialUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="safari-certification"
+                  >
+                    <span>{certification.issuer}</span>
+                    <strong>{certification.name}</strong>
+                    <small>{certification.issued}</small>
+                    <SystemIcon name="external" size={10} />
+                  </a>
+                ) : (
+                  <div key={certification.id} className="safari-certification">
+                    <span>{certification.issuer}</span>
+                    <strong>{certification.name}</strong>
+                    <small>{certification.issued}</small>
+                  </div>
+                ),
+              )}
+            </div>
+
+            <div className="safari-career__education">
+              <span className="safari-section-kicker">Education</span>
+              {education.map((entry) => (
+                <div key={entry.id}>
+                  <h4>{entry.qualification}</h4>
+                  <p>
+                    {entry.institution} · {entry.period}
+                    {entry.grade ? ` · ${entry.grade}` : ""}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="safari-work__footer">
+              <button
+                type="button"
+                className="safari-text-link"
+                onClick={() => openApp("career")}
+              >
+                Open the full Career app
+                <SystemIcon name="arrow-right" size={13} />
+              </button>
+            </div>
+          </section>
+
           <section className="safari-about" id="safari-about">
             <div className="safari-about__heading">
-              <span className="safari-section-kicker">02 / About</span>
+              <span className="safari-section-kicker">03 / About</span>
               <h3>I care about the parts nobody screenshots.</h3>
             </div>
             <div className="safari-about__content">
@@ -285,7 +384,7 @@ export function Safari({ section }: { section?: string }) {
           <section className="safari-toolkit" id="safari-toolkit">
             <div className="safari-section-heading safari-section-heading--plain">
               <div>
-                <span className="safari-section-kicker">03 / Toolkit</span>
+                <span className="safari-section-kicker">04 / Toolkit</span>
                 <h3>The tools I reach for.</h3>
               </div>
             </div>
@@ -309,7 +408,7 @@ export function Safari({ section }: { section?: string }) {
           </section>
 
           <section className="safari-contact" id="safari-contact">
-            <span className="safari-section-kicker">04 / Contact</span>
+            <span className="safari-section-kicker">05 / Contact</span>
             <h3>Have a problem worth building for?</h3>
             <p>{profile.availabilityNote}</p>
             <div className="safari-contact__actions">
@@ -322,13 +421,33 @@ export function Safari({ section }: { section?: string }) {
               </a>
               <a
                 className="safari-contact__github"
-                href="https://github.com/fk219"
+                href={profile.socials.github}
                 target="_blank"
                 rel="noreferrer"
               >
                 GitHub
                 <SystemIcon name="external" size={11} />
               </a>
+              <a
+                className="safari-contact__github"
+                href={profile.socials.linkedin}
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn
+                <SystemIcon name="external" size={11} />
+              </a>
+              {profile.socials.twitter && (
+                <a
+                  className="safari-contact__github"
+                  href={profile.socials.twitter}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  X
+                  <SystemIcon name="external" size={11} />
+                </a>
+              )}
             </div>
           </section>
 

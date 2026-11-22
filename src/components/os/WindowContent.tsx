@@ -11,6 +11,8 @@ import { Music } from "@/components/apps/Music";
 import { Terminal } from "@/components/apps/Terminal";
 import { Settings } from "@/components/apps/Settings";
 import { Trash } from "@/components/apps/Trash";
+import { Career } from "@/components/apps/Career";
+import { Links } from "@/components/apps/Links";
 import { AboutMac } from "@/components/apps/AboutMac";
 import { Resume } from "@/components/apps/Resume";
 import { ProjectView } from "@/components/apps/ProjectView";
@@ -37,6 +39,10 @@ export function WindowContent({ window }: { window: OSWindow }) {
       return <Settings section={window.payload?.section} />;
     case "trash":
       return <Trash />;
+    case "career":
+      return <Career />;
+    case "links":
+      return <Links />;
     case "about":
       return <AboutMac />;
     case "resume":

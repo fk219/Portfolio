@@ -1,4 +1,5 @@
 import { profile } from "@/data/profile";
+import { careerRoles, certifications, education } from "@/data/career";
 import { featuredProjects } from "@/data/projects";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 
@@ -9,7 +10,7 @@ export function ResumeSheet() {
         <div>
           <h2>{profile.name}</h2>
           <p>
-            {profile.role} · {profile.education}
+            {profile.role} · Founder, {profile.company}
           </p>
         </div>
         <div className="resume__contact">
@@ -22,6 +23,14 @@ export function ResumeSheet() {
             github.com/fk219
             <SystemIcon name="external" size={9} />
           </a>
+          <a
+            href={profile.socials.linkedin}
+            target="_blank"
+            rel="noreferrer"
+          >
+            linkedin.com/in/fk219
+            <SystemIcon name="external" size={9} />
+          </a>
         </div>
       </header>
 
@@ -29,6 +38,59 @@ export function ResumeSheet() {
         <h3>Summary</h3>
         <p>{profile.summary}</p>
       </section>
+
+      <section className="resume__section">
+        <h3>Experience</h3>
+        <div className="resume__roles">
+          {careerRoles
+            .filter((role) => role.resume)
+            .map((role) => (
+              <article className="resume__role" key={role.id}>
+                <div className="resume__project-title">
+                  <h4>{role.role}</h4>
+                  <span>{role.period}</span>
+                </div>
+                <p className="resume__role-org">
+                  {role.organization} · {role.location}
+                </p>
+                <p>{role.summary}</p>
+              </article>
+            ))}
+        </div>
+      </section>
+
+      <section className="resume__section">
+        <h3>Education</h3>
+        <div className="resume__education-list">
+          {education.map((entry) => (
+            <div key={entry.id}>
+              <h4 className="resume__education-title">
+                {entry.qualification}
+              </h4>
+              <p>
+                {entry.institution} · {entry.period}
+                {entry.grade ? ` · ${entry.grade}` : ""}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {certifications.length > 0 && (
+        <section className="resume__section">
+          <h3>Certifications</h3>
+          <div className="resume__certifications">
+            {certifications.map((certification) => (
+              <div key={certification.id}>
+                <strong>{certification.name}</strong>
+                <span>
+                  {certification.issuer} · {certification.issued}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="resume__section">
         <h3>Selected Work</h3>
@@ -48,32 +110,22 @@ export function ResumeSheet() {
         </div>
       </section>
 
-      <div className="resume__two-column">
-        <section className="resume__section">
-          <h3>Toolkit</h3>
-          <dl className="resume__skills">
-            {Object.entries(profile.skills).map(([group, skills]) => (
-              <div key={group}>
-                <dt>{group}</dt>
-                <dd>{skills.join(", ")}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-
-        <section className="resume__section">
-          <h3>Education</h3>
-          <h4 className="resume__education-title">
-            {profile.educationDetails.degree}
-          </h4>
-          <p>{profile.educationDetails.note}</p>
-        </section>
-      </div>
+      <section className="resume__section">
+        <h3>Toolkit</h3>
+        <dl className="resume__skills">
+          {Object.entries(profile.skills).map(([group, skills]) => (
+            <div key={group}>
+              <dt>{group}</dt>
+              <dd>{skills.join(", ")}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
 
       <footer className="resume__footer">
         <p>
-          Full academic details, references, and project context are
-          available on request.
+          Full employment history, certification credentials, references, and
+          project context are available on request.
         </p>
         <span>{profile.name} · Portfolio OS</span>
       </footer>

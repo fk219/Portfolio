@@ -9,6 +9,8 @@ export type AppId =
   | "terminal"
   | "settings"
   | "trash"
+  | "career"
+  | "links"
   | "project"
   | "resume"
   | "about";
@@ -33,6 +35,8 @@ export type Phase =
 export type WallpaperId = "hunza" | "sonoma" | "lagoon" | "graphite";
 
 export type ThemeMode = "light" | "dark" | "auto";
+
+export type ExperienceMode = "mac" | "ios";
 
 export type ResolvedTheme = "light" | "dark";
 
@@ -61,6 +65,7 @@ export interface OSWindow {
 }
 
 export interface OSSettings {
+  experience: ExperienceMode;
   appearance: ThemeMode;
   wallpaper: WallpaperId;
   dockSize: number;

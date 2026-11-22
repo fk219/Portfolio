@@ -3,13 +3,18 @@ export const profile = {
   firstName: "Furqan",
   initials: "FK",
   role: "Full-stack developer",
+  company: "FKodeLabs",
+  companyUrl: "https://fkodelabs.com",
+  location: "Dubai, United Arab Emirates",
+  availability: "Open to on-site, hybrid, or remote roles in Dubai.",
   education: "Master of Computer Applications",
   email: "furqank219@gmail.com",
-  headline: "I build software for the space between the database and the last pixel.",
+  headline:
+    "Driving growth through full-stack development and intelligent automation.",
   summary:
-    "I am a full-stack developer with a Master of Computer Applications. I like taking a complicated workflow, finding the system underneath it, and building the whole path from data model to interface. My work spans commerce, healthcare, learning, network tooling, and offline payments.",
+    "As the founder of FKodeLabs, I build high-performance web applications with React, Next.js, and Node.js, and design AI workflows with OpenAI, LangChain, and Google ADK. My background spans full-stack product work, marketing automation at Danube Properties, and an MCA from Manipal University Jaipur. I like taking a complicated workflow, finding the system underneath it, and building the whole path from data model to interface.",
   shorterSummary:
-    "Full-stack developer with an MCA, building systems that are as considered behind the API as they are on screen.",
+    "Founder of FKodeLabs. Full-stack developer and automation builder with an MCA from Manipal University Jaipur.",
   approach: [
     {
       title: "Model first",
@@ -25,10 +30,10 @@ export const profile = {
     },
   ],
   skills: {
-    Frontend: ["React", "TypeScript", "Next.js", "Vite", "Tailwind CSS"],
-    Backend: ["Node.js", "Express", "MongoDB", "Mongoose", "Zod", "JWT"],
+    Frontend: ["React", "Next.js", "TypeScript", "JavaScript", "Vite", "Tailwind CSS"],
+    Backend: ["Node.js", "Express", "MongoDB", "Mongoose", "REST APIs", "Zod"],
+    Automation: ["n8n", "OpenAI", "LangChain", "Google ADK", "HubSpot", "Gupshup"],
     Systems: [
-      "REST API design",
       "Multi-tenant data",
       "PCAP analysis",
       "Applied cryptography",
@@ -48,10 +53,19 @@ export const profile = {
       kind: "external" as const,
     },
   ],
+  socials: {
+    github: "https://github.com/fk219",
+    linkedin: "https://www.linkedin.com/in/fk219",
+    // The @fk219 X account matches the portfolio handles; confirm before publishing.
+    twitter: "https://x.com/fk219",
+  },
   educationDetails: {
-    degree: "Master of Computer Applications",
-    note: "Graduate study focused on application development and the systems around it. Full academic details are available on request.",
+    degree: "Master of Computer Applications — MCA",
+    institution: "Manipal University Jaipur",
+    period: "Jan 2022 – May 2024",
+    grade: "8.38 / 10",
+    note: "Manipal University Jaipur · 2022–2024 · 8.38/10. Computer software engineering, databases, web technologies, and applied cryptography.",
   },
   availabilityNote:
-    "The best way to start a conversation is a short note about what you are building and where I might help.",
+    "Based in Dubai and open to on-site, hybrid, or remote work. The best way to start a conversation is a short note about what you are building and where I might help.",
 };

@@ -426,6 +426,99 @@ function TrashIcon({ size, className }: Omit<AppIconProps, "app">) {
   );
 }
 
+function CareerIcon({ size, className }: Omit<AppIconProps, "app">) {
+  return (
+    <IconShell
+      size={size ?? 52}
+      className={`${className ?? ""} icon-shadowed`}
+      label="career"
+    >
+      <svg viewBox="0 0 64 64" className="os-app-icon__svg">
+        <defs>
+          <linearGradient id="career-bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#f6b66f" />
+            <stop offset=".5" stopColor="#d5793b" />
+            <stop offset="1" stopColor="#772818" />
+          </linearGradient>
+        </defs>
+        <rect x="1.5" y="1.5" width="61" height="61" rx="14" fill="url(#career-bg)" />
+        <path
+          d="M14 47.5h11v-9h9v-8h9v-8h9"
+          fill="none"
+          stroke="#fff9ef"
+          strokeWidth="3.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle cx="52" cy="18" r="5.2" fill="#fff9ef" />
+        <circle cx="14" cy="47.5" r="3" fill="#fff9ef" opacity=".85" />
+        <rect
+          x="1.5"
+          y="1.5"
+          width="61"
+          height="61"
+          rx="14"
+          fill="none"
+          stroke="#ffffff"
+          strokeOpacity=".25"
+        />
+      </svg>
+    </IconShell>
+  );
+}
+
+function LinksIcon({ size, className }: Omit<AppIconProps, "app">) {
+  return (
+    <IconShell
+      size={size ?? 52}
+      className={`${className ?? ""} icon-shadowed`}
+      label="links"
+    >
+      <svg viewBox="0 0 64 64" className="os-app-icon__svg">
+        <defs>
+          <linearGradient id="links-bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#9cf3e4" />
+            <stop offset=".5" stopColor="#25b6a8" />
+            <stop offset="1" stopColor="#0b5268" />
+          </linearGradient>
+        </defs>
+        <rect x="1.5" y="1.5" width="61" height="61" rx="14" fill="url(#links-bg)" />
+        <path
+          d="M27.2 36.8 20.4 43.6a6 6 0 0 1-8.5-8.5l7.5-7.5a6 6 0 0 1 8.5 0"
+          fill="none"
+          stroke="#f5fffd"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+        <path
+          d="m36.8 27.2 6.8-6.8a6 6 0 0 1 8.5 8.5l-7.5 7.5a6 6 0 0 1-8.5 0"
+          fill="none"
+          stroke="#f5fffd"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+        <path
+          d="m24.5 39.5 15-15"
+          stroke="#ffffff"
+          strokeWidth="3.2"
+          strokeLinecap="round"
+          opacity=".75"
+        />
+        <rect
+          x="1.5"
+          y="1.5"
+          width="61"
+          height="61"
+          rx="14"
+          fill="none"
+          stroke="#ffffff"
+          strokeOpacity=".22"
+        />
+      </svg>
+    </IconShell>
+  );
+}
+
 function PreviewIcon({ size, className }: Omit<AppIconProps, "app">) {
   return (
     <IconShell
@@ -543,6 +636,10 @@ export function AppIcon({ app, size = 52, date, className = "" }: AppIconProps) 
       return <SettingsIcon size={size} className={className} />;
     case "trash":
       return <TrashIcon size={size} className={className} />;
+    case "career":
+      return <CareerIcon size={size} className={className} />;
+    case "links":
+      return <LinksIcon size={size} className={className} />;
     case "preview":
       return <PreviewIcon size={size} className={className} />;
     default:

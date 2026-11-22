@@ -36,6 +36,8 @@ export function Dock() {
   const [iconCenters, setIconCenters] = useState<number[]>([]);
   const [pointerX, setPointerX] = useState<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [bouncingKey, setBouncingKey] = useState<string | null>(null);
+  const bounceTimer = useRef<number | null>(null);
   const now = useNow(60000);
   const iconSize = isCompact ? 38 : settings.dockSize;
   const showMagnification =
@@ -104,6 +106,11 @@ export function Dock() {
   };
 
   const activateEntry = (entry: DockEntry) => {
+    const key = entry.kind === "app" ? entry.id : entry.kind;
+    setBouncingKey(key);
+    if (bounceTimer.current) window.clearTimeout(bounceTimer.current);
+    bounceTimer.current = window.setTimeout(() => setBouncingKey(null), 680);
+
     if (entry.kind === "launchpad") {
       openOverlay("launchpad");
       return;
@@ -120,6 +127,12 @@ export function Dock() {
       openApp(entry.id);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (bounceTimer.current) window.clearTimeout(bounceTimer.current);
+    };
+  }, []);
 
   let iconIndex = -1;
 
@@ -184,6 +197,10 @@ export function Dock() {
                 hoveredIndex === currentIndex ? "is-hovered" : ""
               } ${isRunning ? "is-running" : ""} ${
                 isPreviewEntry ? "is-preview" : ""
+              } ${
+                bouncingKey === (entry.kind === "app" ? entry.id : entry.kind)
+                  ? "is-bouncing"
+                  : ""
               }`}
               aria-label={`${entry.label}${isRunning ? ", running" : ""}`}
               aria-describedby={tooltipId}

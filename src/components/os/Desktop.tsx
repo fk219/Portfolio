@@ -14,6 +14,7 @@ import { SystemIcon } from "@/components/icons/SystemIcon";
 import { useOS } from "@/lib/os-context";
 import { ControlCenter } from "./ControlCenter";
 import { DesktopIcons } from "./DesktopIcons";
+import { DesktopWidgets } from "./DesktopWidgets";
 import { DesktopMenu } from "./DesktopMenu";
 import { Dock } from "./Dock";
 import { HelpDialog } from "./HelpDialog";
@@ -50,6 +51,7 @@ export function Desktop() {
     focusEnabled,
     isCompact,
     openApp,
+    updateSettings,
   } = useOS();
   const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
   const [showWelcome, setShowWelcome] = useState(false);
@@ -179,6 +181,7 @@ export function Desktop() {
           }
         >
           <MenuBar />
+          <DesktopWidgets />
           <DesktopIcons />
 
           <div className="os-window-layer">
@@ -231,16 +234,28 @@ export function Desktop() {
                   The work lives in Finder. Press ⌘K or Ctrl K to search
                   everything.
                 </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    openApp("finder", { section: "projects" });
-                    setShowWelcome(false);
-                  }}
-                >
-                  Browse projects
-                  <SystemIcon name="arrow-right" size={11} />
-                </button>
+                <div className="welcome-banner__links">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      openApp("finder", { section: "projects" });
+                      setShowWelcome(false);
+                    }}
+                  >
+                    Browse projects
+                    <SystemIcon name="arrow-right" size={11} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowWelcome(false);
+                      updateSettings({ experience: "ios" });
+                    }}
+                  >
+                    Try iPhone mode
+                    <SystemIcon name="iphone" size={11} />
+                  </button>
+                </div>
               </div>
               <button
                 type="button"

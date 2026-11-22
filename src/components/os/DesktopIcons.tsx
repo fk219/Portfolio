@@ -8,6 +8,8 @@ import { useOS } from "@/lib/os-context";
 const desktopItems = [
   { id: "projects", label: "Projects", kind: "folder" },
   { id: "about", label: "About Me", kind: "safari" },
+  { id: "career", label: "Career", kind: "career" },
+  { id: "links", label: "Links", kind: "links" },
   { id: "resume", label: "Resume", kind: "pdf" },
   { id: "contact", label: "Contact", kind: "mail" },
 ] as const;
@@ -37,6 +39,8 @@ export function DesktopIcons() {
   const openItem = (id: DesktopItemId) => {
     if (id === "projects") openApp("finder", { section: "projects" });
     if (id === "about") openApp("safari", { section: "about" });
+    if (id === "career") openApp("career");
+    if (id === "links") openApp("links");
     if (id === "resume") openResume();
     if (id === "contact") openApp("mail");
   };
@@ -75,6 +79,10 @@ export function DesktopIcons() {
                 <FileIcon size={48} variant="pdf" />
               ) : item.kind === "safari" ? (
                 <AppIcon app="safari" size={50} />
+              ) : item.kind === "career" ? (
+                <AppIcon app="career" size={50} />
+              ) : item.kind === "links" ? (
+                <AppIcon app="links" size={50} />
               ) : (
                 <AppIcon app="mail" size={50} />
               )}

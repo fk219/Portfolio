@@ -56,7 +56,9 @@ export type SystemIconName =
   | "command"
   | "alert"
   | "gear"
-  | "mail";
+  | "mail"
+  | "iphone"
+  | "mac";
 
 interface SystemIconProps extends Omit<SVGProps<SVGSVGElement>, "name"> {
   name: SystemIconName;
@@ -346,6 +348,18 @@ const strokePaths: Partial<Record<SystemIconName, ReactNode>> = {
     <>
       <rect x="3" y="5.5" width="18" height="13" rx="2" />
       <path d="m4 7.5 8 6 8-6" />
+    </>
+  ),
+  iphone: (
+    <>
+      <rect x="6.5" y="2.2" width="11" height="19.6" rx="2.8" />
+      <path d="M10.6 4.8h2.8" />
+    </>
+  ),
+  mac: (
+    <>
+      <rect x="2.8" y="4" width="18.4" height="12.2" rx="1.8" />
+      <path d="M8.4 19.6h7.2M12 16.2v3.4" />
     </>
   ),
 };

@@ -8,16 +8,22 @@ import { wallpaperOptions } from "@/data/wallpapers";
 import { useOS } from "@/lib/os-context";
 import type { ThemeMode } from "@/lib/types";
 
-type SettingsPane = "appearance" | "wallpaper" | "dock" | "about";
+type SettingsPane =
+  | "appearance"
+  | "wallpaper"
+  | "dock"
+  | "experience"
+  | "about";
 
 const panes: Array<{
   id: SettingsPane;
   label: string;
-  icon: "sun" | "display" | "grid" | "info";
+  icon: "sun" | "display" | "grid" | "iphone" | "info";
 }> = [
   { id: "appearance", label: "Appearance", icon: "sun" },
   { id: "wallpaper", label: "Wallpaper", icon: "display" },
   { id: "dock", label: "Dock", icon: "grid" },
+  { id: "experience", label: "Experience", icon: "iphone" },
   { id: "about", label: "About", icon: "info" },
 ];
 
@@ -26,6 +32,7 @@ function toPane(section?: string): SettingsPane {
     section === "appearance" ||
     section === "wallpaper" ||
     section === "dock" ||
+    section === "experience" ||
     section === "about"
   ) {
     return section;
@@ -324,6 +331,75 @@ export function Settings({ section }: { section?: string }) {
                     }
                   />
                 </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {pane === "experience" && (
+          <section
+            className="settings__pane"
+            aria-labelledby="experience-heading"
+          >
+            <header className="settings__pane-header">
+              <h2 id="experience-heading">Experience</h2>
+              <p>
+                Move between the full macOS desktop and the iPhone version of
+                the portfolio. Content, appearance, and wallpaper stay in sync.
+              </p>
+            </header>
+
+            <div className="settings__card">
+              <h3>Operating system</h3>
+              <div
+                className="settings__experience-options"
+                role="group"
+                aria-label="Portfolio experience"
+              >
+                <button
+                  type="button"
+                  className="settings__experience-option is-selected"
+                  aria-pressed="true"
+                >
+                  <span className="settings__experience-icon">
+                    <SystemIcon name="mac" size={19} />
+                  </span>
+                  <span>
+                    <strong>macOS</strong>
+                    <small>Desktop, windows, Dock, and menus</small>
+                  </span>
+                  <span className="settings__selected-check">
+                    <SystemIcon name="check" size={10} />
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className="settings__experience-option"
+                  onClick={() => updateSettings({ experience: "ios" })}
+                >
+                  <span className="settings__experience-icon settings__experience-icon--iphone">
+                    <SystemIcon name="iphone" size={19} />
+                  </span>
+                  <span>
+                    <strong>iPhone</strong>
+                    <small>Home screen, apps, and Control Center</small>
+                  </span>
+                  <SystemIcon name="arrow-right" size={12} />
+                </button>
+              </div>
+            </div>
+
+            <div className="settings__card">
+              <div className="settings__row">
+                <div>
+                  <h3>Seamless handoff</h3>
+                  <p>
+                    Both experiences use the same projects, profile, resume,
+                    wallpapers, and appearance settings. Switch at any time
+                    without losing your place.
+                  </p>
+                </div>
+                <span className="settings__browser-note">Synced</span>
               </div>
             </div>
           </section>
