@@ -221,7 +221,7 @@ export const projects: Project[] = [
     featured: true,
     tagline: "A patisserie storefront with the back office to match.",
     description:
-      "Hooked on Cakes is a full-stack shop for celebration cakes with a storefront for customers and a separate dashboard for the owner. Customers can configure a cake, check out through Razorpay, leave a review, and track an order. The admin app handles products, inventory, orders, users, and revenue.",
+      "Hooked on Cakes is a full-stack shop for celebration cakes with a storefront for customers and a separate dashboard for the owner. Customers can configure a cake, place a cash-on-delivery order, leave a review, and track an order. The admin app handles products, inventory, orders, users, and revenue.",
     stack: [
       "React",
       "Vite",
@@ -230,13 +230,13 @@ export const projects: Project[] = [
       "Express",
       "Mongoose",
       "MongoDB",
-      "Razorpay",
       "Cloudinary",
+      "JWT",
     ],
     highlights: [
       "A storefront with product search and filtering, cart, checkout, order history, profiles, addresses, and reviews.",
-      "Razorpay order creation and server-side payment verification.",
-      "An atelier cake configurator for size, flavour, finish, and inscription.",
+      "Cash-on-delivery checkout with server-side order records and owner-side status updates.",
+      "A photographic atelier for format, crumb, finish, inscription, and a live estimate.",
       "A separate admin dashboard for revenue and order charts, product CRUD, inventory, order status, and customers.",
       "Cloudinary image uploads and transactional email notifications behind the shop.",
     ],
@@ -251,7 +251,7 @@ export const projects: Project[] = [
       },
       {
         src: "/projects/hooked-on-cakes/atelier.png",
-        alt: "Hooked on Cakes atelier with size, flavour, and finish controls beside a live cake preview",
+        alt: "Hooked on Cakes atelier with format, crumb, and finish controls beside a photographic cake reference and commission docket",
         width: 1430,
         height: 1000,
       },
