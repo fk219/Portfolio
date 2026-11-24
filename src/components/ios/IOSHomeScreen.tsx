@@ -24,6 +24,7 @@ export function IOSHomeScreen({
   onOpenProject,
   onOpenSearch,
   onOpenControlCenter,
+  onOpenNotificationCenter,
   inert = false,
 }: {
   theme: ResolvedTheme;
@@ -32,6 +33,7 @@ export function IOSHomeScreen({
   onOpenProject: (slug: string) => void;
   onOpenSearch: () => void;
   onOpenControlCenter: () => void;
+  onOpenNotificationCenter: () => void;
   inert?: boolean;
 }) {
   const featured = featuredProjects[0];
@@ -55,6 +57,7 @@ export function IOSHomeScreen({
     y: number;
     fromTop: boolean;
   } | null>(null);
+  const hotspotStart = useRef<number | null>(null);
 
   const originFor = (
     event: ReactMouseEvent<HTMLElement>,
@@ -94,7 +97,14 @@ export function IOSHomeScreen({
     const dx = event.clientX - start.x;
     const dy = event.clientY - start.y;
     if (start.fromTop && dy > 34 && Math.abs(dx) < 80) {
-      onOpenControlCenter();
+      const screenRect = event.currentTarget
+        .closest(".ios-screen")
+        ?.getBoundingClientRect();
+      const midpoint = screenRect
+        ? screenRect.left + screenRect.width / 2
+        : start.x;
+      if (start.x < midpoint) onOpenNotificationCenter();
+      else onOpenControlCenter();
       return;
     }
     if (
@@ -104,6 +114,28 @@ export function IOSHomeScreen({
       event.clientY > 140
     ) {
       onOpenSearch();
+    }
+  };
+
+  const startHotspotSwipe = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    hotspotStart.current = event.clientY;
+    event.stopPropagation();
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      // Pointer capture is an enhancement.
+    }
+  };
+
+  const endHotspotSwipe = (
+    event: ReactPointerEvent<HTMLButtonElement>,
+    action: () => void,
+  ) => {
+    const start = hotspotStart.current;
+    hotspotStart.current = null;
+    event.stopPropagation();
+    if (start !== null && event.clientY - start > 16) {
+      action();
     }
   };
 
@@ -388,9 +420,25 @@ export function IOSHomeScreen({
 
       <button
         type="button"
+        className="ios-notification-hotspot"
+        aria-label="Open Notification Center"
+        onClick={onOpenNotificationCenter}
+        onPointerDown={startHotspotSwipe}
+        onPointerUp={(event) => endHotspotSwipe(event, onOpenNotificationCenter)}
+        onPointerCancel={() => {
+          hotspotStart.current = null;
+        }}
+      />
+      <button
+        type="button"
         className="ios-control-center-hotspot"
         aria-label="Open Control Center"
         onClick={onOpenControlCenter}
+        onPointerDown={startHotspotSwipe}
+        onPointerUp={(event) => endHotspotSwipe(event, onOpenControlCenter)}
+        onPointerCancel={() => {
+          hotspotStart.current = null;
+        }}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useRef, type CSSProperties } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { formatMenuBarParts, useNow } from "@/lib/hooks";
 import { useMediaPlayer } from "@/lib/media-player";
@@ -8,15 +8,18 @@ import { useMediaPlayer } from "@/lib/media-player";
 export function IOSStatusBar({
   tone = "light",
   onOpenControlCenter,
+  onOpenNotificationCenter,
   onOpenNowPlaying,
 }: {
   tone?: "light" | "dark";
   onOpenControlCenter?: () => void;
+  onOpenNotificationCenter?: () => void;
   onOpenNowPlaying?: () => void;
 }) {
   const now = useNow(10000);
   const { time } = formatMenuBarParts(now);
   const { currentTrack, isPlaying } = useMediaPlayer();
+  const notificationSwipe = useRef<number | null>(null);
 
   const right = (
     <>
@@ -35,7 +38,37 @@ export function IOSStatusBar({
 
   return (
     <div className={`ios-statusbar ios-statusbar--${tone}`}>
-      <span className="ios-statusbar__time">{time || "9:41"}</span>
+      {onOpenNotificationCenter ? (
+        <button
+          type="button"
+          className="ios-statusbar__time ios-statusbar__time-trigger"
+          onClick={onOpenNotificationCenter}
+          onPointerDown={(event) => {
+            notificationSwipe.current = event.clientY;
+            try {
+              event.currentTarget.setPointerCapture(event.pointerId);
+            } catch {
+              // Pointer capture is an enhancement.
+            }
+          }}
+          onPointerUp={(event) => {
+            const start = notificationSwipe.current;
+            notificationSwipe.current = null;
+            if (start !== null && event.clientY - start > 16) {
+              onOpenNotificationCenter();
+            }
+          }}
+          onPointerCancel={() => {
+            notificationSwipe.current = null;
+          }}
+          aria-label="Open Notification Center"
+          aria-haspopup="dialog"
+        >
+          {time || "9:41"}
+        </button>
+      ) : (
+        <span className="ios-statusbar__time">{time || "9:41"}</span>
+      )}
       {isPlaying && onOpenNowPlaying ? (
         <button
           type="button"

@@ -33,6 +33,7 @@ import { IOSArcadeApp } from "./apps/IOSArcadeApp";
 import { IOSClockApp } from "./apps/IOSClockApp";
 import { IOSContactApp } from "./apps/IOSContactApp";
 import { IOSSettingsApp } from "./apps/IOSSettingsApp";
+import { IOSNotificationCenter } from "./IOSNotificationCenter";
 
 const FRAME_WIDTH = 418;
 const FRAME_HEIGHT = 872;
@@ -65,6 +66,7 @@ export function IOSExperience() {
   const [closing, setClosing] = useState(false);
   const [controlCenter, setControlCenter] = useState(false);
   const [searching, setSearching] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [locked, setLocked] = useState(false);
   const [immersive, setImmersive] = useState(false);
   const [appOrigin, setAppOrigin] = useState<IOSAppOrigin | null>(null);
@@ -80,6 +82,7 @@ export function IOSExperience() {
       setClosing(false);
       setSearching(false);
       setControlCenter(false);
+      setNotificationsOpen(false);
       setLocked(false);
       setImmersive(false);
       setAppOrigin(origin ?? null);
@@ -106,6 +109,16 @@ export function IOSExperience() {
     [openApp],
   );
 
+  const openNotificationCenter = useCallback(() => {
+    setNotificationsOpen(true);
+    setControlCenter(false);
+    setSearching(false);
+  }, []);
+
+  useEffect(() => {
+    if (locked) setNotificationsOpen(false);
+  }, [locked]);
+
   const goToMac = useCallback(() => {
     setLeaving(true);
     window.setTimeout(() => switchExperience("mac"), 280);
@@ -114,6 +127,14 @@ export function IOSExperience() {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
+      if (locked) {
+        setLocked(false);
+        return;
+      }
+      if (notificationsOpen) {
+        setNotificationsOpen(false);
+        return;
+      }
       if (immersive) return;
       if (controlCenter) {
         setControlCenter(false);
@@ -123,15 +144,19 @@ export function IOSExperience() {
         setSearching(false);
         return;
       }
-      if (locked) {
-        setLocked(false);
-        return;
-      }
       if (activeApp) closeApp();
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [activeApp, closeApp, controlCenter, immersive, locked, searching]);
+  }, [
+    activeApp,
+    closeApp,
+    controlCenter,
+    immersive,
+    locked,
+    notificationsOpen,
+    searching,
+  ]);
 
   useEffect(() => {
     return () => {
@@ -142,16 +167,18 @@ export function IOSExperience() {
   const statusTone =
     locked || !activeApp
       ? "light"
-      : immersive
+      : notificationsOpen
         ? "light"
-        : activeApp === "safari" ||
-            (resolvedTheme === "light" &&
-              activeApp !== "calculator" &&
-              activeApp !== "devkit" &&
-              activeApp !== "store" &&
-              activeApp !== "arcade")
-          ? "dark"
-          : "light";
+        : immersive
+          ? "light"
+          : activeApp === "safari" ||
+              (resolvedTheme === "light" &&
+                activeApp !== "calculator" &&
+                activeApp !== "devkit" &&
+                activeApp !== "store" &&
+                activeApp !== "arcade")
+            ? "dark"
+            : "light";
 
   const homeBarTone =
     immersive
@@ -303,7 +330,13 @@ export function IOSExperience() {
                   onOpenProject={openProject}
                   onOpenSearch={() => setSearching(true)}
                   onOpenControlCenter={() => setControlCenter(true)}
-                  inert={Boolean(activeApp || controlCenter || searching)}
+                  onOpenNotificationCenter={openNotificationCenter}
+                  inert={Boolean(
+                    activeApp ||
+                      controlCenter ||
+                      searching ||
+                      notificationsOpen,
+                  )}
                 />
                 {activeApp && (
                   <div
@@ -331,6 +364,11 @@ export function IOSExperience() {
                 locked || controlCenter
                   ? undefined
                   : () => setControlCenter(true)
+              }
+              onOpenNotificationCenter={
+                locked || notificationsOpen
+                  ? undefined
+                  : openNotificationCenter
               }
               onOpenNowPlaying={
                 locked ? undefined : () => openApp("music")
@@ -361,6 +399,13 @@ export function IOSExperience() {
                 onClose={() => setSearching(false)}
                 onOpenApp={(app) => openApp(app)}
                 onOpenProject={openProject}
+              />
+            )}
+
+            {notificationsOpen && !locked && !controlCenter && !searching && (
+              <IOSNotificationCenter
+                onClose={() => setNotificationsOpen(false)}
+                onOpenApp={(app) => openApp(app)}
               />
             )}
 
