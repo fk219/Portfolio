@@ -58,6 +58,10 @@ Use `?skipIntro=1` to skip the startup sequence during development or screenshot
 
 The first entering of the desktop is remembered for the browser session. Preferences are stored in local storage.
 
+## Demo access
+
+Every project has a seeded demo path, and the auth screens include one-click buttons where an account is required. See [DEMO_ACCESS.md](DEMO_ACCESS.md) for the account list and project links.
+
 ### Mobile
 
 The desktop has a dedicated compact mode for phones, small tablets, and narrow browser windows. It includes:
