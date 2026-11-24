@@ -3,6 +3,7 @@
 import {
   useRef,
   useState,
+  type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
@@ -14,7 +15,7 @@ import { certifications } from "@/data/career";
 import { useNow } from "@/lib/hooks";
 import type { ResolvedTheme, WallpaperId } from "@/lib/types";
 import { IOSAppIcon } from "./IOSAppIcon";
-import { IOS_DOCK_APPS, IOS_HOME_APPS, type IOSAppId } from "./ios-apps";
+import { IOS_DOCK_APPS, IOS_HOME_APPS, type IOSAppId, type IOSAppOrigin } from "./ios-apps";
 
 export function IOSHomeScreen({
   theme,
@@ -23,13 +24,15 @@ export function IOSHomeScreen({
   onOpenProject,
   onOpenSearch,
   onOpenControlCenter,
+  inert = false,
 }: {
   theme: ResolvedTheme;
   wallpaper: WallpaperId;
-  onOpenApp: (app: IOSAppId) => void;
+  onOpenApp: (app: IOSAppId, origin?: IOSAppOrigin) => void;
   onOpenProject: (slug: string) => void;
   onOpenSearch: () => void;
   onOpenControlCenter: () => void;
+  inert?: boolean;
 }) {
   const featured = featuredProjects[0];
   const [widgetIndex, setWidgetIndex] = useState(0);
@@ -47,25 +50,74 @@ export function IOSHomeScreen({
     month: "long",
     day: "numeric",
   }).format(current);
-  const gestureStart = useRef<number | null>(null);
+  const gestureStart = useRef<{
+    x: number;
+    y: number;
+    fromTop: boolean;
+  } | null>(null);
 
-  const startControlGesture = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (event.clientY < 48) gestureStart.current = event.clientY;
+  const originFor = (
+    event: ReactMouseEvent<HTMLElement>,
+  ): IOSAppOrigin | undefined => {
+    const screenEl = event.currentTarget.closest(
+      ".ios-screen",
+    ) as HTMLElement | null;
+    if (!screenEl) return undefined;
+    const screenRect = screenEl.getBoundingClientRect();
+    const icon =
+      event.currentTarget.querySelector<HTMLElement>(".ios-app-icon") ??
+      event.currentTarget;
+    const rect = icon.getBoundingClientRect();
+    if (rect.width === 0) return undefined;
+    const scale = screenEl.offsetWidth
+      ? screenRect.width / screenEl.offsetWidth
+      : 1;
+    return {
+      x: (rect.left + rect.width / 2 - screenRect.left) / (scale || 1),
+      y: (rect.top + rect.height / 2 - screenRect.top) / (scale || 1),
+    };
   };
 
-  const endControlGesture = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (gestureStart.current !== null && event.clientY - gestureStart.current > 34) {
-      onOpenControlCenter();
-    }
+  const startHomeGesture = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    gestureStart.current = {
+      x: event.clientX,
+      y: event.clientY,
+      fromTop: event.clientY < 48,
+    };
+  };
+
+  const endHomeGesture = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const start = gestureStart.current;
     gestureStart.current = null;
+    if (!start) return;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    if (start.fromTop && dy > 34 && Math.abs(dx) < 80) {
+      onOpenControlCenter();
+      return;
+    }
+    if (
+      !start.fromTop &&
+      dy > 56 &&
+      Math.abs(dy) > Math.abs(dx) * 1.4 &&
+      event.clientY > 140
+    ) {
+      onOpenSearch();
+    }
   };
 
   return (
     <div
       className="ios-home"
       data-ios-theme={theme}
-      onPointerDown={startControlGesture}
-      onPointerUp={endControlGesture}
+      inert={inert || undefined}
+      aria-hidden={inert || undefined}
+      onPointerDown={startHomeGesture}
+      onPointerUp={endHomeGesture}
+      onPointerCancel={() => {
+        gestureStart.current = null;
+      }}
     >
       <div className="ios-home__wallpaper" aria-hidden="true">
         <Wallpaper id={wallpaper} />
@@ -76,7 +128,7 @@ export function IOSHomeScreen({
         <button
           type="button"
           className="ios-widget ios-widget--hero"
-          onClick={() => onOpenApp("experience")}
+          onClick={(event) => onOpenApp("experience", originFor(event))}
           aria-label="Open experience. Furqan Khan, full-stack developer."
         >
           <span className="ios-widget__topline">
@@ -132,7 +184,7 @@ export function IOSHomeScreen({
               type="button"
               className="ios-home-app"
               style={{ "--app-index": index } as React.CSSProperties}
-              onClick={() => onOpenApp(app.id)}
+              onClick={(event) => onOpenApp(app.id, originFor(event))}
               aria-label={`Open ${app.name}`}
             >
               <IOSAppIcon app={app.id} size={60} />
@@ -187,11 +239,11 @@ export function IOSHomeScreen({
                 </span>
               </span>
               <span className="ios-recruiter__actions">
-                <button type="button" onClick={() => onOpenApp("resume")}>
+                <button type="button" onClick={(event) => onOpenApp("resume", originFor(event))}>
                   <SystemIcon name="document" size={10} />
                   Resume
                 </button>
-                <button type="button" onClick={() => onOpenApp("contact")}>
+                <button type="button" onClick={(event) => onOpenApp("contact", originFor(event))}>
                   <SystemIcon name="mail" size={10} />
                   Contact
                 </button>
@@ -243,15 +295,15 @@ export function IOSHomeScreen({
                 Store, Arcade, recruiter view, and a real developer toolkit.
               </small>
               <span className="ios-recruiter__actions">
-                <button type="button" onClick={() => onOpenApp("arcade")}>
+                <button type="button" onClick={(event) => onOpenApp("arcade", originFor(event))}>
                   <SystemIcon name="play" size={10} />
                   Arcade
                 </button>
-                <button type="button" onClick={() => onOpenApp("store")}>
+                <button type="button" onClick={(event) => onOpenApp("store", originFor(event))}>
                   <SystemIcon name="bag" size={10} />
                   Store
                 </button>
-                <button type="button" onClick={() => onOpenApp("devkit")}>
+                <button type="button" onClick={(event) => onOpenApp("devkit", originFor(event))}>
                   <SystemIcon name="code" size={10} />
                   DevKit
                 </button>
@@ -293,7 +345,7 @@ export function IOSHomeScreen({
             </span>
           </span>
           <div className="ios-recruiter-bar__actions">
-            <button type="button" onClick={() => onOpenApp("resume")}>
+            <button type="button" onClick={(event) => onOpenApp("resume", originFor(event))}>
               Resume
             </button>
             <a href={`mailto:${profile.email}`}>Email</a>
@@ -324,7 +376,7 @@ export function IOSHomeScreen({
             key={app.id}
             type="button"
             className="ios-dock__app"
-            onClick={() => onOpenApp(app.id)}
+            onClick={(event) => onOpenApp(app.id, originFor(event))}
             aria-label={`Open ${app.name}`}
           >
             <IOSAppIcon app={app.id} size={58} />

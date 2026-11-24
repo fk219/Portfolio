@@ -35,7 +35,7 @@ export function DesktopMenu({ x, y, onClose }: DesktopMenuProps) {
   }, []);
 
   const menuWidth = 236;
-  const menuHeight = 192;
+  const menuHeight = 232;
   const left = Math.min(x, window.innerWidth - menuWidth - 10);
   const top = Math.min(y, window.innerHeight - menuHeight - 10);
 
@@ -96,6 +96,19 @@ export function DesktopMenu({ x, y, onClose }: DesktopMenuProps) {
         onClick={() => run(() => openSettings("wallpaper"))}
       >
         <span>Change Wallpaper…</span>
+      </button>
+      <button
+        type="button"
+        role="menuitem"
+        className="desktop-menu__item"
+        onClick={() =>
+          run(() =>
+            window.dispatchEvent(new Event("furqan-os:reset-widget-layout")),
+          )
+        }
+      >
+        <span>Reset Widget Layout</span>
+        <SystemIcon name="refresh" size={13} />
       </button>
       <div className="desktop-menu__separator" role="separator" />
       <button

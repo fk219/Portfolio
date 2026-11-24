@@ -9,12 +9,10 @@ export function IOSStatusBar({
   tone = "light",
   onOpenControlCenter,
   onOpenNowPlaying,
-  onSwitchToMac,
 }: {
   tone?: "light" | "dark";
   onOpenControlCenter?: () => void;
   onOpenNowPlaying?: () => void;
-  onSwitchToMac?: () => void;
 }) {
   const now = useNow(10000);
   const { time } = formatMenuBarParts(now);
@@ -93,17 +91,6 @@ export function IOSStatusBar({
           </button>
         ) : (
           <span className="ios-statusbar__status-icons">{right}</span>
-        )}
-        {onSwitchToMac && (
-          <button
-            type="button"
-            className="ios-mac-handoff"
-            onClick={onSwitchToMac}
-            aria-label="Switch to Mac desktop"
-          >
-            <SystemIcon name="mac" size={10} />
-            <span>Mac</span>
-          </button>
         )}
       </div>
     </div>

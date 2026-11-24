@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { Wallpaper } from "@/components/os/Wallpaper";
 import { useOS } from "@/lib/os-context";
@@ -10,7 +16,7 @@ import { IOSControlCenter } from "./IOSControlCenter";
 import { IOSSearch } from "./IOSSearch";
 import { IOSStatusBar } from "./IOSStatusBar";
 import { IOSHomeIndicator } from "./IOSChrome";
-import type { IOSAppId } from "./ios-apps";
+import type { IOSAppId, IOSAppOrigin } from "./ios-apps";
 import { IOSProjectsApp } from "./apps/IOSProjectsApp";
 import { IOSSafariApp } from "./apps/IOSSafariApp";
 import { IOSPhotosApp } from "./apps/IOSPhotosApp";
@@ -61,20 +67,25 @@ export function IOSExperience() {
   const [searching, setSearching] = useState(false);
   const [locked, setLocked] = useState(false);
   const [immersive, setImmersive] = useState(false);
+  const [appOrigin, setAppOrigin] = useState<IOSAppOrigin | null>(null);
   const [leaving, setLeaving] = useState(false);
   const closeTimer = useRef<number | null>(null);
   const scale = useFrameScale();
 
-  const openApp = useCallback((app: IOSAppId, projectSlug = "") => {
-    if (closeTimer.current) window.clearTimeout(closeTimer.current);
-    setPendingProjectSlug(projectSlug);
-    setActiveApp(app);
-    setClosing(false);
-    setSearching(false);
-    setControlCenter(false);
-    setLocked(false);
-    setImmersive(false);
-  }, []);
+  const openApp = useCallback(
+    (app: IOSAppId, projectSlug = "", origin?: IOSAppOrigin) => {
+      if (closeTimer.current) window.clearTimeout(closeTimer.current);
+      setPendingProjectSlug(projectSlug);
+      setActiveApp(app);
+      setClosing(false);
+      setSearching(false);
+      setControlCenter(false);
+      setLocked(false);
+      setImmersive(false);
+      setAppOrigin(origin ?? null);
+    },
+    [],
+  );
 
   const closeApp = useCallback(() => {
     if (!activeApp) return;
@@ -84,7 +95,8 @@ export function IOSExperience() {
       setActiveApp(null);
       setClosing(false);
       setImmersive(false);
-    }, 230);
+      setAppOrigin(null);
+    }, 280);
   }, [activeApp]);
 
   const openProject = useCallback(
@@ -282,21 +294,35 @@ export function IOSExperience() {
                   openApp("music");
                 }}
               />
-            ) : activeApp ? (
-              <div
-                className={`ios-app-window ${closing ? "is-closing" : ""}`}
-              >
-                {renderApp(activeApp)}
-              </div>
             ) : (
-              <IOSHomeScreen
-                theme={resolvedTheme}
-                wallpaper={settings.wallpaper}
-                onOpenApp={openApp}
-                onOpenProject={openProject}
-                onOpenSearch={() => setSearching(true)}
-                onOpenControlCenter={() => setControlCenter(true)}
-              />
+              <>
+                <IOSHomeScreen
+                  theme={resolvedTheme}
+                  wallpaper={settings.wallpaper}
+                  onOpenApp={(app, origin) => openApp(app, "", origin)}
+                  onOpenProject={openProject}
+                  onOpenSearch={() => setSearching(true)}
+                  onOpenControlCenter={() => setControlCenter(true)}
+                  inert={Boolean(activeApp || controlCenter || searching)}
+                />
+                {activeApp && (
+                  <div
+                    className={`ios-app-window ${
+                      closing ? "is-closing" : ""
+                    } ${appOrigin ? "has-origin" : ""}`}
+                    style={
+                      appOrigin
+                        ? ({
+                            "--ios-app-origin-x": `${appOrigin.x}px`,
+                            "--ios-app-origin-y": `${appOrigin.y}px`,
+                          } as CSSProperties)
+                        : undefined
+                    }
+                  >
+                    {renderApp(activeApp)}
+                  </div>
+                )}
+              </>
             )}
 
             <IOSStatusBar
@@ -309,7 +335,6 @@ export function IOSExperience() {
               onOpenNowPlaying={
                 locked ? undefined : () => openApp("music")
               }
-              onSwitchToMac={goToMac}
             />
 
             {!locked && activeApp && !controlCenter && !searching && (

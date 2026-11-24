@@ -547,13 +547,105 @@
 
 .desktop-widgets {
   position: fixed;
-  top: 84px;
-  left: 22px;
+  inset: 0;
   z-index: 1;
+  pointer-events: none;
+}
+
+.desktop-widget-frame {
+  position: absolute;
+  pointer-events: auto;
+  container-type: inline-size;
+  touch-action: none;
+  user-select: none;
+}
+
+.desktop-widget-frame.is-dragging {
+  z-index: 3;
+}
+
+.desktop-widget-frame .desktop-widget {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  cursor: grab;
+  transition:
+    transform 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out),
+    border-color 180ms var(--ease-out);
+}
+
+.desktop-widget-frame.is-dragging .desktop-widget {
+  cursor: grabbing;
+  transform: none;
+  box-shadow:
+    0 26px 50px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.desktop-widget-frame .desktop-widget__arrow {
+  top: 11px;
+  right: 11px;
+  bottom: auto;
+  left: auto;
+}
+
+.desktop-widget__resize {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  z-index: 4;
   display: flex;
-  width: 120px;
-  flex-direction: column;
-  gap: 10px;
+  width: 22px;
+  height: 22px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 4px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  opacity: 0.38;
+  cursor: nwse-resize;
+  touch-action: none;
+  transition: opacity 140ms ease, background-color 140ms ease;
+}
+
+.desktop-widget__resize::before {
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  border-radius: 0 0 1px;
+  content: "";
+}
+
+@container (min-width: 160px) {
+  .desktop-widget {
+    justify-content: center;
+  }
+}
+
+.desktop-widget__resize:hover,
+.desktop-widget__resize:focus-visible,
+.desktop-widget-frame:focus-within .desktop-widget__resize,
+.desktop-widget-frame:hover .desktop-widget__resize {
+  background: rgba(255, 255, 255, 0.09);
+  opacity: 0.95;
+}
+
+.desktop-widget-frame[data-widget="project"] .desktop-widget__resize {
+  color: rgba(53, 43, 33, 0.6);
+}
+
+.desktop-widget-frame[data-widget="project"] .desktop-widget__resize:hover,
+.desktop-widget-frame[data-widget="project"] .desktop-widget__resize:focus-visible,
+.desktop-widget-frame[data-widget="project"]:hover .desktop-widget__resize {
+  background: rgba(53, 43, 33, 0.08);
+}
+
+.desktop-widget-frame.is-dragging .desktop-widget__resize {
+  opacity: 0;
 }
 
 .desktop-widget {
@@ -617,6 +709,7 @@
   margin-top: 8px;
   font-family: var(--font-display);
   font-size: 17px;
+  font-size: clamp(17px, 11cqw, 32px);
   font-weight: 560;
   letter-spacing: -0.035em;
   line-height: 1;
@@ -626,6 +719,7 @@
   color: rgba(238, 255, 224, 0.48);
   font-family: var(--font-ui);
   font-size: 7.5px;
+  font-size: clamp(7.5px, 4cqw, 14px);
   font-weight: 450;
   letter-spacing: 0;
 }
@@ -649,6 +743,7 @@
   gap: 5px;
   color: rgba(255, 255, 255, 0.58);
   font-size: 7.5px;
+  font-size: clamp(7.5px, 4.2cqw, 12px);
   font-weight: 650;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -689,6 +784,7 @@
   margin-top: 7px;
   font-family: var(--font-display);
   font-size: 30px;
+  font-size: clamp(30px, 20cqw, 62px);
   font-weight: 330;
   letter-spacing: -0.065em;
   line-height: 1;
@@ -699,6 +795,7 @@
   color: rgba(255, 255, 255, 0.6);
   font-family: var(--font-ui);
   font-size: 9px;
+  font-size: clamp(9px, 4.5cqw, 16px);
   font-weight: 550;
   letter-spacing: 0.02em;
 }
@@ -707,6 +804,7 @@
   margin-top: 4px;
   color: rgba(255, 255, 255, 0.52);
   font-size: 8px;
+  font-size: clamp(8px, 4.2cqw, 15px);
   font-weight: 500;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -726,6 +824,7 @@
   margin-top: 5px;
   font-family: var(--font-display);
   font-size: 34px;
+  font-size: clamp(34px, 22cqw, 74px);
   font-weight: 450;
   letter-spacing: -0.06em;
   line-height: 1;
@@ -735,6 +834,7 @@
   margin-top: 2px;
   color: rgba(53, 43, 33, 0.68);
   font-size: 8.5px;
+  font-size: clamp(8.5px, 4.6cqw, 18px);
   font-weight: 600;
 }
 
@@ -743,6 +843,7 @@
   margin-top: 2px;
   color: rgba(53, 43, 33, 0.46);
   font-size: 6.5px;
+  font-size: clamp(6.5px, 3.6cqw, 12px);
   font-weight: 500;
 }
 
@@ -760,7 +861,7 @@
   color: rgba(53, 43, 33, 0.55);
 }
 
-@media (max-width: 1360px) {
+@media (max-width: 940px) {
   .desktop-widgets {
     display: none;
   }

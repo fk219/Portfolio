@@ -21,6 +21,11 @@ export interface IOSAppDefinition {
   name: string;
 }
 
+export interface IOSAppOrigin {
+  x: number;
+  y: number;
+}
+
 export const IOS_DOCK_APPS: IOSAppDefinition[] = [
   { id: "projects", name: "Projects" },
   { id: "safari", name: "Safari" },

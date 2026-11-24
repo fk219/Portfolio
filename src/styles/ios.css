@@ -477,29 +477,6 @@ button.ios-island--playing:hover {
   display: block;
 }
 
-.ios-mac-handoff {
-  display: none;
-  min-height: 21px;
-  align-items: center;
-  gap: 3px;
-  padding: 0 7px;
-  border: 0.5px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
-  color: inherit;
-  font: inherit;
-  font-size: 8px;
-  font-weight: 650;
-  letter-spacing: 0.02em;
-  backdrop-filter: blur(14px);
-  cursor: pointer;
-}
-
-.ios-statusbar--dark .ios-mac-handoff {
-  border-color: rgba(0, 0, 0, 0.12);
-  background: rgba(0, 0, 0, 0.06);
-}
-
 .ios-signal {
   display: flex;
   align-items: flex-end;
@@ -541,6 +518,7 @@ button.ios-island--playing:hover {
 .ios-home {
   position: absolute;
   inset: 0;
+  z-index: 1;
   padding-top: var(--ios-statusbar-space);
   overflow: hidden;
   color: #fff;
@@ -1288,13 +1266,23 @@ button.ios-island--playing:hover {
   inset: 0;
   z-index: 5;
   overflow: hidden;
+  border-radius: 0;
   background: var(--ios-bg);
-  animation: ios-app-open 430ms var(--ease-out) both;
+  animation: ios-app-open 400ms var(--ease-out) both;
+}
+
+.ios-app-window.has-origin {
+  transform-origin: var(--ios-app-origin-x, 50%) var(--ios-app-origin-y, 50%);
+  animation-name: ios-app-open-from-icon;
 }
 
 .ios-app-window.is-closing {
   pointer-events: none;
-  animation: ios-app-close 230ms var(--ease-out) forwards;
+  animation: ios-app-close 280ms var(--ease-out) forwards;
+}
+
+.ios-app-window.has-origin.is-closing {
+  animation-name: ios-app-close-to-icon;
 }
 
 .ios-app-view {
@@ -5027,11 +5015,11 @@ button.ios-island--playing:hover {
 @keyframes ios-frame-rise {
   from {
     opacity: 0;
-    transform: translateY(22px) scale(0.96);
+    translate: 0 22px;
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    translate: 0 0;
   }
 }
 
@@ -5059,6 +5047,22 @@ button.ios-island--playing:hover {
   }
 }
 
+@keyframes ios-app-open-from-icon {
+  0% {
+    opacity: 0;
+    transform: scale(0.18);
+    border-radius: 30px;
+  }
+  38% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    border-radius: 0;
+  }
+}
+
 @keyframes ios-app-close {
   from {
     opacity: 1;
@@ -5069,6 +5073,19 @@ button.ios-island--playing:hover {
     opacity: 0;
     transform: scale(0.92);
     border-radius: 20px;
+  }
+}
+
+@keyframes ios-app-close-to-icon {
+  from {
+    opacity: 1;
+    transform: scale(1);
+    border-radius: 0;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.18);
+    border-radius: 30px;
   }
 }
 
@@ -5172,10 +5189,6 @@ button.ios-island--playing:hover {
 
   .ios-statusbar__right {
     gap: 4px;
-  }
-
-  .ios-mac-handoff {
-    display: inline-flex;
   }
 
   .ios-home {
