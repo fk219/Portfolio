@@ -1,6 +1,7 @@
 "use client";
 
 import { SystemIcon } from "@/components/icons/SystemIcon";
+import { projects } from "@/data/projects";
 import { wallpaperOptions } from "@/data/wallpapers";
 import { useOS } from "@/lib/os-context";
 import type { ThemeMode } from "@/lib/types";
@@ -155,7 +156,13 @@ export function IOSSettingsApp({
           <div className="ios-settings-row ios-settings-row--static">
             <span>
               <strong>Projects</strong>
-              <small>7 projects · 4 case studies · 3 experiments</small>
+              <small>
+                {projects.length} projects ·{" "}
+                {projects.filter((project) => project.featured).length} case
+                studies ·{" "}
+                {projects.filter((project) => !project.featured).length}{" "}
+                experiments
+              </small>
             </span>
           </div>
         </section>

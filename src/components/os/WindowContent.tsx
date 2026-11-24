@@ -9,6 +9,7 @@ import { Photos } from "@/components/apps/Photos";
 import { Calendar } from "@/components/apps/Calendar";
 import { Music } from "@/components/apps/Music";
 import { Terminal } from "@/components/apps/Terminal";
+import { DevKit } from "@/components/apps/DevKit";
 import { Settings } from "@/components/apps/Settings";
 import { Trash } from "@/components/apps/Trash";
 import { Career } from "@/components/apps/Career";
@@ -35,6 +36,8 @@ export function WindowContent({ window }: { window: OSWindow }) {
       return <Music />;
     case "terminal":
       return <Terminal windowId={window.id} />;
+    case "devkit":
+      return <DevKit />;
     case "settings":
       return <Settings section={window.payload?.section} />;
     case "trash":

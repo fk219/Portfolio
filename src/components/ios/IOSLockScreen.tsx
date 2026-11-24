@@ -9,6 +9,7 @@ import {
   WEATHER_ICON_NAMES,
 } from "@/lib/weather";
 import type { WallpaperId } from "@/lib/types";
+import { projects } from "@/data/projects";
 import { Wallpaper } from "@/components/os/Wallpaper";
 import { IOSHomeIndicator } from "./IOSChrome";
 
@@ -125,7 +126,7 @@ export function IOSLockScreen({
               <strong>Portfolio OS</strong>
               <small>now</small>
             </span>
-            <p>Welcome to Furqan&apos;s iPhone. Seven projects, one pocket.</p>
+            <p>Welcome to Furqan&apos;s iPhone. {projects.length} projects, one pocket.</p>
           </span>
         </button>
         <p className="ios-lock__hint">Swipe up to open</p>

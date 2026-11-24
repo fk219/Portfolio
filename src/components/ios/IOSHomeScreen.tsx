@@ -4,7 +4,7 @@ import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { ProjectArtwork } from "@/components/apps/ProjectArtwork";
 import { Wallpaper } from "@/components/os/Wallpaper";
-import { featuredProjects } from "@/data/projects";
+import { featuredProjects, projects } from "@/data/projects";
 import { useNow } from "@/lib/hooks";
 import type { ResolvedTheme, WallpaperId } from "@/lib/types";
 import { IOSAppIcon } from "./IOSAppIcon";
@@ -88,7 +88,7 @@ export function IOSHomeScreen({
               <small>Founder, FKodeLabs · MCA</small>
             </span>
             <span className="ios-widget__count">
-              <strong>7</strong>
+              <strong>{projects.length}</strong>
               projects
             </span>
           </span>

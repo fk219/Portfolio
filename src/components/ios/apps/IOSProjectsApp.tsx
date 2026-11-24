@@ -194,7 +194,10 @@ export function IOSProjectsApp({
         <header className="ios-large-header">
           <span className="ios-eyebrow">Portfolio / 2026</span>
           <h1>Projects</h1>
-          <p>Seven systems across commerce, healthcare, learning, books, and the network.</p>
+          <p>
+            {projects.length} systems across commerce, healthcare, learning,
+            AI, search, books, and the network.
+          </p>
         </header>
 
         <div className="ios-search-field">

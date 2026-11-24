@@ -319,9 +319,9 @@ export function Safari({ section }: { section?: string }) {
                 <h3>Systems with real constraints.</h3>
               </div>
               <p>
-                Seven projects across commerce, healthcare, learning, books,
-                and network systems. Every live demo is linked, with source
-                where public.
+                {projects.length} projects across commerce, healthcare,
+                learning, books, AI, search, and network systems. Every live
+                demo is linked, with source where public.
               </p>
             </div>
 

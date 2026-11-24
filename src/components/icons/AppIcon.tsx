@@ -612,6 +612,85 @@ function CalendarIcon({ size = 52, date = new Date(), className }: Omit<AppIconP
   );
 }
 
+function DevKitIcon({ size, className }: Omit<AppIconProps, "app">) {
+  return (
+    <IconShell
+      size={size ?? 52}
+      className={`${className ?? ""} icon-shadowed`}
+      label="devkit"
+    >
+      <svg viewBox="0 0 64 64" className="os-app-icon__svg">
+        <defs>
+          <linearGradient id="grad-devkit-bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#25332f" />
+            <stop offset=".55" stopColor="#0f1614" />
+            <stop offset="1" stopColor="#060a09" />
+          </linearGradient>
+          <linearGradient id="grad-devkit-lime" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#d9ff92" />
+            <stop offset="1" stopColor="#79d95d" />
+          </linearGradient>
+        </defs>
+        <rect width="64" height="64" rx="15" fill="url(#grad-devkit-bg)" />
+        <rect
+          x="10.5"
+          y="12.5"
+          width="43"
+          height="39"
+          rx="7"
+          fill="#080d0b"
+          stroke="#ffffff"
+          strokeOpacity=".18"
+        />
+        <path
+          d="M18 24.5 24.5 30 18 35.5"
+          fill="none"
+          stroke="url(#grad-devkit-lime)"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M28 36h12"
+          stroke="#f5f0df"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          opacity=".82"
+        />
+        <circle cx="46" cy="19" r="2.6" fill="#f0b65e" />
+        <path
+          d="M14 45h36"
+          stroke="#ffffff"
+          strokeOpacity=".09"
+          strokeWidth="1"
+        />
+        {[0, 1, 2].map((index) => (
+          <rect
+            key={index}
+            x={17 + index * 8}
+            y="48.5"
+            width="5"
+            height="1.6"
+            rx=".8"
+            fill="#b9ff74"
+            opacity={0.5 - index * 0.12}
+          />
+        ))}
+        <rect
+          x="1.5"
+          y="1.5"
+          width="61"
+          height="61"
+          rx="14"
+          fill="none"
+          stroke="#ffffff"
+          strokeOpacity=".38"
+        />
+      </svg>
+    </IconShell>
+  );
+}
+
 export function AppIcon({ app, size = 52, date, className = "" }: AppIconProps) {
   switch (app) {
     case "finder":
@@ -632,6 +711,8 @@ export function AppIcon({ app, size = 52, date, className = "" }: AppIconProps) 
       return <MusicIcon size={size} className={className} />;
     case "terminal":
       return <TerminalIcon size={size} className={className} />;
+    case "devkit":
+      return <DevKitIcon size={size} className={className} />;
     case "settings":
       return <SettingsIcon size={size} className={className} />;
     case "trash":

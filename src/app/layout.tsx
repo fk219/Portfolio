@@ -9,6 +9,7 @@ import "@/styles/apps.css";
 import "@/styles/overlays.css";
 import "@/styles/career.css";
 import "@/styles/ios.css";
+import "@/styles/devkit.css";
 
 const inter = Inter({
   subsets: ["latin"],

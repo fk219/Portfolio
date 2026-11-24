@@ -7,6 +7,7 @@ export type AppId =
   | "calendar"
   | "music"
   | "terminal"
+  | "devkit"
   | "settings"
   | "trash"
   | "career"
@@ -32,7 +33,7 @@ export type Phase =
   | "off"
   | "desktop";
 
-export type WallpaperId = "hunza" | "sonoma" | "lagoon" | "graphite";
+export type WallpaperId = "hunza" | "sonoma" | "lagoon" | "graphite" | "blueprint";
 
 export type ThemeMode = "light" | "dark" | "auto";
 

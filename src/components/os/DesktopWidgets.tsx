@@ -4,6 +4,7 @@ import { SystemIcon } from "@/components/icons/SystemIcon";
 import { useNow } from "@/lib/hooks";
 import { useOS } from "@/lib/os-context";
 import { useDubaiWeather, WEATHER_ICON_NAMES } from "@/lib/weather";
+import { featuredProjects, projects } from "@/data/projects";
 
 export function DesktopWidgets() {
   const { openApp } = useOS();
@@ -70,10 +71,10 @@ export function DesktopWidgets() {
           <span className="desktop-widget__dot" aria-hidden="true" />
           <span>Selected work</span>
         </span>
-        <span className="desktop-widget__count">7</span>
+        <span className="desktop-widget__count">{projects.length}</span>
         <span className="desktop-widget__caption">
           projects
-          <small>4 case studies</small>
+          <small>{featuredProjects.length} case studies</small>
         </span>
         <span className="desktop-widget__arrow">
           <SystemIcon name="arrow-right" size={11} />

@@ -21,4 +21,9 @@ export const wallpaperOptions: WallpaperOption[] = [
     name: "Graphite Contour",
     description: "A restrained, monochrome workspace.",
   },
+  {
+    id: "blueprint",
+    name: "Blueprint",
+    description: "A developer desktop: grid, signal, and a little glow.",
+  },
 ];

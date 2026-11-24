@@ -405,11 +405,116 @@ function Graphite() {
   );
 }
 
+function Blueprint() {
+  return (
+    <svg
+      className="wallpaper__svg wallpaper__svg--blueprint"
+      viewBox="0 0 1600 1000"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <defs>
+        <linearGradient id="blueprint-base" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#050b08" />
+          <stop offset=".48" stopColor="#091a12" />
+          <stop offset="1" stopColor="#040907" />
+        </linearGradient>
+        <radialGradient id="blueprint-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stopColor="#b8f25c" stopOpacity=".2" />
+          <stop offset=".45" stopColor="#6ee7b7" stopOpacity=".08" />
+          <stop offset="1" stopColor="#06120c" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="blueprint-line" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#b8f25c" stopOpacity="0" />
+          <stop offset=".4" stopColor="#b8f25c" stopOpacity=".52" />
+          <stop offset=".7" stopColor="#6ee7b7" stopOpacity=".3" />
+          <stop offset="1" stopColor="#6ee7b7" stopOpacity="0" />
+        </linearGradient>
+        <pattern id="blueprint-grid" width="42" height="42" patternUnits="userSpaceOnUse">
+          <path d="M42 0H0v42" fill="none" stroke="#8af0c0" strokeOpacity=".055" strokeWidth=".7" />
+        </pattern>
+        <pattern id="blueprint-grid-major" width="210" height="210" patternUnits="userSpaceOnUse">
+          <path d="M210 0H0v210" fill="none" stroke="#8af0c0" strokeOpacity=".075" strokeWidth=".9" />
+        </pattern>
+        <filter id="blueprint-blur" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="32" />
+        </filter>
+        <linearGradient id="blueprint-shade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#010403" stopOpacity=".55" />
+          <stop offset=".3" stopColor="#010403" stopOpacity="0" />
+          <stop offset="1" stopColor="#010403" stopOpacity=".5" />
+        </linearGradient>
+      </defs>
+
+      <rect width="1600" height="1000" fill="url(#blueprint-base)" />
+      <rect width="1600" height="1000" fill="url(#blueprint-grid)" />
+      <rect width="1600" height="1000" fill="url(#blueprint-grid-major)" />
+      <ellipse cx="1120" cy="430" rx="620" ry="470" fill="url(#blueprint-glow)" filter="url(#blueprint-blur)" />
+
+      <g className="wallpaper__slow-drift">
+        <g fill="none" stroke="#8af0c0" opacity=".48">
+          <circle cx="1118" cy="420" r="304" strokeWidth=".9" strokeDasharray="2 9" />
+          <circle cx="1118" cy="420" r="238" strokeWidth=".8" strokeOpacity=".7" />
+          <circle cx="1118" cy="420" r="172" strokeWidth=".6" strokeOpacity=".5" />
+          <circle cx="1118" cy="420" r="106" strokeWidth=".5" strokeOpacity=".35" />
+        </g>
+        <g fill="#b8f25c">
+          {[
+            [1118, 116],
+            [1422, 420],
+            [1118, 724],
+            [814, 420],
+          ].map(([cx, cy]) => (
+            <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="2.2" opacity=".62" />
+          ))}
+        </g>
+        <g fill="none" stroke="url(#blueprint-line)" strokeWidth="1.1">
+          <path d="M-40 806H264l58-58h246l54 58h268l62-72h420l64 54h480" />
+          <path d="M-30 856H192l72 56h354l54-56h310l66 52h396l58-52h180" opacity=".55" />
+          <path d="M92 176h280l44 44h214" opacity=".4" />
+        </g>
+        <g fill="#b8f25c">
+          {[
+            [264, 806],
+            [568, 748],
+            [622, 806],
+            [890, 806],
+            [952, 734],
+            [1372, 788],
+            [372, 176],
+          ].map(([cx, cy]) => (
+            <g key={`${cx}-${cy}`}>
+              <circle cx={cx} cy={cy} r="3.2" opacity=".8" />
+              <circle cx={cx} cy={cy} r="10" fill="none" stroke="#b8f25c" strokeOpacity=".24" />
+            </g>
+          ))}
+        </g>
+        <g opacity=".38" stroke="#8af0c0" strokeWidth="1">
+          {Array.from({ length: 13 }).map((_, index) => (
+            <path key={index} d={`M${1118 + 318 * Math.cos((index / 13) * Math.PI * 2)} ${420 + 318 * Math.sin((index / 13) * Math.PI * 2)}l${4 * Math.cos((index / 13) * Math.PI * 2)} ${4 * Math.sin((index / 13) * Math.PI * 2)}`} />
+          ))}
+        </g>
+      </g>
+
+      <g fill="#8af0c0" opacity=".3" fontFamily="ui-monospace, 'SF Mono', Menlo, monospace" fontSize="10" letterSpacing="2">
+        <text x="86" y="94">PORTFOLIO OS / BLUEPRINT</text>
+        <text x="1280" y="924">BUILD 1.0.0</text>
+        <text x="86" y="924">27°C · DUBAI</text>
+      </g>
+      <g stroke="#8af0c0" strokeOpacity=".2">
+        <path d="M86 106h64M86 106v16M1514 106h-64M1514 106v16M86 894h64M86 894v-16M1514 894h-64M1514 894v-16" />
+      </g>
+
+      <rect width="1600" height="1000" fill="url(#blueprint-shade)" />
+    </svg>
+  );
+}
+
 const wallpapers: Record<WallpaperId, () => React.JSX.Element> = {
   hunza: Hunza,
   sonoma: Sonoma,
   lagoon: Lagoon,
   graphite: Graphite,
+  blueprint: Blueprint,
 };
 
 export function Wallpaper({ id }: { id: WallpaperId }) {

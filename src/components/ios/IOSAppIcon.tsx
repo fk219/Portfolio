@@ -288,6 +288,53 @@ function ClockIcon() {
   );
 }
 
+function DevKitIcon() {
+  return (
+    <CustomTile label="devkit">
+      <defs>
+        <linearGradient id="ios-devkit-bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#2b3a34" />
+          <stop offset=".55" stopColor="#101815" />
+          <stop offset="1" stopColor="#050807" />
+        </linearGradient>
+        <linearGradient id="ios-devkit-lime" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#ddff9d" />
+          <stop offset="1" stopColor="#79d95d" />
+        </linearGradient>
+      </defs>
+      <rect width="64" height="64" rx="15" fill="url(#ios-devkit-bg)" />
+      <rect
+        x="9.5"
+        y="11.5"
+        width="45"
+        height="41"
+        rx="8"
+        fill="#070c0a"
+        stroke="#ffffff"
+        strokeOpacity=".18"
+      />
+      <path
+        d="M18 24.5 24.5 30 18 35.5"
+        fill="none"
+        stroke="url(#ios-devkit-lime)"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M29 37h12"
+        stroke="#f6f1df"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+        opacity=".84"
+      />
+      <circle cx="47" cy="18" r="2.8" fill="#f0b65e" />
+      <path d="M14 45h36" stroke="#ffffff" strokeOpacity=".09" />
+      <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="#ffffff" strokeOpacity=".4" />
+    </CustomTile>
+  );
+}
+
 export function IOSAppIcon({
   app,
   size = 60,
@@ -322,6 +369,9 @@ export function IOSAppIcon({
       break;
     case "music":
       icon = <AppIcon app="music" size={size} />;
+      break;
+    case "devkit":
+      icon = <DevKitIcon />;
       break;
     case "photos":
       icon = <AppIcon app="photos" size={size} />;

@@ -6,7 +6,7 @@ import { ProjectArtwork } from "@/components/apps/ProjectArtwork";
 import { projects } from "@/data/projects";
 import { useEscape, useFocusTrap } from "@/lib/hooks";
 import { IOSAppIcon } from "./IOSAppIcon";
-import { IOS_DOCK_APPS, IOS_HOME_APPS, type IOSAppId } from "./ios-apps";
+import { IOS_DOCK_APPS, IOS_EXTRA_APPS, IOS_HOME_APPS, type IOSAppId } from "./ios-apps";
 
 export function IOSSearch({
   onClose,
@@ -24,8 +24,8 @@ export function IOSSearch({
   useEscape(true, onClose);
 
   const needle = query.trim().toLowerCase();
-  const apps = [...IOS_HOME_APPS, ...IOS_DOCK_APPS].filter((app) =>
-    app.name.toLowerCase().includes(needle),
+  const apps = [...IOS_HOME_APPS, ...IOS_DOCK_APPS, ...IOS_EXTRA_APPS].filter(
+    (app) => app.name.toLowerCase().includes(needle),
   );
   const matchedProjects = projects.filter((project) =>
     `${project.name} ${project.category} ${project.stack.join(" ")}`

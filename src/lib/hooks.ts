@@ -28,6 +28,32 @@ export function useNow(updateEveryMs = 1000) {
   return now;
 }
 
+export function useFrameRate() {
+  const [fps, setFps] = useState(0);
+  const [history, setHistory] = useState<number[]>([]);
+
+  useEffect(() => {
+    let frame = 0;
+    let last = performance.now();
+    let frameRequest = 0;
+    const tick = (now: number) => {
+      frame += 1;
+      if (now - last >= 1000) {
+        const next = Math.round((frame * 1000) / (now - last));
+        setFps(next);
+        setHistory((current) => [...current.slice(-23), next]);
+        frame = 0;
+        last = now;
+      }
+      frameRequest = window.requestAnimationFrame(tick);
+    };
+    frameRequest = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frameRequest);
+  }, []);
+
+  return { fps, history };
+}
+
 export function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(false);
 

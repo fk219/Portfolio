@@ -43,6 +43,7 @@ const appCommands: DockAppId[] = [
   "calendar",
   "music",
   "terminal",
+  "devkit",
   "settings",
   "trash",
 ];
@@ -102,6 +103,8 @@ export function Terminal({ windowId }: { windowId?: string }) {
       output("  wallpaper <name>      Change the desktop wallpaper"),
       output("  date                  Show the current date and time"),
       output("  neofetch              A small system portrait"),
+      output("  devkit                Open DevKit (ship · system · playground)"),
+      output("  deploy                Open DevKit's live check pipeline"),
       output("  clear                 Clear the window"),
       output("  exit                  Close the Terminal"),
     ]);
@@ -310,6 +313,22 @@ export function Terminal({ windowId }: { windowId?: string }) {
 
       case "echo":
         append([output(argument)]);
+        break;
+
+      case "devkit":
+        openApp("devkit");
+        append([
+          output("Opening DevKit…", "muted"),
+          output('Run the live checks from the Ship panel, or open the Playground.', "muted"),
+        ]);
+        break;
+
+      case "deploy":
+        openApp("devkit");
+        append([
+          output("DevKit opened.", "accent"),
+          output("Run the Ship checks to verify assets, services, and the live origin.", "muted"),
+        ]);
         break;
 
       case "neofetch":

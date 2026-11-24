@@ -215,6 +215,168 @@ function Motif({ project, gradientId }: { project: Project; gradientId: string }
           </g>
         </g>
       );
+    case "mood":
+      return (
+        <g>
+          <circle cx="470" cy="188" r="154" fill="none" stroke="#fbf6ff" strokeWidth="1.2" opacity=".2" />
+          <circle cx="470" cy="188" r="112" fill="none" stroke="#fbf6ff" strokeWidth="1.2" opacity=".28" />
+          <circle cx="470" cy="188" r="70" fill="#fbf6ff" opacity=".1" />
+          <circle cx="470" cy="188" r="28" fill="#fbf6ff" opacity=".9" />
+          <circle cx="470" cy="188" r="43" fill="none" stroke="#fbf6ff" strokeWidth="1" opacity=".4" />
+          <path
+            d="M64 272c48-42 95-42 143 0s95 42 143 0 95-42 143 0 63 27 83 12"
+            fill="none"
+            stroke="#fbf6ff"
+            strokeWidth="2"
+            strokeLinecap="round"
+            opacity=".46"
+          />
+          <path
+            d="M64 300c48-30 95-30 143 0s95 30 143 0 95-30 143 0 63 19 83 8"
+            fill="none"
+            stroke="#fbf6ff"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            opacity=".22"
+          />
+          {[
+            [98, 120, "#ffd36e"],
+            [142, 204, "#ff9a7d"],
+            [250, 78, "#b9d7ff"],
+            [558, 118, "#a9f0d0"],
+            [596, 236, "#ffc6e8"],
+          ].map(([cx, cy, color], index) => (
+            <g key={`${cx}-${cy}`}>
+              <circle cx={cx as number} cy={cy as number} r="11" fill={color as string} opacity=".92" />
+              <circle cx={cx as number} cy={cy as number} r="19" fill="none" stroke={color as string} opacity=".26" />
+              {index === 0 && <circle cx={cx as number} cy={cy as number} r="4" fill="#2a1746" />}
+            </g>
+          ))}
+          <g transform="translate(82 70)">
+            <text fill="#fbf6ff" opacity=".58" fontFamily="ui-monospace, 'SF Mono', Menlo, monospace" fontSize="10" letterSpacing="1.6">
+              MOOD LENS · ON DEVICE
+            </text>
+          </g>
+        </g>
+      );
+    case "frames":
+      return (
+        <g>
+          <g transform="translate(92 58) rotate(-4)">
+            <rect width="214" height="264" rx="3" fill="#fffaf0" opacity=".96" />
+            <rect x="17" y="38" width="180" height="180" fill="#302b24" />
+            <circle cx="107" cy="128" r="44" fill="#e56b40" opacity=".84" />
+            <path d="M17 168h180" stroke="#fffaf0" strokeWidth="2" opacity=".16" />
+            <text x="17" y="242" fill={ink} opacity=".6" fontFamily="ui-monospace, 'SF Mono', Menlo, monospace" fontSize="10" letterSpacing="1.6">
+              FRAME 001 · 24 NOV
+            </text>
+          </g>
+          <g transform="translate(290 82) rotate(3)">
+            <rect width="196" height="248" rx="3" fill="#fffaf0" opacity=".9" />
+            <rect x="15" y="34" width="166" height="168" fill="#40372b" />
+            <path d="M15 96c41-26 77-18 112 9s42 29 54 18" fill="none" stroke="#f0d7a6" strokeWidth="1.5" opacity=".5" />
+            <circle cx="128" cy="72" r="25" fill="#d8b06a" opacity=".55" />
+            <text x="15" y="227" fill={ink} opacity=".6" fontFamily="ui-monospace, 'SF Mono', Menlo, monospace" fontSize="10" letterSpacing="1.6">
+              FRAME 002 · 25 NOV
+            </text>
+          </g>
+          <g transform="translate(486 40) rotate(-2)">
+            <rect width="124" height="164" rx="3" fill="#fffaf0" opacity=".76" />
+            <rect x="12" y="28" width="100" height="102" fill="#332e28" />
+            <circle cx="62" cy="79" r="26" fill="#e56b40" opacity=".72" />
+          </g>
+          <circle cx="586" cy="318" r="15" fill="#d84b35" />
+          <circle cx="586" cy="318" r="24" fill="none" stroke="#d84b35" strokeWidth="1" opacity=".3" />
+          <path d="M66 350h88" stroke="#fffaf0" strokeWidth="1.4" opacity=".3" />
+        </g>
+      );
+    case "versus":
+      return (
+        <g>
+          <path d="M320 0 640 400H320Z" fill="#ffffff" opacity=".025" />
+          <path d="M320 0v400" stroke="#f5eee0" strokeWidth="1" strokeDasharray="4 10" opacity=".2" />
+          <text
+            x="320"
+            y="242"
+            textAnchor="middle"
+            fill="none"
+            stroke={ink}
+            strokeWidth="2.2"
+            fontSize="136"
+            fontWeight="900"
+            letterSpacing="4"
+            fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+          >
+            VS
+          </text>
+          <g transform="translate(62 62)">
+            <rect width="118" height="28" rx="5" fill="#e2473a" opacity=".92" />
+            <text x="14" y="19" fill="#fff7ef" fontFamily="ui-monospace, 'SF Mono', Menlo, monospace" fontSize="10" letterSpacing="1.4">
+              COHERE
+            </text>
+          </g>
+          <g transform="translate(460 62)">
+            <rect width="118" height="28" rx="5" fill="#4587ff" opacity=".92" />
+            <text x="14" y="19" fill="#f7f9ff" fontFamily="ui-monospace, 'SF Mono', Menlo, monospace" fontSize="10" letterSpacing="1.4">
+              GROQ
+            </text>
+          </g>
+          <g transform="translate(62 314)">
+            <text x="0" y="-8" fill={ink} opacity=".45" fontFamily="ui-monospace, 'SF Mono', Menlo, monospace" fontSize="9" letterSpacing="1.2">
+              JUDGE SCORECARD
+            </text>
+            <rect width="240" height="7" rx="3.5" fill="#ffffff" opacity=".12" />
+            <rect width="196" height="7" rx="3.5" fill="#e2473a" opacity=".9" />
+            <rect y="18" width="240" height="7" rx="3.5" fill="#ffffff" opacity=".12" />
+            <rect y="18" width="168" height="7" rx="3.5" fill="#4587ff" opacity=".9" />
+          </g>
+          <g transform="translate(452 312)">
+            <text x="0" y="-8" fill={ink} opacity=".45" fontFamily="ui-monospace, 'SF Mono', Menlo, monospace" fontSize="9" letterSpacing="1.2">
+              VERDICT
+            </text>
+            <text x="0" y="18" fill={ink} opacity=".86" fontFamily="Georgia, serif" fontSize="21" fontStyle="italic">
+              Cohere takes it.
+            </text>
+          </g>
+        </g>
+      );
+    case "notes":
+      return (
+        <g>
+          <g transform="translate(94 48) rotate(-2)">
+            <rect width="352" height="300" rx="5" fill="#fdf8ec" opacity=".96" />
+            <rect x="28" y="28" width="120" height="9" rx="4.5" fill={ink} opacity=".16" />
+            <rect x="28" y="52" width="246" height="7" rx="3.5" fill={ink} opacity=".28" />
+            <rect x="28" y="68" width="292" height="7" rx="3.5" fill={ink} opacity=".2" />
+            <rect x="28" y="84" width="208" height="7" rx="3.5" fill={ink} opacity=".15" />
+            <text x="24" y="176" fill={ink} opacity=".2" fontFamily="Georgia, serif" fontSize="86">
+              &ldquo;
+            </text>
+            <rect x="28" y="214" width="260" height="6" rx="3" fill={ink} opacity=".2" />
+            <rect x="28" y="228" width="226" height="6" rx="3" fill={ink} opacity=".14" />
+            <rect x="28" y="242" width="190" height="6" rx="3" fill={ink} opacity=".1" />
+            <g transform="translate(28 270)">
+              <circle cx="8" cy="8" r="8" fill="#c7503a" />
+              <text x="4.5" y="11.5" fill="#fff8ee" fontSize="9" fontWeight="700" fontFamily="ui-monospace, monospace">
+                1
+              </text>
+              <rect x="24" y="4" width="130" height="6" rx="3" fill="#c7503a" opacity=".35" />
+            </g>
+          </g>
+          <g transform="translate(470 224) rotate(3)">
+            <rect width="118" height="132" rx="4" fill="#fdf8ec" opacity=".8" />
+            <rect x="16" y="18" width="76" height="7" rx="3.5" fill={ink} opacity=".24" />
+            <rect x="16" y="34" width="88" height="5" rx="2.5" fill={ink} opacity=".16" />
+            <rect x="16" y="46" width="66" height="5" rx="2.5" fill={ink} opacity=".12" />
+            <circle cx="24" cy="98" r="7" fill="#c7503a" />
+            <circle cx="44" cy="98" r="7" fill="#c7503a" opacity=".6" />
+            <circle cx="64" cy="98" r="7" fill="#c7503a" opacity=".3" />
+          </g>
+          <text x="446" y="84" fill={ink} opacity=".52" fontFamily="ui-monospace, 'SF Mono', Menlo, monospace" fontSize="10" letterSpacing="1.5">
+            KEEP THE TRAIL
+          </text>
+        </g>
+      );
     default:
       return <circle cx="320" cy="200" r="100" fill={gradientId} />;
   }

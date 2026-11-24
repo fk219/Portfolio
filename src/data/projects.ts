@@ -5,7 +5,11 @@ export type ProjectMotif =
   | "path"
   | "signal"
   | "network"
-  | "vector";
+  | "vector"
+  | "mood"
+  | "frames"
+  | "versus"
+  | "notes";
 
 export type ProjectStatus = "Case study" | "Experiment";
 
@@ -41,6 +45,201 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    slug: "moodify",
+    name: "Moodify",
+    shortName: "Moodify",
+    category: "Mood-aware listening room",
+    status: "Case study",
+    featured: true,
+    tagline: "A listening room that reads the room, then tunes the queue.",
+    description:
+      "Moodify starts with a question most music apps never ask: how does today feel? A browser-side MediaPipe face model reads an expression into one of five moods, a manual check-in covers the camera-shy, and the room builds a queue that matches. Every check-in stays in a private seven-day journal, while a protected Studio lets the owner grow the catalog with tagged MP3s. The camera path is entirely on-device; no frame is uploaded.",
+    stack: [
+      "React 19",
+      "Vite",
+      "Sass",
+      "MediaPipe",
+      "Express 5",
+      "MongoDB",
+      "ImageKit",
+      "JWT",
+    ],
+    highlights: [
+      "On-device MediaPipe face landmarks map an expression to neutral, happy, sad, angry, or surprised without sending a frame off the device.",
+      "The manual check-in uses the same mood path, so the room works with or without camera access.",
+      "A private seven-day journal counts moods, marks camera versus manual reads, and can be cleared without touching the catalog.",
+      "A protected Studio accepts tagged MP3s with ID3 titles and embedded covers, then files them into the right mood.",
+      "JWT cookies, bcrypt hashing, token-version revocation, Helmet headers, and scoped rate limits sit behind the room.",
+    ],
+    contextNote:
+      "The camera path runs in the browser. The deployed API uses Render's free plan, so the first request after idle may take a moment.",
+    repo: "https://github.com/fk219/Moodify",
+    demo: "https://moodify.furqankhan.dev",
+    screenshots: [
+      {
+        src: "/projects/moodify/home.png",
+        alt: "Moodify listening room with mood check-in, camera lens, and now-playing bar",
+        width: 1440,
+        height: 900,
+      },
+    ],
+    cover: {
+      from: "#f0d9ff",
+      to: "#5a3f97",
+      ink: "#24143d",
+      motif: "mood",
+    },
+  },
+  {
+    slug: "journal",
+    name: "Journal",
+    shortName: "Journal",
+    category: "Photo journal & public portfolio",
+    status: "Case study",
+    featured: true,
+    tagline: "A contact sheet for slow looking, with a portfolio on the back.",
+    description:
+      "Journal treats a social feed as a printed contact sheet: numbered frames, date stamps, white cards, and a serif masthead. Members post one photograph at a time, leave notes, follow each other, and keep a quiet public portfolio at /u/:username. The backend does the unglamorous work — cursor pagination, real counts, image validation, session revocation, export, and deletion — so the surface can stay calm.",
+    stack: [
+      "React 19",
+      "Vite",
+      "Sass",
+      "Express 5",
+      "MongoDB",
+      "ImageKit",
+      "JWT",
+    ],
+    highlights: [
+      "A cursor-paginated contact sheet built from one aggregation for author, like count, comment count, and viewer state.",
+      "Every member's /u/:username profile doubles as a public portfolio that works signed out.",
+      "Comments, follows, likes, and a protected create-post flow are wired to real API routes.",
+      "Images are resized and compressed in the browser, then validated by MIME and file signature on the server.",
+      "Settings covers password change, a full JSON export, and self-serve deletion with typed confirmation.",
+    ],
+    contextNote:
+      "The live app uses a shared demo account. The API runs on Render's free plan, so the first request after idle may take a moment.",
+    repo: "https://github.com/fk219/Insta-Clone",
+    demo: "https://insta-clone.furqankhan.dev",
+    screenshots: [
+      {
+        src: "/projects/journal/home.png",
+        alt: "Journal contact sheet with numbered photo frames and a public portfolio rail",
+        width: 1425,
+        height: 900,
+      },
+      {
+        src: "/projects/journal/profile.png",
+        alt: "Journal public profile for @demo_journal with a contact sheet and frame count",
+        width: 1425,
+        height: 900,
+      },
+    ],
+    cover: {
+      from: "#f1e9da",
+      to: "#b39b78",
+      ink: "#2e271e",
+      motif: "frames",
+    },
+  },
+  {
+    slug: "model-arena",
+    name: "Model Arena",
+    shortName: "Model Arena",
+    category: "AI model evaluation",
+    status: "Case study",
+    featured: true,
+    tagline: "Two models answer. A third judge keeps score.",
+    description:
+      "Public benchmarks are averages; a developer's actual question is not. Model Arena sends one prompt to Cohere and Groq in parallel, then asks a third model to score both answers, explain its reasoning, and call a winner. The result is a shareable fight card, a Markdown report, and a local leaderboard of who keeps winning your prompts. A LangGraph state machine keeps the orchestration readable and the judge's output typed.",
+    stack: [
+      "React 19",
+      "Vite",
+      "Express 5",
+      "TypeScript",
+      "LangGraph",
+      "Cohere",
+      "Groq",
+      "Zod",
+    ],
+    highlights: [
+      "Cohere and Groq answer in parallel; a third Groq pass judges both through a structured Zod schema.",
+      "Every bout keeps the judge's written feedback and a compact verdict, not just a score.",
+      "Shareable #b= reports compress the full card into a URL; Markdown export covers long-form sharing.",
+      "A local battle history and per-model leaderboard turn single prompts into a working record.",
+      "Per-IP limits, prompt caps, a 60-second timeout, and an LRU cache make the experiment repeatable.",
+    ],
+    contextNote:
+      "The live API runs on Render's free plan and is rate-limited, so a cold start can take up to a minute.",
+    repo: "https://github.com/fk219/AI-Battle-Arena",
+    demo: "https://ai-battle-arena.furqankhan.dev",
+    screenshots: [
+      {
+        src: "/projects/model-arena/home.png",
+        alt: "Model Arena fight card with a prompt composer, starter prompts, and a judges' scorecard",
+        width: 1440,
+        height: 900,
+      },
+    ],
+    cover: {
+      from: "#2c303c",
+      to: "#0c0d11",
+      ink: "#f5eee0",
+      motif: "versus",
+    },
+  },
+  {
+    slug: "research-desk",
+    name: "Research Desk",
+    shortName: "Research Desk",
+    category: "Sourced research workspace",
+    status: "Case study",
+    featured: true,
+    tagline: "Answers with the sources still attached.",
+    description:
+      "Search gives you an answer, then loses the trail. Research Desk keeps the trail: Tavily retrieves live results, Groq reasons over them, and the answer is filed as a reading note with numbered sources. Threads can be reopened, renamed, pinned, exported as Markdown, or published as a read-only report. The point is not a faster chat window; it is an answer you can defend later.",
+    stack: [
+      "React 19",
+      "Vite",
+      "Redux Toolkit",
+      "Express 5",
+      "MongoDB",
+      "Groq",
+      "Tavily",
+      "JWT",
+    ],
+    highlights: [
+      "Tavily search results are captured by the backend; every answer stores numbered sources beside the prose.",
+      "Threads are saved per account, grouped by date, renameable, pinnable, and exportable as Markdown.",
+      "A share link exposes a clean read-only report with no account identity and can be switched off.",
+      "A one-click demo desk seeds example research threads without asking for an email.",
+      "Daily quotas, per-IP limits, HTTP-only sessions, and token-version logout keep the workspace honest.",
+    ],
+    contextNote:
+      "The live API runs on Render's free plan and answers through Groq and Tavily. The demo desk is shared.",
+    repo: "https://github.com/fk219/Perplexity-Clone",
+    demo: "https://perplexity.furqankhan.dev",
+    screenshots: [
+      {
+        src: "/projects/research-desk/home.png",
+        alt: "Research Desk reading room with a research composer and suggested lines of inquiry",
+        width: 1440,
+        height: 900,
+      },
+      {
+        src: "/projects/research-desk/answer.png",
+        alt: "Research Desk research memo with a sourced answer, numbered citations, and a source trail",
+        width: 1440,
+        height: 900,
+      },
+    ],
+    cover: {
+      from: "#ece5d6",
+      to: "#a08a68",
+      ink: "#2b241a",
+      motif: "notes",
+    },
+  },
   {
     slug: "foliofind",
     name: "FolioFind",

@@ -21,6 +21,7 @@ import { IOSLinksApp } from "./apps/IOSLinksApp";
 import { IOSNotesApp } from "./apps/IOSNotesApp";
 import { IOSCalculatorApp } from "./apps/IOSCalculatorApp";
 import { IOSMusicApp } from "./apps/IOSMusicApp";
+import { IOSDevKitApp } from "./apps/IOSDevKitApp";
 import { IOSClockApp } from "./apps/IOSClockApp";
 import { IOSContactApp } from "./apps/IOSContactApp";
 import { IOSSettingsApp } from "./apps/IOSSettingsApp";
@@ -124,12 +125,17 @@ export function IOSExperience() {
     locked || !activeApp
       ? "light"
       : activeApp === "safari" ||
-          (resolvedTheme === "light" && activeApp !== "calculator")
+          (resolvedTheme === "light" &&
+            activeApp !== "calculator" &&
+            activeApp !== "devkit")
         ? "dark"
         : "light";
 
   const homeBarTone =
-    activeApp === "safari" || activeApp === "calculator" || resolvedTheme === "dark"
+    activeApp === "safari" ||
+    activeApp === "calculator" ||
+    activeApp === "devkit" ||
+    resolvedTheme === "dark"
       ? "light"
       : "dark";
 
@@ -165,6 +171,8 @@ export function IOSExperience() {
         return <IOSCalculatorApp />;
       case "music":
         return <IOSMusicApp />;
+      case "devkit":
+        return <IOSDevKitApp />;
       case "clock":
         return <IOSClockApp />;
       case "contact":

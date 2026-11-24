@@ -1,0 +1,2126 @@
+/* DevKit — developer apps ---------------------------------------------------- */
+
+.devkit {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: #0b0f0d;
+  color: #f5f2e6;
+  container-type: inline-size;
+  container-name: devkit;
+}
+
+.devkit__rail {
+  display: flex;
+  width: 190px;
+  flex: 0 0 auto;
+  flex-direction: column;
+  padding: 18px 12px 14px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(183, 242, 92, 0.08), transparent 42%),
+    linear-gradient(180deg, #0e1411, #090d0b);
+}
+
+.devkit__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px 22px;
+}
+
+.devkit__mark {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background:
+    radial-gradient(circle at 30% 10%, rgba(255, 255, 255, 0.4), transparent 44%),
+    linear-gradient(145deg, #ddff9d, #7bd85e);
+  color: #0b130a;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  box-shadow:
+    0 8px 18px rgba(81, 143, 45, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.devkit__brand strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.devkit__brand small {
+  display: block;
+  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.36);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.05em;
+}
+
+.devkit__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.devkit__nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.52);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
+}
+
+.devkit__nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f5f2e6;
+}
+
+.devkit__nav-item.is-active {
+  background: rgba(183, 242, 92, 0.1);
+  color: #eaffc9;
+  box-shadow: inset 0 0 0 0.5px rgba(183, 242, 92, 0.25);
+}
+
+.devkit__nav-item > span:nth-child(2) {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.devkit__nav-item strong {
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.devkit__nav-item small {
+  color: rgba(255, 255, 255, 0.34);
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+
+.devkit__nav-item.is-active small {
+  color: rgba(218, 255, 151, 0.58);
+}
+
+.devkit__nav-glyph {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #b8f25c;
+}
+
+.devkit__rail-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding: 12px 8px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+
+.devkit__branch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.devkit__version {
+  color: rgba(255, 255, 255, 0.26);
+}
+
+.devkit__main {
+  position: relative;
+  min-width: 0;
+  flex: 1;
+  overflow: auto;
+}
+
+.devkit__main::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: radial-gradient(circle at 20% 10%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(circle at 20% 10%, #000 0%, transparent 78%);
+  content: "";
+}
+
+.devkit-panel {
+  position: relative;
+  z-index: 1;
+  padding: 26px 28px 34px;
+}
+
+.devkit-panel__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.devkit-kicker {
+  display: block;
+  margin-bottom: 6px;
+  color: rgba(183, 242, 92, 0.72);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.devkit-panel__head h2 {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 620;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+
+.devkit-panel__head p {
+  max-width: 560px;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.44);
+  font-size: 10.5px;
+  line-height: 1.55;
+}
+
+.devkit-panel__head code {
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: rgba(183, 242, 92, 0.12);
+  color: #d9ffa4;
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.devkit-run {
+  display: inline-flex;
+  min-height: 35px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+  padding: 0 14px;
+  border: 0.5px solid rgba(183, 242, 92, 0.4);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.22), transparent 52%),
+    linear-gradient(145deg, rgba(183, 242, 92, 0.22), rgba(96, 171, 60, 0.14));
+  color: #e9ffc9;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 650;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 160ms ease;
+}
+
+.devkit-run:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background-color: rgba(183, 242, 92, 0.12);
+}
+
+.devkit-run:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.devkit-run kbd {
+  margin-left: 2px;
+  padding: 1px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 3px;
+  color: rgba(255, 255, 255, 0.46);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 500;
+}
+
+.devkit-run.is-running svg {
+  animation: devkit-spin 900ms linear infinite;
+}
+
+.devkit-quiet-button {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.54);
+  font: inherit;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.devkit-quiet-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+/* Ship --------------------------------------------------------------------- */
+
+.devkit-release {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 22px;
+  border: 0.5px solid rgba(183, 242, 92, 0.16);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 84% 8%, rgba(183, 242, 92, 0.13), transparent 36%),
+    linear-gradient(155deg, rgba(28, 43, 33, 0.94), rgba(10, 15, 12, 0.94));
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.devkit-release::after {
+  position: absolute;
+  right: -40px;
+  bottom: -90px;
+  width: 260px;
+  height: 180px;
+  border: 1px solid rgba(183, 242, 92, 0.13);
+  border-radius: 50%;
+  content: "";
+  transform: rotate(-18deg);
+}
+
+.devkit-release__topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.devkit-release__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.52);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.devkit-release__status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffcf91;
+  box-shadow: 0 0 10px rgba(255, 207, 145, 0.5);
+}
+
+.devkit-release__status.is-good {
+  color: #d9ffa4;
+}
+
+.devkit-release__status.is-good i {
+  background: #b8f25c;
+  box-shadow: 0 0 12px rgba(184, 242, 92, 0.7);
+  animation: devkit-pulse 2.4s ease-in-out infinite;
+}
+
+.devkit-release__status.is-bad {
+  color: #ffb2a8;
+}
+
+.devkit-release__status.is-bad i {
+  background: #ff6b5e;
+  box-shadow: 0 0 12px rgba(255, 107, 94, 0.6);
+}
+
+.devkit-release__env {
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+}
+
+.devkit-release__domain {
+  position: relative;
+  z-index: 1;
+  margin: 13px 0 8px;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 430;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.devkit-release__domain span {
+  color: rgba(255, 255, 255, 0.26);
+  font-size: 17px;
+  letter-spacing: 0;
+}
+
+.devkit-release__meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+
+.devkit-release__meta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  padding: 4px 7px;
+  border: 0.5px solid rgba(183, 242, 92, 0.26);
+  border-radius: 5px;
+  color: #d9ffa4;
+  font-family: var(--font-ui);
+  font-size: 8.5px;
+  font-weight: 600;
+}
+
+.devkit-pipeline {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  margin: 14px 0 16px;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.devkit-pipeline__node {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px;
+  background: #0d1210;
+}
+
+.devkit-pipeline__index {
+  color: rgba(255, 255, 255, 0.24);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.devkit-pipeline__dot {
+  display: flex;
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.devkit-pipeline__dot > i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.devkit-pipeline__node.is-pass .devkit-pipeline__dot {
+  background: rgba(183, 242, 92, 0.12);
+  color: #cfff8e;
+}
+
+.devkit-pipeline__node.is-fail .devkit-pipeline__dot {
+  background: rgba(255, 107, 94, 0.12);
+  color: #ffb2a8;
+}
+
+.devkit-pipeline__node.is-running .devkit-pipeline__dot {
+  background: rgba(255, 207, 145, 0.12);
+  color: #ffcf91;
+  animation: devkit-pulse 1.4s ease-in-out infinite;
+}
+
+.devkit-pipeline__copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.devkit-pipeline__copy strong {
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+.devkit-pipeline__copy small {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.devkit-pipeline__count {
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.24);
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+
+.devkit-ship__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.54fr) minmax(230px, 0.72fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.devkit-checks,
+.devkit-commits {
+  overflow: hidden;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(12, 17, 14, 0.86);
+}
+
+.devkit-checks__head,
+.devkit-commits__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 35px;
+  padding: 0 13px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.36);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.devkit-check {
+  display: grid;
+  grid-template-columns: 22px minmax(100px, 0.58fr) minmax(0, 1fr) 42px;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 6px 13px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.045);
+}
+
+.devkit-check:last-child {
+  border-bottom: 0;
+}
+
+.devkit-check__status {
+  display: flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.26);
+}
+
+.devkit-check.is-pass .devkit-check__status {
+  background: rgba(183, 242, 92, 0.12);
+  color: #cfff8e;
+}
+
+.devkit-check.is-fail .devkit-check__status {
+  background: rgba(255, 107, 94, 0.12);
+  color: #ffb2a8;
+}
+
+.devkit-check.is-running .devkit-check__status {
+  background: rgba(255, 207, 145, 0.12);
+  color: #ffcf91;
+  animation: devkit-spin 900ms linear infinite;
+}
+
+.devkit-check__label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.devkit-check__label strong {
+  overflow: hidden;
+  font-size: 9.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.devkit-check__label small {
+  color: rgba(255, 255, 255, 0.26);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.devkit-check__detail {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.36);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.devkit-check.is-pass .devkit-check__detail {
+  color: rgba(205, 235, 162, 0.66);
+}
+
+.devkit-check.is-fail .devkit-check__detail {
+  color: rgba(255, 178, 168, 0.76);
+}
+
+.devkit-check__time {
+  color: rgba(255, 255, 255, 0.22);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  text-align: right;
+}
+
+.devkit-commits__head button {
+  display: flex;
+  width: 21px;
+  height: 21px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.38);
+  cursor: pointer;
+}
+
+.devkit-commits__head button:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+.devkit-commit {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 11px 13px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+  color: inherit;
+  transition: background-color 120ms ease;
+}
+
+.devkit-commit:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.devkit-commit__sha {
+  color: #cfff8e;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.03em;
+}
+
+.devkit-commit__message {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 9.5px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.devkit-commit__meta {
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.devkit-commits__state {
+  padding: 14px 13px;
+  color: rgba(255, 255, 255, 0.34);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  line-height: 1.5;
+}
+
+.devkit-commits__state.is-error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  color: #ffb2a8;
+}
+
+.devkit-commits__state button {
+  border: 0.5px solid rgba(255, 107, 94, 0.3);
+  border-radius: 4px;
+  padding: 3px 7px;
+  background: transparent;
+  color: #ffd0c9;
+  font: inherit;
+  font-size: 8px;
+  cursor: pointer;
+}
+
+.devkit-commits__repo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 13px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+
+.devkit-commits__repo:hover {
+  color: #d9ffa4;
+}
+
+/* System ------------------------------------------------------------------- */
+
+.devkit-system__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.42fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 10px;
+}
+
+.devkit-metric {
+  display: flex;
+  min-height: 104px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 13px 14px;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 88% 8%, rgba(183, 242, 92, 0.07), transparent 40%),
+    rgba(12, 17, 14, 0.82);
+}
+
+.devkit-metric--fps {
+  grid-row: span 2;
+  min-height: 218px;
+}
+
+.devkit-metric__label {
+  color: rgba(255, 255, 255, 0.36);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.devkit-metric__value {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 380;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.devkit-metric__value.is-text {
+  font-size: 22px;
+  letter-spacing: -0.04em;
+}
+
+.devkit-metric__value small {
+  color: rgba(255, 255, 255, 0.32);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0;
+}
+
+.devkit-metric__caption {
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  line-height: 1.4;
+}
+
+.devkit-sparkline {
+  width: 100%;
+  height: 58px;
+  margin: 4px 0;
+  overflow: visible;
+}
+
+.devkit-system__columns {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 14px;
+  margin-top: 14px;
+  align-items: start;
+}
+
+.devkit-device,
+.devkit-inventory {
+  overflow: hidden;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(12, 17, 14, 0.82);
+}
+
+.devkit-block__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 35px;
+  padding: 0 13px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.36);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.devkit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 31px;
+  padding: 5px 13px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.045);
+}
+
+.devkit-row:last-child {
+  border-bottom: 0;
+}
+
+.devkit-row span {
+  color: rgba(255, 255, 255, 0.36);
+  font-size: 9px;
+}
+
+.devkit-row strong {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.76);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 500;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.devkit-inventory__counts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.devkit-inventory__counts > span {
+  display: flex;
+  min-height: 67px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 9px 11px;
+  background: #0c110e;
+  color: rgba(255, 255, 255, 0.32);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.devkit-inventory__counts strong {
+  color: rgba(255, 255, 255, 0.86);
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 450;
+  letter-spacing: -0.04em;
+}
+
+.devkit-inventory__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 11px 12px;
+}
+
+.devkit-inventory__tags span {
+  padding: 3px 6px;
+  border: 0.5px solid rgba(255, 255, 255, 0.09);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+/* Playground --------------------------------------------------------------- */
+
+.devkit-snippets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.devkit-snippets > span {
+  margin-right: 3px;
+  color: rgba(255, 255, 255, 0.28);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.devkit-snippets button {
+  min-height: 25px;
+  padding: 0 8px;
+  border: 0.5px solid rgba(255, 255, 255, 0.11);
+  border-radius: 5px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.48);
+  font: inherit;
+  font-size: 8.5px;
+  cursor: pointer;
+}
+
+.devkit-snippets button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.devkit-snippets button.is-active {
+  border-color: rgba(183, 242, 92, 0.3);
+  background: rgba(183, 242, 92, 0.09);
+  color: #d9ffa4;
+}
+
+.devkit-playground__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 14px;
+  min-height: 388px;
+}
+
+.devkit-editor,
+.devkit-console {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 0.5px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  background: #090d0b;
+}
+
+.devkit-editor__bar {
+  display: flex;
+  min-height: 33px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+  background: #0e1311;
+  color: rgba(255, 255, 255, 0.32);
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+
+.devkit-editor__dots {
+  display: flex;
+  gap: 3px;
+}
+
+.devkit-editor__dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.devkit-editor__dots i:first-child {
+  background: #ff6b5e;
+}
+
+.devkit-editor__dots i:nth-child(2) {
+  background: #ffcf91;
+}
+
+.devkit-editor__dots i:nth-child(3) {
+  background: #b8f25c;
+}
+
+.devkit-editor__file {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.devkit-editor__meta {
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.devkit-editor__body {
+  display: flex;
+  min-height: 330px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.devkit-editor__gutter {
+  width: 36px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  padding: 12px 8px 12px 0;
+  border-right: 0.5px solid rgba(255, 255, 255, 0.06);
+  background: #080c0a;
+  color: rgba(255, 255, 255, 0.2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.65;
+  text-align: right;
+}
+
+.devkit-editor__gutter span {
+  display: block;
+}
+
+.devkit-editor textarea {
+  width: 100%;
+  flex: 1;
+  resize: none;
+  border: 0;
+  outline: 0;
+  padding: 12px;
+  background: transparent;
+  color: #d9f3c5;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.65;
+  tab-size: 2;
+  white-space: pre;
+  overflow: auto;
+}
+
+.devkit-editor textarea::selection {
+  background: rgba(183, 242, 92, 0.22);
+}
+
+.devkit-console__state {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.devkit-console__state.is-running {
+  color: #ffcf91;
+}
+
+.devkit-console__state.is-done {
+  color: #b8f25c;
+}
+
+.devkit-console__state.is-error {
+  color: #ff8f82;
+}
+
+.devkit-console__clear {
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.34);
+  font: inherit;
+  font-size: 8px;
+  cursor: pointer;
+}
+
+.devkit-console__clear:hover {
+  color: #fff;
+}
+
+.devkit-console__body {
+  min-height: 330px;
+  flex: 1;
+  overflow: auto;
+  padding: 11px 12px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  line-height: 1.55;
+}
+
+.devkit-console__empty {
+  margin: 4px 0;
+  color: rgba(255, 255, 255, 0.25);
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.devkit-console__line {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 3px;
+  color: rgba(255, 255, 255, 0.66);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.devkit-console__line.is-warn {
+  color: #ffcf91;
+}
+
+.devkit-console__line.is-error {
+  color: #ffb2a8;
+}
+
+.devkit-console__prefix {
+  flex: 0 0 auto;
+  color: rgba(183, 242, 92, 0.48);
+}
+
+.devkit-console__line.is-warn .devkit-console__prefix {
+  color: #ffcf91;
+}
+
+.devkit-console__line.is-error .devkit-console__prefix {
+  color: #ff8f82;
+}
+
+.devkit-console__result {
+  margin-top: 11px;
+  padding: 8px 0 0 10px;
+  border-left: 2px solid #b8f25c;
+}
+
+.devkit-console__result > span {
+  color: rgba(183, 242, 92, 0.64);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.devkit-console__result pre {
+  margin: 4px 0 0;
+  color: #e6ffc7;
+  font: inherit;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.devkit-console__result.is-error {
+  border-color: #ff6b5e;
+}
+
+.devkit-console__result.is-error > span {
+  color: #ff8f82;
+}
+
+.devkit-console__result.is-error pre {
+  color: #ffb2a8;
+}
+
+.devkit-console__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 11px;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.24);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.devkit-console__foot > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: rgba(183, 242, 92, 0.46);
+}
+
+.devkit-sandbox {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.devkit-console__spinner {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top-color: #b8f25c;
+  border-radius: 50%;
+  animation: devkit-spin 700ms linear infinite;
+  vertical-align: -1px;
+}
+
+.devkit-workbench {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 14px;
+  padding: 13px 15px;
+  border: 0.5px solid rgba(183, 242, 92, 0.14);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 92% 20%, rgba(183, 242, 92, 0.08), transparent 40%),
+    rgba(12, 17, 14, 0.82);
+}
+
+.devkit-workbench__copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.devkit-workbench__copy .devkit-kicker {
+  margin-bottom: 3px;
+}
+
+.devkit-workbench__copy strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.devkit-workbench__copy p {
+  max-width: 480px;
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.34);
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.devkit-wallpaper-button {
+  display: inline-flex;
+  min-height: 34px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11px;
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.72);
+  font: inherit;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.devkit-wallpaper-button:hover:not(:disabled) {
+  border-color: rgba(183, 242, 92, 0.3);
+  background: rgba(183, 242, 92, 0.08);
+  color: #eaffc9;
+}
+
+.devkit-wallpaper-button:disabled {
+  color: rgba(183, 242, 92, 0.6);
+  cursor: default;
+}
+
+.devkit-wallpaper-swatch {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  border: 0.5px solid rgba(183, 242, 92, 0.3);
+  border-radius: 5px;
+  background:
+    linear-gradient(rgba(183, 242, 92, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(183, 242, 92, 0.22) 1px, transparent 1px),
+    radial-gradient(circle at 65% 35%, rgba(183, 242, 92, 0.4), transparent 45%),
+    #07110d;
+  background-size:
+    8px 8px,
+    8px 8px,
+    auto,
+    auto;
+}
+
+@keyframes devkit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes devkit-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@container devkit (max-width: 800px) {
+  .devkit__rail {
+    width: 58px;
+    padding-inline: 8px;
+  }
+
+  .devkit__brand {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .devkit__brand > span:last-child,
+  .devkit__nav-item > span:nth-child(2),
+  .devkit__nav-glyph,
+  .devkit__branch,
+  .devkit__version {
+    display: none;
+  }
+
+  .devkit__nav-item {
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  .devkit-panel {
+    padding: 20px 18px 26px;
+  }
+
+  .devkit-panel__head h2 {
+    font-size: 25px;
+  }
+
+  .devkit-ship__grid,
+  .devkit-system__columns,
+  .devkit-playground__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .devkit-system__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .devkit-metric--fps {
+    grid-column: span 2;
+    grid-row: auto;
+  }
+
+  .devkit-pipeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .devkit-commits {
+    order: 2;
+  }
+}
+
+/* DevKit — iPhone ------------------------------------------------------------ */
+
+.ios-devkit {
+  --ios-label: #f6f2e6;
+  --ios-secondary: rgba(255, 255, 255, 0.5);
+  --ios-tertiary: rgba(255, 255, 255, 0.3);
+  --ios-card: rgba(255, 255, 255, 0.055);
+  --ios-fill: rgba(255, 255, 255, 0.08);
+  --ios-separator: rgba(255, 255, 255, 0.07);
+  --ios-blue: #c9ff8d;
+  background: #0a0e0c;
+  color: #f6f2e6;
+}
+
+.ios-devkit__scroll {
+  background:
+    radial-gradient(circle at 90% -4%, rgba(183, 242, 92, 0.1), transparent 30%),
+    radial-gradient(circle at 0% 24%, rgba(80, 150, 111, 0.08), transparent 38%),
+    #0a0e0c;
+  padding-bottom: calc(72px + env(safe-area-inset-bottom));
+}
+
+.ios-devkit__header {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 8px 18px 10px;
+}
+
+.ios-devkit__mark {
+  display: flex;
+  width: 37px;
+  height: 37px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 30% 8%, rgba(255, 255, 255, 0.4), transparent 44%),
+    linear-gradient(145deg, #ddff9d, #79d95d);
+  color: #0b130a;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  box-shadow:
+    0 8px 18px rgba(81, 143, 45, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.ios-devkit__title {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.ios-devkit__title .ios-eyebrow {
+  color: rgba(183, 242, 92, 0.7);
+}
+
+.ios-devkit__title h1 {
+  font-family: var(--font-display);
+  font-size: 31px;
+  font-weight: 670;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.ios-devkit__mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  padding: 4px 8px;
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.48);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ios-devkit__mode i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #b8f25c;
+  box-shadow: 0 0 8px rgba(184, 242, 92, 0.6);
+}
+
+.ios-devkit__segments {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin: 0 16px 15px;
+  padding: 3px;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.ios-devkit__segments button {
+  min-height: 30px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.46);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 550;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.ios-devkit__segments button.is-active {
+  background: rgba(183, 242, 92, 0.14);
+  color: #eaffc9;
+  box-shadow: inset 0 0 0 0.5px rgba(183, 242, 92, 0.28);
+}
+
+.ios-devkit-ship,
+.ios-devkit-system,
+.ios-devkit-run-panel {
+  padding: 0 16px;
+}
+
+.ios-devkit-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 15px 16px;
+  border: 0.5px solid rgba(183, 242, 92, 0.18);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(183, 242, 92, 0.14), transparent 40%),
+    linear-gradient(155deg, rgba(28, 43, 33, 0.95), rgba(9, 14, 11, 0.95));
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.ios-devkit-hero::after {
+  position: absolute;
+  right: -36px;
+  bottom: -58px;
+  width: 170px;
+  height: 110px;
+  border: 1px solid rgba(183, 242, 92, 0.12);
+  border-radius: 50%;
+  content: "";
+  transform: rotate(-16deg);
+}
+
+.ios-devkit-hero__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+
+.ios-devkit-hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ios-devkit-hero__status i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffcf91;
+  box-shadow: 0 0 8px rgba(255, 207, 145, 0.5);
+}
+
+.ios-devkit-hero__status.is-good {
+  color: #d9ffa4;
+}
+
+.ios-devkit-hero__status.is-good i {
+  background: #b8f25c;
+  box-shadow: 0 0 9px rgba(184, 242, 92, 0.7);
+  animation: devkit-pulse 2.4s ease-in-out infinite;
+}
+
+.ios-devkit-hero__status.is-bad {
+  color: #ffb2a8;
+}
+
+.ios-devkit-hero__status.is-bad i {
+  background: #ff6b5e;
+}
+
+.ios-devkit-hero__label {
+  display: block;
+  margin-top: 17px;
+  color: rgba(255, 255, 255, 0.34);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ios-devkit-hero__domain {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 430;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+
+.ios-devkit-hero__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 13px;
+  color: rgba(255, 255, 255, 0.34);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.ios-devkit-hero__meta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border: 0.5px solid rgba(183, 242, 92, 0.28);
+  border-radius: 6px;
+  color: #d9ffa4;
+  font-family: var(--font-ui);
+  font-size: 8.5px;
+  font-weight: 600;
+}
+
+.ios-devkit-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.ios-devkit-run {
+  display: flex;
+  width: 100%;
+  min-height: 43px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 13px;
+  border: 0.5px solid rgba(183, 242, 92, 0.36);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.24), transparent 52%),
+    linear-gradient(145deg, rgba(183, 242, 92, 0.24), rgba(96, 171, 60, 0.16));
+  color: #eaffc9;
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.ios-devkit-run > span {
+  margin-left: auto;
+  color: rgba(234, 255, 201, 0.56);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 500;
+}
+
+.ios-devkit-run:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.ios-devkit-run.is-running svg {
+  animation: devkit-spin 900ms linear infinite;
+}
+
+.ios-devkit-run + small {
+  color: rgba(255, 255, 255, 0.28);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.ios-devkit-card {
+  overflow: hidden;
+  margin-top: 12px;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.ios-devkit-card__head {
+  display: flex;
+  min-height: 39px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 13px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.38);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ios-devkit-card__head button {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.ios-devkit-card__empty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px;
+  color: rgba(255, 255, 255, 0.36);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+}
+
+.ios-devkit-card__empty button {
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  padding: 4px 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.ios-devkit-check {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 13px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.045);
+}
+
+.ios-devkit-check:last-child {
+  border-bottom: 0;
+}
+
+.ios-devkit-check__status {
+  display: flex;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.ios-devkit-check.is-pass .ios-devkit-check__status {
+  background: rgba(183, 242, 92, 0.13);
+  color: #cfff8e;
+}
+
+.ios-devkit-check.is-fail .ios-devkit-check__status {
+  background: rgba(255, 107, 94, 0.13);
+  color: #ffb2a8;
+}
+
+.ios-devkit-check.is-running .ios-devkit-check__status {
+  background: rgba(255, 207, 145, 0.13);
+  color: #ffcf91;
+  animation: devkit-spin 900ms linear infinite;
+}
+
+.ios-devkit-check__copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ios-devkit-check__copy strong {
+  font-size: 11px;
+  font-weight: 550;
+}
+
+.ios-devkit-check__copy small {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.36);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ios-devkit-check.is-pass .ios-devkit-check__copy small {
+  color: rgba(205, 235, 162, 0.58);
+}
+
+.ios-devkit-check.is-fail .ios-devkit-check__copy small {
+  color: rgba(255, 178, 168, 0.7);
+}
+
+.ios-devkit-check__time {
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, 0.26);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.ios-devkit-commit {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 13px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.045);
+  color: inherit;
+}
+
+.ios-devkit-commit:active {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ios-devkit-commit__sha {
+  flex: 0 0 auto;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: rgba(183, 242, 92, 0.1);
+  color: #cfff8e;
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.ios-devkit-commit__copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ios-devkit-commit__copy strong {
+  overflow: hidden;
+  font-size: 10px;
+  font-weight: 550;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ios-devkit-commit__copy small {
+  color: rgba(255, 255, 255, 0.36);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.ios-devkit-card__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 13px;
+  color: rgba(255, 255, 255, 0.34);
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+
+.ios-devkit-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.ios-devkit-metric {
+  display: flex;
+  min-height: 78px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 11px 12px;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(183, 242, 92, 0.06), transparent 40%),
+    rgba(255, 255, 255, 0.045);
+}
+
+.ios-devkit-metric.is-wide {
+  grid-column: span 2;
+  min-height: 92px;
+}
+
+.ios-devkit-metric > span {
+  color: rgba(255, 255, 255, 0.34);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.ios-devkit-metric strong {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  font-family: var(--font-display);
+  font-size: 23px;
+  font-weight: 430;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+}
+
+.ios-devkit-metric strong small {
+  color: rgba(255, 255, 255, 0.35);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0;
+}
+
+.ios-devkit-metric.is-compact strong {
+  font-size: 18px;
+  line-height: 1.15;
+}
+
+.ios-devkit-metric > small {
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.ios-devkit-metric svg {
+  width: 100%;
+  height: 25px;
+  margin-top: 3px;
+}
+
+.ios-devkit-row {
+  display: flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 13px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.045);
+}
+
+.ios-devkit-row:last-child {
+  border-bottom: 0;
+}
+
+.ios-devkit-row span {
+  color: rgba(255, 255, 255, 0.36);
+  font-size: 9.5px;
+}
+
+.ios-devkit-row strong {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 500;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ios-devkit-inventory {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ios-devkit-inventory span {
+  display: flex;
+  min-height: 64px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 8px 11px;
+  background: #0c110e;
+  color: rgba(255, 255, 255, 0.32);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.ios-devkit-inventory strong {
+  color: rgba(255, 255, 255, 0.86);
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 450;
+  letter-spacing: -0.04em;
+}
+
+.ios-devkit-workbench {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px;
+}
+
+.ios-devkit-workbench > div {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ios-devkit-workbench strong {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ios-devkit-workbench small {
+  color: rgba(255, 255, 255, 0.36);
+  font-size: 8.5px;
+  line-height: 1.4;
+}
+
+.ios-devkit-workbench button {
+  min-height: 30px;
+  flex: 0 0 auto;
+  padding: 0 10px;
+  border: 0.5px solid rgba(183, 242, 92, 0.3);
+  border-radius: 8px;
+  background: rgba(183, 242, 92, 0.12);
+  color: #eaffc9;
+  font: inherit;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.ios-devkit-workbench button:disabled {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.ios-devkit-snippets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 10px 12px 0;
+}
+
+.ios-devkit-snippets button {
+  min-height: 27px;
+  padding: 0 8px;
+  border: 0.5px solid rgba(255, 255, 255, 0.11);
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.46);
+  font: inherit;
+  font-size: 8.5px;
+  cursor: pointer;
+}
+
+.ios-devkit-snippets button:active {
+  background: rgba(183, 242, 92, 0.1);
+  color: #eaffc9;
+}
+
+.ios-devkit-console textarea {
+  display: block;
+  width: calc(100% - 24px);
+  min-height: 84px;
+  margin: 10px 12px 0;
+  resize: none;
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  outline: 0;
+  padding: 10px;
+  background: #070b09;
+  color: #d9f3c5;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  tab-size: 2;
+}
+
+.ios-devkit-console textarea:focus {
+  border-color: rgba(183, 242, 92, 0.4);
+}
+
+.ios-devkit-evaluate {
+  display: flex;
+  width: calc(100% - 24px);
+  min-height: 39px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 9px 12px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #d9ff92, #9ee86f);
+  color: #142009;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ios-devkit-evaluate:disabled {
+  opacity: 0.55;
+}
+
+.ios-devkit-output {
+  margin-top: 12px;
+  overflow: hidden;
+  border: 0.5px solid rgba(183, 242, 92, 0.16);
+  border-radius: 16px;
+  background: rgba(14, 21, 16, 0.9);
+}
+
+.ios-devkit-output header {
+  display: flex;
+  min-height: 35px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 13px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.36);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ios-devkit-output pre {
+  margin: 0;
+  padding: 13px;
+  color: #d9f3c5;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ios-devkit-output pre.is-error {
+  color: #ffb2a8;
+}
+
+.ios-devkit-output p {
+  padding: 13px;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 9.5px;
+  line-height: 1.5;
+}
+
+.ios-devkit-output code {
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: rgba(183, 242, 92, 0.1);
+  color: #d9ffa4;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+}

@@ -62,7 +62,12 @@ export type SystemIconName =
   | "iphone"
   | "mac"
   | "house"
-  | "globe";
+  | "globe"
+  | "rocket"
+  | "code"
+  | "gauge"
+  | "branch"
+  | "shield";
 
 interface SystemIconProps extends Omit<SVGProps<SVGSVGElement>, "name"> {
   name: SystemIconName;
@@ -386,6 +391,39 @@ const strokePaths: Partial<Record<SystemIconName, ReactNode>> = {
     <>
       <circle cx="12" cy="12" r="9" />
       <path d="M3.4 12h17.2M12 3a16.8 16.8 0 0 1 0 18M12 3a16.8 16.8 0 0 0 0 18" />
+    </>
+  ),
+  rocket: (
+    <>
+      <path d="M14.2 4.2c3 1 5 4 5.6 8.3l-7.1 7.1c-4.3-.6-7.3-2.6-8.3-5.6Z" />
+      <path d="m7.4 16.6-3.2 3.2M9.8 7.5 5.4 5.2 3.2 9.6l3.1.9M16.5 14.2l2.3 4.4-4.4 2.2-.9-3.1" />
+      <circle cx="14.5" cy="9.5" r="1.6" />
+    </>
+  ),
+  code: (
+    <>
+      <path d="m8.5 8-4.5 4 4.5 4M15.5 8l4.5 4-4.5 4M13.5 4l-3 16" />
+    </>
+  ),
+  gauge: (
+    <>
+      <path d="M4 17.5a8 8 0 1 1 16 0" />
+      <path d="m12 13 4.4-4.4" />
+      <circle cx="12" cy="13" r="1.4" fill="currentColor" stroke="none" />
+    </>
+  ),
+  branch: (
+    <>
+      <circle cx="6.5" cy="5.5" r="2.1" />
+      <circle cx="17.5" cy="5.5" r="2.1" />
+      <circle cx="6.5" cy="18.5" r="2.1" />
+      <path d="M6.5 7.6v8.8M17.5 7.6c0 4.5-3.2 5.6-7.5 7.4" />
+    </>
+  ),
+  shield: (
+    <>
+      <path d="M12 3.2 5.5 5.8v5.3c0 4.2 2.6 7.3 6.5 9.5 3.9-2.2 6.5-5.3 6.5-9.5V5.8Z" />
+      <path d="m9 12.2 2.1 2.1 4-4.3" />
     </>
   ),
 };

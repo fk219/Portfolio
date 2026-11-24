@@ -115,6 +115,7 @@ const validWallpapers: WallpaperId[] = [
   "sonoma",
   "lagoon",
   "graphite",
+  "blueprint",
 ];
 
 export function OSProvider({ children }: { children: ReactNode }) {

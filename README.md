@@ -2,11 +2,11 @@
 
 An interactive macOS and iPhone portfolio for Furqan Khan, built with Next.js 16, React 19, and TypeScript.
 
-**Live:** [portfolio-eta-five-57.vercel.app](https://portfolio-eta-five-57.vercel.app)
+**Live:** [furqankhan.dev](https://furqankhan.dev)
 
-The desktop is not a screenshot. It is a small working operating system: the menu bar opens real menus, the Dock launches applications, windows move and resize, desktop widgets sit behind the work, and the portfolio content lives inside Finder, Safari, Mail, Notes, Terminal, Photos, Calendar, Music, Career, Links, Preview, and System Settings.
+The desktop is not a screenshot. It is a small working operating system: the menu bar opens real menus, the Dock launches applications, windows move and resize, desktop widgets sit behind the work, and the portfolio content lives inside Finder, Safari, Mail, Notes, Terminal, DevKit, Photos, Calendar, Music, Career, Links, Preview, and System Settings.
 
-The same portfolio also has a full iPhone experience: a framed phone on desktop, an edge-to-edge home screen on phones, a Dynamic Island, a home indicator, Control Center, a lock screen, and dedicated iOS apps for Projects, Safari, Photos, Resume, Experience, Links, Contact, and Settings.
+The same portfolio also has a full iPhone experience: a framed phone on desktop, an edge-to-edge home screen on phones, a Dynamic Island, a home indicator, Control Center, a lock screen, and dedicated iOS apps for Projects, Safari, Photos, Resume, Experience, Links, Music, DevKit, Clock, Contact, and Settings.
 
 ## Run locally
 
@@ -39,18 +39,19 @@ Use `?skipIntro=1` to skip the startup sequence during development or screenshot
 - Control Center with Wi-Fi, Bluetooth, Focus, appearance, brightness, wallpaper, and quick system actions.
 - Notification Center with live date, calendar widget, Focus control, and dismissible onboarding tips.
 - Finder with project filters, search, sort, grid/list views, a preview pane, and project case studies.
-- Safari with a complete personal site, all seven projects, live project previews, anchor navigation, and a printable resume window.
+- Safari with a complete personal site, every project, live project previews, anchor navigation, and a printable resume window.
 - A dedicated print stylesheet renders a clean, print-ready resume for PDF export without the desktop chrome.
 - Mail composer with validation, mail-app handoff, and copy-address fallback.
 - Notes with search, shortcuts, checklists, links, and copy.
 - Interactive Terminal with history and commands such as `help`, `projects`, `open`, `theme`, `wallpaper`, `neofetch`, and `exit`.
 - Photos gallery and in-window viewer with real project screenshots and generated project artwork.
 - Calendar with a working local event store.
-- Music with three generated Web Audio soundscapes and no audio assets.
-- System Settings with working appearance, wallpaper, Dock, brightness, experience switching, and reset controls.
+- Music with three original 32-second MP3 loops, a shared player, and now-playing state across the desktop, menu bar, and iPhone.
+- DevKit with live release checks, real browser telemetry, GitHub commit history, and a sandboxed JavaScript playground.
+- System Settings with working appearance, wallpaper, Dock, brightness, experience switching, and reset controls. A fifth Blueprint wallpaper is available for developer mode.
 - Career app with the full professional timeline, education, and all nine certifications.
 - Links app with GitHub, LinkedIn, X, FKodeLabs, email, and a downloadable resume.
-- iPhone experience with a live home screen, Dynamic Island, iOS app chrome, Control Center, lock screen, and Control Center handoff back to macOS.
+- iPhone experience with a live home screen, Dynamic Island, iOS app chrome, Control Center, lock screen, lock-screen weather and now playing, and a Mac handoff in the status bar.
 - Desktop widgets, Dock launch bounce, iPhone switch in the menu bar, and a cinematic handoff between the two operating systems.
 - Downloadable two-page PDF resume with experience, selected work, toolkit, education, and certifications.
 - Desktop context menu, welcome notification, keyboard shortcuts, reduced-motion support, and dark/light appearances.
@@ -71,7 +72,7 @@ The desktop has a dedicated compact mode for phones, small tablets, and narrow b
 - Safe-area support for notched and home-indicator devices, 16 px form fields to avoid iOS input zoom, and landscape adaptations.
 - Large touch targets for navigation, form actions, photo controls, and playback controls.
 - Full-screen iPhone mode with a home-screen grid and dock, live status widgets, scrollable app views, Control Center, Search, and a lock screen. On larger screens the same experience is shown inside a scaled iPhone frame.
-- A Control Center and Settings path back to macOS on devices where the menu-bar switch is not visible.
+- A Control Center and Settings path back to macOS alongside the status-bar Mac switch.
 
 ## Project structure
 
