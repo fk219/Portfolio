@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { projects } from "@/data/projects";
 
@@ -15,7 +15,11 @@ interface Photo {
   category: string;
 }
 
-export function IOSPhotosApp() {
+export function IOSPhotosApp({
+  onViewerChange,
+}: {
+  onViewerChange?: (open: boolean) => void;
+}) {
   const [selected, setSelected] = useState<number | null>(null);
   const photos = useMemo<Photo[]>(
     () =>
@@ -34,6 +38,23 @@ export function IOSPhotosApp() {
   );
 
   const active = selected === null ? null : photos[selected];
+
+  useEffect(() => {
+    onViewerChange?.(selected !== null);
+  }, [onViewerChange, selected]);
+
+  useEffect(() => () => onViewerChange?.(false), [onViewerChange]);
+
+  useEffect(() => {
+    if (selected === null) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      event.stopPropagation();
+      setSelected(null);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [selected]);
 
   return (
     <div className="ios-app-view ios-photos">

@@ -335,6 +335,34 @@ function DevKitIcon() {
   );
 }
 
+function ArcadeIcon() {
+  return (
+    <CustomTile label="arcade">
+      <defs>
+        <linearGradient id="ios-arcade-bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#20352a" />
+          <stop offset=".55" stopColor="#0c1711" />
+          <stop offset="1" stopColor="#070b09" />
+        </linearGradient>
+      </defs>
+      <rect width="64" height="64" rx="15" fill="url(#ios-arcade-bg)" />
+      <path
+        d="M14 44h10V34h9V24h10V14h8"
+        fill="none"
+        stroke="#b8f25c"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="51" cy="14" r="5" fill="#ff8fa8" />
+      <circle cx="51" cy="14" r="8" fill="none" stroke="#ff8fa8" strokeOpacity=".28" />
+      <path d="M12 51h20" stroke="#ffffff" strokeOpacity=".16" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="16" cy="16" r="2.5" fill="#b8f25c" opacity=".6" />
+      <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="#ffffff" strokeOpacity=".32" />
+    </CustomTile>
+  );
+}
+
 export function IOSAppIcon({
   app,
   size = 60,
@@ -375,6 +403,9 @@ export function IOSAppIcon({
       break;
     case "store":
       icon = <AppIcon app="store" size={size} />;
+      break;
+    case "arcade":
+      icon = <ArcadeIcon />;
       break;
     case "photos":
       icon = <AppIcon app="photos" size={size} />;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type CSSProperties } from "react";
+import { useRef, type CSSProperties } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { useEscape, useFocusTrap } from "@/lib/hooks";
 import { useMediaPlayer } from "@/lib/media-player";
@@ -32,8 +32,9 @@ export function IOSControlCenter({
     currentTrack,
     isPlaying,
     toggle: toggleMusic,
+    volume,
+    setVolume,
   } = useMediaPlayer();
-  const [volume, setVolume] = useState(64);
   const rootRef = useRef<HTMLDivElement>(null);
   useFocusTrap(rootRef, true);
   useEscape(true, onClose);
@@ -65,38 +66,47 @@ export function IOSControlCenter({
         </div>
 
         <div className="ios-cc-grid">
-          <section className="ios-cc-tile ios-cc-tile--connectivity" aria-label="Connectivity">
-            <div className="ios-cc-connectivity-row">
-              <button
-                type="button"
-                className={`ios-cc-toggle ${wifiEnabled ? "is-on" : ""}`}
-                onClick={toggleWifi}
-                aria-pressed={wifiEnabled}
-                aria-label={`Wi-Fi ${wifiEnabled ? "on" : "off"}`}
-              >
-                <SystemIcon name={wifiEnabled ? "wifi" : "wifi-off"} size={17} />
-              </button>
-              <button
-                type="button"
-                className={`ios-cc-toggle ${bluetoothEnabled ? "is-on" : ""}`}
-                onClick={toggleBluetooth}
-                aria-pressed={bluetoothEnabled}
-                aria-label={`Bluetooth ${bluetoothEnabled ? "on" : "off"}`}
-              >
-                <SystemIcon name="bluetooth" size={17} />
-              </button>
-              <button
-                type="button"
-                className={`ios-cc-toggle ${focusEnabled ? "is-on" : ""}`}
-                onClick={toggleFocus}
-                aria-pressed={focusEnabled}
-                aria-label={`Focus ${focusEnabled ? "on" : "off"}`}
-              >
-                <SystemIcon name="focus" size={16} />
-              </button>
-            </div>
-            <span className="ios-cc-tile__label">Connectivity</span>
-          </section>
+              <section className="ios-cc-tile ios-cc-tile--connectivity" aria-label="Connectivity">
+                <div className="ios-cc-connectivity-row">
+                  <div className="ios-cc-connectivity-buttons">
+                    <button
+                      type="button"
+                      className={`ios-cc-toggle ${wifiEnabled ? "is-on" : ""}`}
+                      onClick={toggleWifi}
+                      aria-pressed={wifiEnabled}
+                      aria-label={`Wi-Fi ${wifiEnabled ? "on" : "off"}`}
+                    >
+                      <SystemIcon name={wifiEnabled ? "wifi" : "wifi-off"} size={17} />
+                    </button>
+                    <button
+                      type="button"
+                      className={`ios-cc-toggle ${bluetoothEnabled ? "is-on" : ""}`}
+                      onClick={toggleBluetooth}
+                      aria-pressed={bluetoothEnabled}
+                      aria-label={`Bluetooth ${bluetoothEnabled ? "on" : "off"}`}
+                    >
+                      <SystemIcon name="bluetooth" size={17} />
+                    </button>
+                    <button
+                      type="button"
+                      className={`ios-cc-toggle ${focusEnabled ? "is-on" : ""}`}
+                      onClick={toggleFocus}
+                      aria-pressed={focusEnabled}
+                      aria-label={`Focus ${focusEnabled ? "on" : "off"}`}
+                    >
+                      <SystemIcon name="focus" size={16} />
+                    </button>
+                  </div>
+                  <span className="ios-cc-connectivity-copy">
+                    <strong>{wifiEnabled ? "Wi-Fi on" : "Wi-Fi off"}</strong>
+                    <small>
+                      {bluetoothEnabled ? "Bluetooth on" : "Bluetooth off"} ·{" "}
+                      {focusEnabled ? "Focus on" : "Focus off"}
+                    </small>
+                  </span>
+                </div>
+                <span className="ios-cc-tile__label">Connectivity</span>
+              </section>
 
           <div
             className="ios-cc-tile ios-cc-tile--media"
@@ -171,9 +181,9 @@ export function IOSControlCenter({
               type="range"
               min="0"
               max="100"
-              value={volume}
+              value={Math.round(volume * 100)}
               aria-label="Volume"
-              onChange={(event) => setVolume(Number(event.target.value))}
+              onChange={(event) => setVolume(Number(event.target.value) / 100)}
             />
           </section>
 

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { BugHunt } from "@/components/arcade/BugHunt";
+import { SnakeGame } from "@/components/arcade/SnakeGame";
 import { ProjectArtwork } from "@/components/apps/ProjectArtwork";
 import {
   featuredProjects,
@@ -41,6 +42,7 @@ export function IOSStoreApp({
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<"all" | "Case study" | "Experiment">("all");
+  const [arcadeGame, setArcadeGame] = useState<"snake" | "bug">("snake");
   const activeProject = activeSlug ? findProject(activeSlug) : undefined;
   const hero = featuredProjects[0] ?? projects[0];
   const apps = useMemo(() => {
@@ -72,9 +74,14 @@ export function IOSStoreApp({
                 <span className="ios-eyebrow">Portfolio OS</span>
                 <h1>Store</h1>
               </span>
-              <span className="ios-store__bag">
+              <button
+                type="button"
+                className="ios-store__bag"
+                onClick={() => setTab("developer")}
+                aria-label="Open the developer profile"
+              >
                 <SystemIcon name="bag" size={16} />
-              </span>
+              </button>
             </header>
 
             {tab === "today" && (
@@ -141,8 +148,8 @@ export function IOSStoreApp({
                   </span>
                   <span>
                     <span className="ios-store__eyebrow">Arcade</span>
-                    <strong>Bug Hunt</strong>
-                    <small>Seven bugs. Find them before the build ships.</small>
+                    <strong>Snake + Bug Hunt</strong>
+                    <small>Two original games. No accounts, no ads.</small>
                   </span>
                   <SystemIcon name="arrow-right" size={13} />
                 </button>
@@ -215,11 +222,31 @@ export function IOSStoreApp({
             {tab === "arcade" && (
               <div className="ios-store-arcade-page">
                 <header className="ios-store-page-title">
-                  <span className="ios-store__eyebrow">Arcade / 01</span>
+                  <span className="ios-store__eyebrow">Arcade / 02</span>
                   <h2>Play the work.</h2>
-                  <p>Seven bugs from the same systems in this portfolio.</p>
+                  <p>Two small games from the same systems in this portfolio.</p>
                 </header>
-                <BugHunt compact />
+                <div className="ios-store-arcade-switch" role="tablist" aria-label="Choose a game">
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={arcadeGame === "snake"}
+                    className={arcadeGame === "snake" ? "is-active" : ""}
+                    onClick={() => setArcadeGame("snake")}
+                  >
+                    Snake
+                  </button>
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={arcadeGame === "bug"}
+                    className={arcadeGame === "bug" ? "is-active" : ""}
+                    onClick={() => setArcadeGame("bug")}
+                  >
+                    Bug Hunt
+                  </button>
+                </div>
+                {arcadeGame === "snake" ? <SnakeGame compact /> : <BugHunt compact />}
               </div>
             )}
 

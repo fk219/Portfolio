@@ -240,9 +240,13 @@ export function IOSHomeScreen({
               </span>
               <strong className="ios-now__title">Portfolio OS 2.0</strong>
               <small className="ios-now__blurb">
-                Store, Bug Hunt, recruiter view, and a real developer toolkit.
+                Store, Arcade, recruiter view, and a real developer toolkit.
               </small>
               <span className="ios-recruiter__actions">
+                <button type="button" onClick={() => onOpenApp("arcade")}>
+                  <SystemIcon name="play" size={10} />
+                  Arcade
+                </button>
                 <button type="button" onClick={() => onOpenApp("store")}>
                   <SystemIcon name="bag" size={10} />
                   Store

@@ -6,6 +6,7 @@ export type IOSAppId =
   | "profile"
   | "experience"
   | "links"
+  | "arcade"
   | "notes"
   | "calculator"
   | "music"
@@ -32,13 +33,14 @@ export const IOS_HOME_APPS: IOSAppDefinition[] = [
   { id: "resume", name: "Resume" },
   { id: "profile", name: "Profile" },
   { id: "experience", name: "Experience" },
-  { id: "links", name: "Links" },
+  { id: "arcade", name: "Arcade" },
   { id: "store", name: "Store" },
   { id: "music", name: "Music" },
   { id: "devkit", name: "DevKit" },
 ];
 
 export const IOS_EXTRA_APPS: IOSAppDefinition[] = [
+  { id: "links", name: "Links" },
   { id: "notes", name: "Notes" },
   { id: "clock", name: "Clock" },
   { id: "calculator", name: "Calculator" },

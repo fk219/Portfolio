@@ -2492,7 +2492,7 @@ button.ios-island--playing:hover {
   z-index: 50;
   display: flex;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.94);
+  background: #000;
   color: #fff;
   animation: ios-fade-in 180ms ease both;
 }
@@ -3872,12 +3872,22 @@ button.ios-island--playing:hover {
 
 .ios-account-card {
   display: flex;
+  width: calc(100% - 32px);
   align-items: center;
   gap: 11px;
   margin: 4px 16px 16px;
   padding: 12px 14px;
+  border: 0;
   border-radius: 17px;
   background: var(--ios-card);
+  color: var(--ios-label);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ios-account-card:active {
+  background: var(--ios-soft);
 }
 
 .ios-account-card__avatar {
@@ -4483,8 +4493,8 @@ button.ios-island--playing:hover {
   inset: 0;
   width: 100%;
   border: 0;
-  background: rgba(7, 10, 14, 0.6);
-  backdrop-filter: blur(34px) saturate(120%);
+  background: rgba(7, 10, 14, 0.74);
+  backdrop-filter: blur(44px) saturate(120%);
   cursor: default;
 }
 
@@ -4563,7 +4573,39 @@ button.ios-island--playing:hover {
 
 .ios-cc-connectivity-row {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ios-cc-connectivity-buttons {
+  display: flex;
   gap: 9px;
+}
+
+.ios-cc-connectivity-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+}
+
+.ios-cc-connectivity-copy strong {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.ios-cc-connectivity-copy small {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ios-cc-toggle {
@@ -4807,8 +4849,8 @@ button.ios-island--playing:hover {
   inset: 0;
   width: 100%;
   border: 0;
-  background: rgba(8, 11, 15, 0.72);
-  backdrop-filter: blur(38px) saturate(130%);
+  background: rgba(8, 11, 15, 0.8);
+  backdrop-filter: blur(44px) saturate(130%);
   cursor: default;
 }
 
@@ -5181,16 +5223,25 @@ button.ios-island--playing:hover {
   }
 
   .ios-photo-viewer__top {
-    padding-top: calc(env(safe-area-inset-top) + 10px);
+    padding-top: calc(
+      var(--ios-statusbar-space) + env(safe-area-inset-top, 0px) + 4px
+    );
   }
 
   .ios-safari__toolbar {
     bottom: calc(18px + env(safe-area-inset-bottom));
   }
 
-  .ios-control-center__panel,
+  .ios-control-center__panel {
+    padding-top: calc(
+      var(--ios-statusbar-space) + env(safe-area-inset-top, 0px) + 4px
+    );
+  }
+
   .ios-spotlight__panel {
-    padding-top: calc(env(safe-area-inset-top) + 12px);
+    padding-top: calc(
+      var(--ios-statusbar-space) + env(safe-area-inset-top, 0px) + 8px
+    );
   }
 
   .ios-home-indicator {
@@ -5284,6 +5335,34 @@ button.ios-island--playing:hover {
 
   .ios-page-dots {
     margin-top: 8px;
+  }
+
+  .ios-cc-grid {
+    gap: 8px;
+  }
+
+  .ios-cc-tile {
+    min-height: 62px;
+  }
+
+  .ios-cc-tile--connectivity {
+    min-height: 96px;
+  }
+
+  .ios-cc-tile--media {
+    min-height: 84px;
+  }
+
+  .ios-cc-tile--focus {
+    min-height: 84px;
+  }
+
+  .ios-cc-focus-icon {
+    display: none;
+  }
+
+  .ios-control-center__footnote {
+    display: none;
   }
 }
 
@@ -5669,5 +5748,14 @@ button.ios-island--playing:hover {
   color: rgba(27, 32, 30, 0.34);
   font-size: 8px;
   line-height: 1.5;
+}
+
+.ios-brightness-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 95;
+  pointer-events: none;
+  background: #000;
+  transition: opacity 160ms ease;
 }
 

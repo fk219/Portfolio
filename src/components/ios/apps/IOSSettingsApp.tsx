@@ -15,9 +15,11 @@ const themes: Array<{ id: ThemeMode; label: string }> = [
 export function IOSSettingsApp({
   onSwitchToMac,
   onLock,
+  onOpenProfile,
 }: {
   onSwitchToMac: () => void;
   onLock: () => void;
+  onOpenProfile: () => void;
 }) {
   const {
     settings,
@@ -34,14 +36,19 @@ export function IOSSettingsApp({
           <h1>Settings</h1>
         </header>
 
-        <section className="ios-account-card">
+        <button
+          type="button"
+          className="ios-account-card"
+          onClick={onOpenProfile}
+          aria-label="Open Furqan Khan's profile"
+        >
           <span className="ios-account-card__avatar">FK</span>
           <span>
             <strong>Furqan Khan</strong>
             <small>Portfolio OS · iPhone</small>
           </span>
           <SystemIcon name="chevron-right" size={14} />
-        </section>
+        </button>
 
         <section className="ios-settings-group">
           <h2>Experience</h2>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { BugHunt } from "@/components/arcade/BugHunt";
+import { SnakeGame } from "@/components/arcade/SnakeGame";
 import { ProjectArtwork } from "@/components/apps/ProjectArtwork";
 import {
   featuredProjects,
@@ -25,7 +26,7 @@ const navItems: Array<{
   { id: "today", label: "Today", caption: "Curated", icon: "house" },
   { id: "apps", label: "Apps", caption: `${projects.length} products`, icon: "grid" },
   { id: "labs", label: "Labs", caption: "Experiments", icon: "folder" },
-  { id: "arcade", label: "Arcade", caption: "Bug Hunt", icon: "play" },
+  { id: "arcade", label: "Arcade", caption: "Snake + bugs", icon: "play" },
   { id: "developer", label: "Developer", caption: "Furqan Khan", icon: "command" },
 ];
 
@@ -56,6 +57,7 @@ export function Store() {
   const [activeSlug, setActiveSlug] = useState(projects[0]?.slug ?? "");
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<"all" | "Case study" | "Experiment">("all");
+  const [arcadeGame, setArcadeGame] = useState<"snake" | "bug">("snake");
 
   const activeProject = storeProject(activeSlug);
   const hero = featuredProjects[0] ?? projects[0];
@@ -205,8 +207,8 @@ export function Store() {
                 </span>
                 <span>
                   <span className="store-eyebrow">Arcade</span>
-                  <strong>Bug Hunt</strong>
-                  <small>Seven bugs. One run. Find them before the build ships.</small>
+                  <strong>Snake + Bug Hunt</strong>
+                  <small>Two original games. No accounts, no ads, no network.</small>
                 </span>
                 <span className="store-arcade-card__cta">
                   Play
@@ -282,15 +284,35 @@ export function Store() {
             <div className="store-arcade">
               <header className="store-page-head">
                 <div>
-                  <span className="store-eyebrow">Arcade / 01</span>
+                  <span className="store-eyebrow">Arcade / 02</span>
                   <h2>Play the work.</h2>
                   <p>
-                    A small debugging game made from the same problems the
-                    portfolio solves. No timer, no account, no fake leaderboard.
+                    Two small games made from the same systems the portfolio
+                    solves. No timer pressure, no account, no fake leaderboard.
                   </p>
                 </div>
               </header>
-              <BugHunt />
+              <div className="store-arcade__switch" role="tablist" aria-label="Choose a game">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={arcadeGame === "snake"}
+                  className={arcadeGame === "snake" ? "is-active" : ""}
+                  onClick={() => setArcadeGame("snake")}
+                >
+                  Snake
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={arcadeGame === "bug"}
+                  className={arcadeGame === "bug" ? "is-active" : ""}
+                  onClick={() => setArcadeGame("bug")}
+                >
+                  Bug Hunt
+                </button>
+              </div>
+              {arcadeGame === "snake" ? <SnakeGame /> : <BugHunt />}
             </div>
           )}
 

@@ -23,6 +23,7 @@ import { IOSCalculatorApp } from "./apps/IOSCalculatorApp";
 import { IOSMusicApp } from "./apps/IOSMusicApp";
 import { IOSDevKitApp } from "./apps/IOSDevKitApp";
 import { IOSStoreApp } from "./apps/IOSStoreApp";
+import { IOSArcadeApp } from "./apps/IOSArcadeApp";
 import { IOSClockApp } from "./apps/IOSClockApp";
 import { IOSContactApp } from "./apps/IOSContactApp";
 import { IOSSettingsApp } from "./apps/IOSSettingsApp";
@@ -59,6 +60,7 @@ export function IOSExperience() {
   const [controlCenter, setControlCenter] = useState(false);
   const [searching, setSearching] = useState(false);
   const [locked, setLocked] = useState(false);
+  const [immersive, setImmersive] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const closeTimer = useRef<number | null>(null);
   const scale = useFrameScale();
@@ -71,6 +73,7 @@ export function IOSExperience() {
     setSearching(false);
     setControlCenter(false);
     setLocked(false);
+    setImmersive(false);
   }, []);
 
   const closeApp = useCallback(() => {
@@ -80,6 +83,7 @@ export function IOSExperience() {
     closeTimer.current = window.setTimeout(() => {
       setActiveApp(null);
       setClosing(false);
+      setImmersive(false);
     }, 230);
   }, [activeApp]);
 
@@ -98,6 +102,7 @@ export function IOSExperience() {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
+      if (immersive) return;
       if (controlCenter) {
         setControlCenter(false);
         return;
@@ -114,7 +119,7 @@ export function IOSExperience() {
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [activeApp, closeApp, controlCenter, locked, searching]);
+  }, [activeApp, closeApp, controlCenter, immersive, locked, searching]);
 
   useEffect(() => {
     return () => {
@@ -125,22 +130,29 @@ export function IOSExperience() {
   const statusTone =
     locked || !activeApp
       ? "light"
-      : activeApp === "safari" ||
-          (resolvedTheme === "light" &&
-            activeApp !== "calculator" &&
-            activeApp !== "devkit" &&
-            activeApp !== "store")
-        ? "dark"
-        : "light";
+      : immersive
+        ? "light"
+        : activeApp === "safari" ||
+            (resolvedTheme === "light" &&
+              activeApp !== "calculator" &&
+              activeApp !== "devkit" &&
+              activeApp !== "store" &&
+              activeApp !== "arcade")
+          ? "dark"
+          : "light";
 
   const homeBarTone =
-    activeApp === "safari" ||
-    activeApp === "calculator" ||
-    activeApp === "devkit" ||
-    activeApp === "store" ||
-    resolvedTheme === "dark"
+    immersive
       ? "light"
-      : "dark";
+      : activeApp === "safari"
+        ? "dark"
+        : activeApp === "calculator" ||
+            activeApp === "devkit" ||
+            activeApp === "store" ||
+            activeApp === "arcade" ||
+            resolvedTheme === "dark"
+          ? "light"
+          : "dark";
 
   const renderApp = (app: IOSAppId) => {
     switch (app) {
@@ -154,7 +166,7 @@ export function IOSExperience() {
       case "safari":
         return <IOSSafariApp onOpenProject={openProject} />;
       case "photos":
-        return <IOSPhotosApp />;
+        return <IOSPhotosApp onViewerChange={setImmersive} />;
       case "resume":
         return <IOSResumeApp />;
       case "profile":
@@ -183,6 +195,8 @@ export function IOSExperience() {
             onOpenResume={() => openApp("resume")}
           />
         );
+      case "arcade":
+        return <IOSArcadeApp />;
       case "clock":
         return <IOSClockApp />;
       case "contact":
@@ -191,6 +205,7 @@ export function IOSExperience() {
         return (
           <IOSSettingsApp
             onSwitchToMac={goToMac}
+            onOpenProfile={() => openApp("profile")}
             onLock={() => {
               setControlCenter(false);
               setLocked(true);
@@ -323,6 +338,14 @@ export function IOSExperience() {
                 onOpenProject={openProject}
               />
             )}
+
+            <span
+              className="ios-brightness-shade"
+              aria-hidden="true"
+              style={{
+                opacity: Math.max(0, (100 - settings.brightness) * 0.007),
+              }}
+            />
           </div>
         </div>
       </div>
