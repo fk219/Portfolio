@@ -2,6 +2,35 @@
 
 Every live project is reviewable without creating an account. Seeded accounts are for demos only; do not enter personal, medical, or payment information.
 
+## Featured product demos
+
+### Mosaic
+
+- Live: https://insta-clone.furqankhan.dev
+- Demo: `demo_mosaic` / `DemoMosaic2026!`
+- Press **Use demo account** on the sign-in page. The account is shared and already has posts, stories, messages, notifications and a saved post.
+- The API runs on Render's free plan, so the first request after idle may take up to a minute.
+
+### Model Arena
+
+- Live: https://ai-battle-arena.furqankhan.dev
+- No login. Choose a starter prompt or write one, then send it.
+- The deployed demo runs the fixed Cohere vs Groq pair. The OpenRouter model catalog and selectors are wired and activate when an OpenRouter key is configured.
+
+### Research Desk
+
+- Live: https://perplexity.furqankhan.dev
+- Press **Open the demo desk** on the sign-in page. No credentials are required.
+- The shared demo desk is seeded with three sample research notes, each with numbered sources.
+- The API runs on Render's free plan, so the first request after idle may take up to a minute.
+
+### Moodify
+
+- Live: https://moodify.furqankhan.dev
+- Press **Enter the demo room** on the sign-in page for one-click access.
+- Fallback credentials: `demo@moodify.local` / `DemoRoom2026!`
+- The demo room is shared and already has a seeded weekly journal. The camera is optional; the manual check-in works without it.
+
 ## Hooked on Cakes
 
 - Storefront: https://hookedoncakes.furqankhan.dev

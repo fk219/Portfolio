@@ -42,8 +42,8 @@ const collections = [
     id: "fullstack",
     kicker: "Full-stack, end to end",
     title: "The unglamorous work.",
-    blurb: "Auth, bookings, catalogues, commerce, and the data model underneath.",
-    slugs: ["klinikly", "foliofind", "learnhub", "hooked-on-cakes"],
+    blurb: "Auth, messages, bookings, catalogues, commerce, and the data model underneath.",
+    slugs: ["mosaic", "klinikly", "foliofind", "learnhub", "hooked-on-cakes"],
   },
 ];
 
