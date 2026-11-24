@@ -44,6 +44,9 @@ const appCommands: DockAppId[] = [
   "music",
   "terminal",
   "devkit",
+  "store",
+  "linkedin",
+  "github",
   "settings",
   "trash",
 ];
@@ -104,6 +107,7 @@ export function Terminal({ windowId }: { windowId?: string }) {
       output("  date                  Show the current date and time"),
       output("  neofetch              A small system portrait"),
       output("  devkit                Open DevKit (ship · system · playground)"),
+      output("  store                 Browse every project in the Store"),
       output("  deploy                Open DevKit's live check pipeline"),
       output("  clear                 Clear the window"),
       output("  exit                  Close the Terminal"),

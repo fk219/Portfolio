@@ -21,18 +21,34 @@ export function Safari({ section }: { section?: string }) {
   const [activeSlug, setActiveSlug] = useState(projects[0]?.slug ?? "");
   const [reloadKey, setReloadKey] = useState(0);
   const [webUrl, setWebUrl] = useState<string | null>(null);
-  const [addressDraft, setAddressDraft] = useState("furqan.local");
+  const [addressDraft, setAddressDraft] = useState("Start Page");
   const [webHistory, setWebHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [webKey, setWebKey] = useState(0);
+  const [homeView, setHomeView] = useState<"start" | "portfolio">("start");
+  const [startDraft, setStartDraft] = useState("");
   const activeProject =
     projects.find((project) => project.slug === activeSlug) ?? projects[0];
   const previewImage = activeProject?.screenshots[0];
 
   const goHome = () => {
     setWebUrl(null);
+    setHomeView("start");
+    setAddressDraft("Start Page");
+    setReloadKey((key) => key + 1);
+  };
+
+  const goPortfolio = () => {
+    setWebUrl(null);
+    setHomeView("portfolio");
     setAddressDraft("furqan.local");
     setReloadKey((key) => key + 1);
+  };
+
+  const submitStartQuery = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!startDraft.trim()) return;
+    openWebAddress(startDraft);
   };
 
   const openWebAddress = (raw: string) => {
@@ -77,6 +93,7 @@ export function Safari({ section }: { section?: string }) {
 
   useEffect(() => {
     if (!section) return;
+    setHomeView("portfolio");
     if (webUrl) {
       setWebUrl(null);
       setAddressDraft("furqan.local");
@@ -106,7 +123,11 @@ export function Safari({ section }: { section?: string }) {
       setWebKey((key) => key + 1);
       return;
     }
-    pageRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    if (homeView === "portfolio") {
+      pageRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+      setReloadKey((key) => key + 1);
+      return;
+    }
     setReloadKey((key) => key + 1);
   };
 
@@ -142,8 +163,8 @@ export function Safari({ section }: { section?: string }) {
             type="button"
             className="safari__tool"
             onClick={goHome}
-            aria-label="Portfolio home"
-            title="Portfolio home"
+            aria-label="Safari start page"
+            title="Start page"
           >
             <SystemIcon name="house" size={15} />
           </button>
@@ -154,14 +175,22 @@ export function Safari({ section }: { section?: string }) {
           role="search"
           onSubmit={(event) => {
             event.preventDefault();
-            if (addressDraft.trim().toLowerCase() === "furqan.local") {
+            const value = addressDraft.trim().toLowerCase();
+            if (value === "furqan.local") {
+              goPortfolio();
+              return;
+            }
+            if (value === "start page" || value === "start") {
               goHome();
               return;
             }
             submitAddress(event);
           }}
         >
-          <SystemIcon name={webUrl ? "globe" : "lock"} size={11} />
+          <SystemIcon
+            name={webUrl ? "globe" : homeView === "start" ? "search" : "lock"}
+            size={11}
+          />
           <input
             value={addressDraft}
             onChange={(event) => setAddressDraft(event.target.value)}
@@ -184,7 +213,13 @@ export function Safari({ section }: { section?: string }) {
             type="button"
             className="safari__reload"
             onClick={handleReload}
-            aria-label={webUrl ? "Reload page" : "Reload page and return to the top"}
+            aria-label={
+              webUrl
+                ? "Reload page"
+                : homeView === "portfolio"
+                  ? "Reload the portfolio page"
+                  : "Refresh the start page"
+            }
             title="Reload"
           >
             <span
@@ -223,7 +258,9 @@ export function Safari({ section }: { section?: string }) {
       </div>
 
       <div
-        className={`safari__viewport ${webUrl ? "is-web" : ""}`}
+        className={`safari__viewport ${webUrl ? "is-web" : ""} ${
+          !webUrl && homeView === "start" ? "is-start" : ""
+        }`}
         ref={pageRef}
       >
         {webUrl ? (
@@ -235,8 +272,160 @@ export function Safari({ section }: { section?: string }) {
               referrerPolicy="no-referrer"
             />
           </div>
+        ) : homeView === "start" ? (
+          <div className="safari-start">
+            <div className="safari-start__hero">
+              <span className="safari-start__mark">
+                <SystemIcon name="globe" size={30} />
+              </span>
+              <span className="safari-start__kicker">Safari / Start page</span>
+              <h2>
+                Search the web.
+                <br />
+                Keep the portfolio close.
+              </h2>
+              <p>
+                A real browser for the portfolio OS. Search through Marginalia,
+                open a readable site, or jump into the dedicated social apps.
+              </p>
+              <form className="safari-start__form" onSubmit={submitStartQuery}>
+                <SystemIcon name="search" size={15} />
+                <input
+                  autoFocus
+                  value={startDraft}
+                  onChange={(event) => setStartDraft(event.target.value)}
+                  placeholder="Search with Marginalia or enter a website"
+                  aria-label="Search the web or enter a website"
+                  spellCheck={false}
+                  autoCapitalize="none"
+                  autoComplete="off"
+                />
+                <button type="submit">Search</button>
+              </form>
+              <div className="safari-start__quick">
+                <button type="button" onClick={() => goPortfolio()}>
+                  furqan.local
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    openWebAddress("https://en.wikipedia.org/wiki/Main_Page")
+                  }
+                >
+                  Wikipedia
+                </button>
+                <button
+                  type="button"
+                  onClick={() => openWebAddress("https://openlibrary.org/")}
+                >
+                  Open Library
+                </button>
+              </div>
+            </div>
+
+            <section className="safari-start__favorites" aria-label="Favorites">
+              <div className="safari-start__section-head">
+                <span>Favorites</span>
+                <span>Open in this browser or a dedicated app</span>
+              </div>
+              <div className="safari-start__grid">
+                <button
+                  type="button"
+                  className="safari-favorite is-portfolio"
+                  onClick={() => goPortfolio()}
+                >
+                  <span className="safari-favorite__icon">
+                    <SystemIcon name="house" size={18} />
+                  </span>
+                  <strong>Portfolio</strong>
+                  <small>furqan.local</small>
+                </button>
+                <button
+                  type="button"
+                  className="safari-favorite is-wikipedia"
+                  onClick={() =>
+                    openWebAddress("https://en.wikipedia.org/wiki/Main_Page")
+                  }
+                >
+                  <span className="safari-favorite__icon">W</span>
+                  <strong>Wikipedia</strong>
+                  <small>Reference</small>
+                </button>
+                <button
+                  type="button"
+                  className="safari-favorite is-library"
+                  onClick={() => openWebAddress("https://openlibrary.org/")}
+                >
+                  <span className="safari-favorite__icon">OL</span>
+                  <strong>Open Library</strong>
+                  <small>Books</small>
+                </button>
+                <button
+                  type="button"
+                  className="safari-favorite is-search"
+                  onClick={() =>
+                    openWebAddress("https://search.marginalia.nu/")
+                  }
+                >
+                  <span className="safari-favorite__icon">
+                    <SystemIcon name="search" size={17} />
+                  </span>
+                  <strong>Marginalia</strong>
+                  <small>Web search</small>
+                </button>
+                <button
+                  type="button"
+                  className="safari-favorite is-github"
+                  onClick={() => openApp("github")}
+                >
+                  <span className="safari-favorite__icon">
+                    <SystemIcon name="branch" size={17} />
+                  </span>
+                  <strong>GitHub</strong>
+                  <small>Dedicated app</small>
+                </button>
+                <button
+                  type="button"
+                  className="safari-favorite is-linkedin"
+                  onClick={() => openApp("linkedin")}
+                >
+                  <span className="safari-favorite__icon">in</span>
+                  <strong>LinkedIn</strong>
+                  <small>Dedicated app</small>
+                </button>
+              </div>
+            </section>
+
+            {webHistory.length > 0 && (
+              <section className="safari-start__recent" aria-label="Recent pages">
+                <div className="safari-start__section-head">
+                  <span>Recent</span>
+                  <span>{webHistory.length} pages this session</span>
+                </div>
+                <div className="safari-start__recent-list">
+                  {Array.from(new Set(webHistory.slice(-4)))
+                    .reverse()
+                    .map((url) => (
+                      <button
+                        key={url}
+                        type="button"
+                        onClick={() => openWebAddress(url)}
+                      >
+                        <SystemIcon name="globe" size={11} />
+                        {webAddressLabel(url)}
+                      </button>
+                    ))}
+                </div>
+              </section>
+            )}
+
+            <p className="safari-start__note">
+              Some sites refuse to be embedded. Use the external-open button in
+              the address bar, or the dedicated LinkedIn and GitHub apps.
+            </p>
+          </div>
         ) : (
-        <article className="safari-page">
+          <article className="safari-page">
           <header className="safari-site-header">
             <a href="#safari-top" className="safari-site-mark">
               <span>FK</span>

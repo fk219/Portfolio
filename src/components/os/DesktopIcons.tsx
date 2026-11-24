@@ -9,6 +9,8 @@ const desktopItems = [
   { id: "projects", label: "Projects", kind: "folder" },
   { id: "about", label: "About Me", kind: "safari" },
   { id: "career", label: "Career", kind: "career" },
+  { id: "github", label: "GitHub", kind: "github" },
+  { id: "linkedin", label: "LinkedIn", kind: "linkedin" },
   { id: "links", label: "Links", kind: "links" },
   { id: "resume", label: "Resume", kind: "pdf" },
   { id: "contact", label: "Contact", kind: "mail" },
@@ -40,6 +42,8 @@ export function DesktopIcons() {
     if (id === "projects") openApp("finder", { section: "projects" });
     if (id === "about") openApp("safari", { section: "about" });
     if (id === "career") openApp("career");
+    if (id === "github") openApp("github");
+    if (id === "linkedin") openApp("linkedin");
     if (id === "links") openApp("links");
     if (id === "resume") openResume();
     if (id === "contact") openApp("mail");
@@ -81,6 +85,10 @@ export function DesktopIcons() {
                 <AppIcon app="safari" size={50} />
               ) : item.kind === "career" ? (
                 <AppIcon app="career" size={50} />
+              ) : item.kind === "github" ? (
+                <AppIcon app="github" size={50} />
+              ) : item.kind === "linkedin" ? (
+                <AppIcon app="linkedin" size={50} />
               ) : item.kind === "links" ? (
                 <AppIcon app="links" size={50} />
               ) : (

@@ -22,6 +22,7 @@ import { IOSNotesApp } from "./apps/IOSNotesApp";
 import { IOSCalculatorApp } from "./apps/IOSCalculatorApp";
 import { IOSMusicApp } from "./apps/IOSMusicApp";
 import { IOSDevKitApp } from "./apps/IOSDevKitApp";
+import { IOSStoreApp } from "./apps/IOSStoreApp";
 import { IOSClockApp } from "./apps/IOSClockApp";
 import { IOSContactApp } from "./apps/IOSContactApp";
 import { IOSSettingsApp } from "./apps/IOSSettingsApp";
@@ -127,7 +128,8 @@ export function IOSExperience() {
       : activeApp === "safari" ||
           (resolvedTheme === "light" &&
             activeApp !== "calculator" &&
-            activeApp !== "devkit")
+            activeApp !== "devkit" &&
+            activeApp !== "store")
         ? "dark"
         : "light";
 
@@ -135,6 +137,7 @@ export function IOSExperience() {
     activeApp === "safari" ||
     activeApp === "calculator" ||
     activeApp === "devkit" ||
+    activeApp === "store" ||
     resolvedTheme === "dark"
       ? "light"
       : "dark";
@@ -173,6 +176,13 @@ export function IOSExperience() {
         return <IOSMusicApp />;
       case "devkit":
         return <IOSDevKitApp />;
+      case "store":
+        return (
+          <IOSStoreApp
+            onOpenProject={openProject}
+            onOpenResume={() => openApp("resume")}
+          />
+        );
       case "clock":
         return <IOSClockApp />;
       case "contact":

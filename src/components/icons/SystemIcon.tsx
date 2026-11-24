@@ -67,7 +67,9 @@ export type SystemIconName =
   | "code"
   | "gauge"
   | "branch"
-  | "shield";
+  | "shield"
+  | "bag"
+  | "person";
 
 interface SystemIconProps extends Omit<SVGProps<SVGSVGElement>, "name"> {
   name: SystemIconName;
@@ -424,6 +426,18 @@ const strokePaths: Partial<Record<SystemIconName, ReactNode>> = {
     <>
       <path d="M12 3.2 5.5 5.8v5.3c0 4.2 2.6 7.3 6.5 9.5 3.9-2.2 6.5-5.3 6.5-9.5V5.8Z" />
       <path d="m9 12.2 2.1 2.1 4-4.3" />
+    </>
+  ),
+  bag: (
+    <>
+      <path d="M5.2 8.2h13.6L20 20.5H4Z" />
+      <path d="M8.8 8.2V6a3.2 3.2 0 0 1 6.4 0v2.2" />
+    </>
+  ),
+  person: (
+    <>
+      <circle cx="12" cy="8" r="3.3" />
+      <path d="M5.2 20.2a6.8 6.8 0 0 1 13.6 0" />
     </>
   ),
 };

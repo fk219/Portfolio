@@ -30,6 +30,7 @@ interface SpotlightResult {
 const spotlightApps: Array<{ id: DockAppId; name: string; subtitle: string }> = [
   { id: "finder", name: "Finder", subtitle: "Browse the portfolio" },
   { id: "safari", name: "Safari", subtitle: "About Furqan" },
+  { id: "store", name: "Store", subtitle: "Apps, labs, and the arcade" },
   { id: "mail", name: "Mail", subtitle: "Start a conversation" },
   { id: "notes", name: "Notes", subtitle: "Stories and details" },
   { id: "photos", name: "Photos", subtitle: "Project screenshots" },
@@ -37,6 +38,8 @@ const spotlightApps: Array<{ id: DockAppId; name: string; subtitle: string }> = 
   { id: "music", name: "Music", subtitle: "Original focus audio" },
   { id: "terminal", name: "Terminal", subtitle: "Run a few commands" },
   { id: "devkit", name: "DevKit", subtitle: "Ship, system, and playground" },
+  { id: "linkedin", name: "LinkedIn", subtitle: "Profile snapshot and experience" },
+  { id: "github", name: "GitHub", subtitle: "Repositories and recent commits" },
   { id: "career", name: "Career", subtitle: "Experience and certifications" },
   { id: "links", name: "Links", subtitle: "GitHub, email, and the work" },
   { id: "settings", name: "System Settings", subtitle: "Make it yours" },

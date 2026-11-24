@@ -10,6 +10,8 @@ import "@/styles/overlays.css";
 import "@/styles/career.css";
 import "@/styles/ios.css";
 import "@/styles/devkit.css";
+import "@/styles/store.css";
+import "@/styles/social.css";
 
 const inter = Inter({
   subsets: ["latin"],

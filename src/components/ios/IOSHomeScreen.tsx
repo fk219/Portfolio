@@ -1,10 +1,16 @@
 "use client";
 
-import { useRef, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { ProjectArtwork } from "@/components/apps/ProjectArtwork";
 import { Wallpaper } from "@/components/os/Wallpaper";
 import { featuredProjects, projects } from "@/data/projects";
+import { profile } from "@/data/profile";
+import { certifications } from "@/data/career";
 import { useNow } from "@/lib/hooks";
 import type { ResolvedTheme, WallpaperId } from "@/lib/types";
 import { IOSAppIcon } from "./IOSAppIcon";
@@ -26,6 +32,8 @@ export function IOSHomeScreen({
   onOpenControlCenter: () => void;
 }) {
   const featured = featuredProjects[0];
+  const [widgetIndex, setWidgetIndex] = useState(0);
+  const widgetSwipe = useRef<number | null>(null);
   const now = useNow(10000);
   const current = now ?? new Date(2026, 10, 22, 9, 41);
   const time = new Intl.DateTimeFormat("en-US", {
@@ -133,27 +141,163 @@ export function IOSHomeScreen({
           ))}
         </div>
 
-        {featured && (
-          <button
-            type="button"
-            className="ios-widget ios-widget--feature"
-            onClick={() => onOpenProject(featured.slug)}
-            aria-label={`Open the ${featured.name} case study`}
-          >
-            <span className="ios-feature__art" aria-hidden="true">
-              <ProjectArtwork project={featured} compact />
+        <div
+          className="ios-smart-stack"
+          role="group"
+          aria-label="Home widgets"
+          onPointerDown={(event) => {
+            widgetSwipe.current = event.clientX;
+          }}
+          onPointerUp={(event) => {
+            const start = widgetSwipe.current;
+            if (start !== null) {
+              const delta = event.clientX - start;
+              if (Math.abs(delta) > 36) {
+                setWidgetIndex((index) => (index + (delta < 0 ? 1 : 2)) % 3);
+              }
+            }
+            widgetSwipe.current = null;
+          }}
+        >
+          {widgetIndex === 0 && (
+            <div className="ios-widget ios-widget--recruiter">
+              <span className="ios-recruiter__top">
+                <span className="ios-feature__kicker">Recruiter view</span>
+                <span className="ios-recruiter__status">
+                  <i aria-hidden="true" />
+                  Open to work
+                </span>
+              </span>
+              <span className="ios-recruiter__title">
+                Full-stack developer · Dubai
+                <small>On-site, hybrid, or remote</small>
+              </span>
+              <span className="ios-recruiter__stats">
+                <span>
+                  <strong>{featuredProjects.length}</strong>
+                  case studies
+                </span>
+                <span>
+                  <strong>{certifications.length}</strong>
+                  certifications
+                </span>
+                <span>
+                  <strong>{projects.length}</strong>
+                  apps
+                </span>
+              </span>
+              <span className="ios-recruiter__actions">
+                <button type="button" onClick={() => onOpenApp("resume")}>
+                  <SystemIcon name="document" size={10} />
+                  Resume
+                </button>
+                <button type="button" onClick={() => onOpenApp("contact")}>
+                  <SystemIcon name="mail" size={10} />
+                  Contact
+                </button>
+                <a
+                  href={profile.socials.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <SystemIcon name="person" size={10} />
+                  LinkedIn
+                </a>
+              </span>
+            </div>
+          )}
+
+          {widgetIndex === 1 && featured && (
+            <button
+              type="button"
+              className="ios-widget ios-widget--feature"
+              onClick={() => onOpenProject(featured.slug)}
+              aria-label={`Open the ${featured.name} case study`}
+            >
+              <span className="ios-feature__art" aria-hidden="true">
+                <ProjectArtwork project={featured} compact />
+              </span>
+              <span className="ios-feature__shade" aria-hidden="true" />
+              <span className="ios-feature__copy">
+                <span className="ios-feature__kicker">Selected work</span>
+                <strong>{featured.name}</strong>
+                <small>{featured.tagline}</small>
+              </span>
+              <span className="ios-feature__arrow">
+                <SystemIcon name="arrow-right" size={12} />
+              </span>
+            </button>
+          )}
+
+          {widgetIndex === 2 && (
+            <div className="ios-widget ios-widget--now">
+              <span className="ios-recruiter__top">
+                <span className="ios-feature__kicker">Now building</span>
+                <span className="ios-now__live">
+                  <i aria-hidden="true" />
+                  active
+                </span>
+              </span>
+              <strong className="ios-now__title">Portfolio OS 2.0</strong>
+              <small className="ios-now__blurb">
+                Store, Bug Hunt, recruiter view, and a real developer toolkit.
+              </small>
+              <span className="ios-recruiter__actions">
+                <button type="button" onClick={() => onOpenApp("store")}>
+                  <SystemIcon name="bag" size={10} />
+                  Store
+                </button>
+                <button type="button" onClick={() => onOpenApp("devkit")}>
+                  <SystemIcon name="code" size={10} />
+                  DevKit
+                </button>
+              </span>
+            </div>
+          )}
+
+          <div className="ios-smart-stack__dots" role="tablist" aria-label="Switch widget">
+            {[0, 1, 2].map((index) => (
+              <button
+                key={index}
+                type="button"
+                role="tab"
+                aria-selected={widgetIndex === index}
+                aria-label={
+                  index === 0
+                    ? "Recruiter view"
+                    : index === 1
+                      ? "Selected work"
+                      : "Now building"
+                }
+                className={widgetIndex === index ? "is-active" : ""}
+                onClick={() => setWidgetIndex(index)}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div
+          className="ios-recruiter-bar"
+          role="group"
+          aria-label="Recruiter quick actions"
+        >
+          <span className="ios-recruiter-bar__label">
+            <i aria-hidden="true" />
+            <span>
+              <strong>Open to work</strong>
+              <small>Dubai · remote</small>
             </span>
-            <span className="ios-feature__shade" aria-hidden="true" />
-            <span className="ios-feature__copy">
-              <span className="ios-feature__kicker">Selected work</span>
-              <strong>{featured.name}</strong>
-              <small>{featured.tagline}</small>
-            </span>
-            <span className="ios-feature__arrow">
-              <SystemIcon name="arrow-right" size={12} />
-            </span>
-          </button>
-        )}
+          </span>
+          <div className="ios-recruiter-bar__actions">
+            <button type="button" onClick={() => onOpenApp("resume")}>
+              Resume
+            </button>
+            <a href={`mailto:${profile.email}`}>Email</a>
+            <a href={profile.socials.linkedin} target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+          </div>
+        </div>
 
         <button
           type="button"

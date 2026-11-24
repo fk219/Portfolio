@@ -18,16 +18,22 @@ export function IOSSafariApp({
   const viewportRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const sheetInputRef = useRef<HTMLInputElement>(null);
+  const startInputRef = useRef<HTMLInputElement>(null);
   const [webUrl, setWebUrl] = useState<string | null>(null);
   const [webKey, setWebKey] = useState(0);
-  const [address, setAddress] = useState("furqan.local");
+  const [address, setAddress] = useState("Start Page");
+  const [homeView, setHomeView] = useState<"start" | "portfolio">("start");
+  const [startQuery, setStartQuery] = useState("");
+  const [recent, setRecent] = useState<string[]>([]);
   const [addressSheetOpen, setAddressSheetOpen] = useState(false);
   const [addressDraft, setAddressDraft] = useState("");
 
   useFocusTrap(sheetRef, addressSheetOpen, sheetInputRef);
 
   const openAddressSheet = () => {
-    setAddressDraft(address === "furqan.local" ? "" : address);
+    setAddressDraft(
+      address === "furqan.local" || address === "Start Page" ? "" : address,
+    );
     setAddressSheetOpen(true);
   };
 
@@ -40,14 +46,23 @@ export function IOSSafariApp({
         ? raw.trim()
         : resolved.url.replace(/^https?:\/\//, ""),
     );
+    setRecent((current) =>
+      [resolved.url, ...current.filter((url) => url !== resolved.url)].slice(0, 4),
+    );
     setWebKey((key) => key + 1);
     setAddressSheetOpen(false);
+  };
+
+  const submitStartQuery = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!startQuery.trim()) return;
+    navigate(startQuery);
   };
 
   const submitAddress = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (addressDraft.trim().toLowerCase() === "furqan.local") {
-      goHome();
+      goPortfolio();
       return;
     }
     navigate(addressDraft);
@@ -55,6 +70,14 @@ export function IOSSafariApp({
 
   const goHome = () => {
     setWebUrl(null);
+    setHomeView("start");
+    setAddress("Start Page");
+    setAddressSheetOpen(false);
+  };
+
+  const goPortfolio = () => {
+    setWebUrl(null);
+    setHomeView("portfolio");
     setAddress("furqan.local");
     setAddressSheetOpen(false);
   };
@@ -64,7 +87,12 @@ export function IOSSafariApp({
       setWebKey((key) => key + 1);
       return;
     }
-    viewportRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    if (homeView === "portfolio") {
+      viewportRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      setStartQuery((value) => value);
+      startInputRef.current?.focus();
+    }
   };
 
   return (
@@ -79,7 +107,163 @@ export function IOSSafariApp({
           />
         </div>
       ) : (
-      <div className="ios-app-view__scroll ios-safari__scroll" ref={viewportRef}>
+      <div
+        className={`ios-app-view__scroll ios-safari__scroll ${
+          homeView === "start" ? "is-start" : ""
+        }`}
+        ref={viewportRef}
+      >
+        {homeView === "start" ? (
+          <div className="ios-safari-start">
+            <header className="ios-safari-start__hero">
+              <span className="ios-safari-start__mark">
+                <SystemIcon name="globe" size={26} />
+              </span>
+              <span className="ios-eyebrow">Safari / Start page</span>
+              <h1>
+                Search the web.
+                <br />
+                Keep the portfolio close.
+              </h1>
+              <p>
+                Search through Marginalia, open a readable site, or jump into
+                the portfolio and its social profiles.
+              </p>
+              <form className="ios-safari-start__form" onSubmit={submitStartQuery}>
+                <SystemIcon name="search" size={14} />
+                <input
+                  ref={startInputRef}
+                  value={startQuery}
+                  onChange={(event) => setStartQuery(event.target.value)}
+                  placeholder="Search or enter a website"
+                  aria-label="Search the web or enter a website"
+                  spellCheck={false}
+                  autoCapitalize="none"
+                  autoComplete="off"
+                />
+                <button type="submit">Go</button>
+              </form>
+              <div className="ios-safari-start__quick">
+                <button type="button" onClick={goPortfolio}>
+                  furqan.local
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    navigate("https://en.wikipedia.org/wiki/Main_Page")
+                  }
+                >
+                  Wikipedia
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate("https://openlibrary.org/")}
+                >
+                  Open Library
+                </button>
+              </div>
+            </header>
+
+            <section className="ios-safari-start__favorites">
+              <header>
+                <span>Favorites</span>
+                <span>Browser or dedicated app</span>
+              </header>
+              <div className="ios-safari-start__grid">
+                <button
+                  type="button"
+                  className="ios-safari-favorite is-portfolio"
+                  onClick={goPortfolio}
+                >
+                  <span className="ios-safari-favorite__icon">
+                    <SystemIcon name="house" size={17} />
+                  </span>
+                  <strong>Portfolio</strong>
+                  <small>furqan.local</small>
+                </button>
+                <button
+                  type="button"
+                  className="ios-safari-favorite is-wikipedia"
+                  onClick={() =>
+                    navigate("https://en.wikipedia.org/wiki/Main_Page")
+                  }
+                >
+                  <span className="ios-safari-favorite__icon">W</span>
+                  <strong>Wikipedia</strong>
+                  <small>Reference</small>
+                </button>
+                <button
+                  type="button"
+                  className="ios-safari-favorite is-library"
+                  onClick={() => navigate("https://openlibrary.org/")}
+                >
+                  <span className="ios-safari-favorite__icon">OL</span>
+                  <strong>Open Library</strong>
+                  <small>Books</small>
+                </button>
+                <button
+                  type="button"
+                  className="ios-safari-favorite is-search"
+                  onClick={() => navigate("https://search.marginalia.nu/")}
+                >
+                  <span className="ios-safari-favorite__icon">
+                    <SystemIcon name="search" size={16} />
+                  </span>
+                  <strong>Marginalia</strong>
+                  <small>Web search</small>
+                </button>
+                <a
+                  className="ios-safari-favorite is-github"
+                  href={profile.socials.github}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="ios-safari-favorite__icon">
+                    <SystemIcon name="branch" size={16} />
+                  </span>
+                  <strong>GitHub</strong>
+                  <small>Open profile</small>
+                </a>
+                <a
+                  className="ios-safari-favorite is-linkedin"
+                  href={profile.socials.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="ios-safari-favorite__icon">in</span>
+                  <strong>LinkedIn</strong>
+                  <small>Open profile</small>
+                </a>
+              </div>
+            </section>
+
+            {recent.length > 0 && (
+              <section className="ios-safari-start__recent">
+                <header>
+                  <span>Recent</span>
+                  <span>{recent.length} pages</span>
+                </header>
+                <div>
+                  {recent.map((url) => (
+                    <button
+                      key={url}
+                      type="button"
+                      onClick={() => navigate(url)}
+                    >
+                      <SystemIcon name="globe" size={10} />
+                      {webAddressLabel(url)}
+                    </button>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            <p className="ios-safari-start__note">
+              Some sites refuse to be embedded. The external button in the
+              toolbar opens the current page in a new tab.
+            </p>
+          </div>
+        ) : (
         <article className="ios-site">
           <header className="ios-site__header">
             <span className="ios-site__mark">
@@ -248,6 +432,7 @@ export function IOSSafariApp({
             <span>An interactive portfolio in your pocket.</span>
           </footer>
         </article>
+        )}
       </div>
       )}
 
@@ -260,13 +445,26 @@ export function IOSSafariApp({
               goHome();
               return;
             }
+            if (homeView === "start") {
+              startInputRef.current?.focus();
+              return;
+            }
             viewportRef.current
               ?.querySelector("#ios-site-work")
               ?.scrollIntoView({ behavior: "smooth", block: "start" });
           }}
-          aria-label={webUrl ? "Portfolio home" : "Jump to work"}
+          aria-label={
+            webUrl
+              ? "Safari start page"
+              : homeView === "start"
+                ? "Focus the start page search"
+                : "Jump to work"
+          }
         >
-          <SystemIcon name={webUrl ? "house" : "list"} size={16} />
+          <SystemIcon
+            name={webUrl ? "house" : homeView === "start" ? "search" : "list"}
+            size={16}
+          />
         </button>
         <button
           type="button"
@@ -274,7 +472,10 @@ export function IOSSafariApp({
           onClick={openAddressSheet}
           aria-label="Enter a website or search"
         >
-          <SystemIcon name={webUrl ? "globe" : "lock"} size={10} />
+          <SystemIcon
+            name={webUrl ? "globe" : homeView === "start" ? "search" : "lock"}
+            size={10}
+          />
           <span>{address}</span>
         </button>
         {webUrl && (
@@ -292,7 +493,13 @@ export function IOSSafariApp({
           type="button"
           className="ios-safari__nav"
           onClick={reload}
-          aria-label={webUrl ? "Reload page" : "Scroll to top"}
+          aria-label={
+            webUrl
+              ? "Reload page"
+              : homeView === "portfolio"
+                ? "Scroll to top"
+                : "Refresh the start page"
+          }
         >
           <SystemIcon name="refresh" size={15} />
         </button>

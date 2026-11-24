@@ -691,6 +691,80 @@ function DevKitIcon({ size, className }: Omit<AppIconProps, "app">) {
   );
 }
 
+function StoreIcon({ size, className }: Omit<AppIconProps, "app">) {
+  return (
+    <IconShell
+      size={size ?? 52}
+      className={`${className ?? ""} icon-shadowed`}
+      label="store"
+    >
+      <svg viewBox="0 0 64 64" className="os-app-icon__svg">
+        <rect width="64" height="64" rx="15" fill="#0b78e8" />
+        <path
+          d="M19 27h26l-2.2 23H21.2Z"
+          fill="#ffffff"
+          opacity=".96"
+        />
+        <path
+          d="M25 28v-4.5a7 7 0 0 1 14 0V28"
+          fill="none"
+          stroke="#ffffff"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+        <path d="M25.5 35h13" stroke="#0b78e8" strokeWidth="2.4" strokeLinecap="round" />
+        <circle cx="47.5" cy="17.5" r="2.8" fill="#b8f25c" />
+        <rect x="1.5" y="1.5" width="61" height="61" rx="14" fill="none" stroke="#ffffff" strokeOpacity=".4" />
+      </svg>
+    </IconShell>
+  );
+}
+
+function LinkedInIcon({ size, className }: Omit<AppIconProps, "app">) {
+  return (
+    <IconShell
+      size={size ?? 52}
+      className={`${className ?? ""} icon-shadowed`}
+      label="linkedin"
+    >
+      <svg viewBox="0 0 64 64" className="os-app-icon__svg">
+        <rect width="64" height="64" rx="15" fill="#0a66c2" />
+        <text
+          x="32"
+          y="44"
+          textAnchor="middle"
+          fill="#ffffff"
+          fontSize="35"
+          fontWeight="700"
+          fontFamily="Arial, Helvetica, sans-serif"
+          letterSpacing="-2"
+        >
+          in
+        </text>
+        <rect x="1.5" y="1.5" width="61" height="61" rx="14" fill="none" stroke="#ffffff" strokeOpacity=".35" />
+      </svg>
+    </IconShell>
+  );
+}
+
+function GitHubIcon({ size, className }: Omit<AppIconProps, "app">) {
+  return (
+    <IconShell
+      size={size ?? 52}
+      className={`${className ?? ""} icon-shadowed`}
+      label="github"
+    >
+      <svg viewBox="0 0 64 64" className="os-app-icon__svg">
+        <rect width="64" height="64" rx="15" fill="#11151b" />
+        <g transform="translate(14 13) scale(1.5)" fill="#f5f6f7">
+          <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.35-3.87-1.35-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.08.78 2.17v3.22c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+        </g>
+        <rect x="1.5" y="1.5" width="61" height="61" rx="14" fill="none" stroke="#ffffff" strokeOpacity=".24" />
+      </svg>
+    </IconShell>
+  );
+}
+
 export function AppIcon({ app, size = 52, date, className = "" }: AppIconProps) {
   switch (app) {
     case "finder":
@@ -713,6 +787,12 @@ export function AppIcon({ app, size = 52, date, className = "" }: AppIconProps) 
       return <TerminalIcon size={size} className={className} />;
     case "devkit":
       return <DevKitIcon size={size} className={className} />;
+    case "store":
+      return <StoreIcon size={size} className={className} />;
+    case "linkedin":
+      return <LinkedInIcon size={size} className={className} />;
+    case "github":
+      return <GitHubIcon size={size} className={className} />;
     case "settings":
       return <SettingsIcon size={size} className={className} />;
     case "trash":

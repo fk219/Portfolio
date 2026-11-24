@@ -1,0 +1,929 @@
+/* LinkedIn — profile snapshot ------------------------------------------------- */
+
+.linkedin-app {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  background: #f4f2ee;
+  color: #1b1f23;
+  container-type: inline-size;
+  container-name: linkedin;
+}
+
+.linkedin-app__topbar {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 18px;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+
+.linkedin-app__logo {
+  display: flex;
+  width: 25px;
+  height: 25px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: #0a66c2;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.linkedin-app__wordmark {
+  color: #0a66c2;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.linkedin-app__snapshot {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  padding: 3px 6px;
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  color: rgba(27, 31, 35, 0.66);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.linkedin-app__top-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.linkedin-app__top-actions button,
+.linkedin-app__top-actions a {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  gap: 5px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 15px;
+  background: transparent;
+  color: rgba(27, 31, 35, 0.64);
+  font: inherit;
+  font-size: 8.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.linkedin-app__top-actions a {
+  border: 1px solid #0a66c2;
+  color: #0a66c2;
+}
+
+.linkedin-app__top-actions button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.linkedin-app__scroll {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 34px;
+}
+
+.linkedin-app__cover {
+  position: relative;
+  height: 138px;
+  overflow: hidden;
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, 0.16), transparent 44%),
+    repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 22px),
+    linear-gradient(130deg, #0a66c2, #063f79 76%);
+}
+
+.linkedin-app__cover::after {
+  position: absolute;
+  right: -40px;
+  bottom: -100px;
+  width: 320px;
+  height: 220px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  content: "";
+  transform: rotate(-12deg);
+}
+
+.linkedin-app__cover > span {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+}
+
+.linkedin-app__cover > span:first-child {
+  top: 24px;
+  left: 28px;
+}
+
+.linkedin-app__cover > span:last-child {
+  right: 28px;
+  bottom: 22px;
+}
+
+.linkedin-app__profile {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin: -42px 24px 0;
+  padding: 18px 22px;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+}
+
+.linkedin-app__avatar {
+  display: flex;
+  width: 82px;
+  height: 82px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 10%, rgba(255, 255, 255, 0.3), transparent 45%),
+    linear-gradient(145deg, #24354a, #0a111c);
+  color: #ffe2ad;
+  font-family: var(--font-display);
+  font-size: 27px;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+}
+
+.linkedin-app__identity {
+  min-width: 0;
+  flex: 1;
+  padding-top: 22px;
+}
+
+.linkedin-app__identity h2 {
+  font-family: var(--font-display);
+  font-size: 29px;
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.linkedin-app__identity p {
+  margin-top: 5px;
+  color: rgba(27, 31, 35, 0.75);
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.linkedin-app__identity > span {
+  display: block;
+  margin-top: 4px;
+  color: rgba(27, 31, 35, 0.64);
+  font-size: 8.5px;
+}
+
+.linkedin-app__identity > span button {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: #0a66c2;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.linkedin-app__open {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px !important;
+  color: #1c7c3c !important;
+  font-weight: 600;
+}
+
+.linkedin-app__open i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2f9e51;
+}
+
+.linkedin-app__profile-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 23px;
+}
+
+.linkedin-app__primary,
+.linkedin-app__profile-actions button {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: 15px;
+  font: inherit;
+  font-size: 8.5px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.linkedin-app__primary {
+  background: #0a66c2;
+  color: #fff;
+}
+
+.linkedin-app__profile-actions button {
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  background: transparent;
+  color: rgba(27, 31, 35, 0.72);
+}
+
+.linkedin-app__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.34fr) minmax(240px, 0.66fr);
+  gap: 14px;
+  padding: 15px 24px 0;
+  align-items: start;
+}
+
+.linkedin-app__main,
+.linkedin-app__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  min-width: 0;
+}
+
+.linkedin-app__card {
+  padding: 16px 18px;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 9px;
+  background: #ffffff;
+}
+
+.linkedin-app__eyebrow {
+  display: block;
+  margin-bottom: 9px;
+  color: rgba(27, 31, 35, 0.72);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.linkedin-app__card > p {
+  color: rgba(27, 31, 35, 0.68);
+  font-size: 9.5px;
+  line-height: 1.6;
+}
+
+.linkedin-app__card > p + p {
+  margin-top: 8px;
+}
+
+.linkedin-app__note {
+  padding-top: 9px;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+  color: rgba(27, 31, 35, 0.72) !important;
+  font-family: var(--font-mono);
+  font-size: 7.5px !important;
+}
+
+.linkedin-app__timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.linkedin-app__role {
+  display: flex;
+  gap: 11px;
+  padding: 11px 0;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+.linkedin-app__role:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.linkedin-app__role-mark,
+.linkedin-app__edu-mark {
+  display: flex;
+  width: 35px;
+  height: 35px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: #eef3f8;
+  color: #0a66c2;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.linkedin-app__role h3,
+.linkedin-app__education h3 {
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.linkedin-app__role strong {
+  display: block;
+  margin-top: 1px;
+  color: rgba(27, 31, 35, 0.78);
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.linkedin-app__role small,
+.linkedin-app__education small {
+  display: block;
+  margin-top: 1px;
+  color: rgba(27, 31, 35, 0.62);
+  font-size: 8px;
+}
+
+.linkedin-app__role p {
+  margin-top: 5px;
+  color: rgba(27, 31, 35, 0.7);
+  font-size: 8.8px;
+  line-height: 1.5;
+}
+
+.linkedin-app__role ul {
+  margin-top: 5px;
+  padding-left: 13px;
+  color: rgba(27, 31, 35, 0.68);
+  font-size: 8.5px;
+  line-height: 1.5;
+}
+
+.linkedin-app__education {
+  display: flex;
+  gap: 11px;
+  padding: 11px 0;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+.linkedin-app__education:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.linkedin-app__education p {
+  margin-top: 1px;
+  color: rgba(27, 31, 35, 0.6);
+  font-size: 8.8px;
+}
+
+.linkedin-app__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.linkedin-app__skills span {
+  padding: 3px 7px;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  color: rgba(27, 31, 35, 0.62);
+  font-size: 7.5px;
+}
+
+.linkedin-app__certs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.linkedin-app__certs > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 7px 0;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.07);
+}
+
+.linkedin-app__certs > div:first-child {
+  border-top: 0;
+}
+
+.linkedin-app__certs strong {
+  color: rgba(27, 31, 35, 0.78);
+  font-size: 8.5px;
+  font-weight: 600;
+}
+
+.linkedin-app__certs small {
+  color: rgba(27, 31, 35, 0.62);
+  font-size: 7.5px;
+}
+
+.linkedin-app__certs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 2px;
+  color: #0a66c2;
+  font-size: 7.5px;
+  font-weight: 600;
+}
+
+.linkedin-app__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.linkedin-app__contact a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #0a66c2;
+  font-size: 8.5px;
+  font-weight: 500;
+}
+
+@container linkedin (max-width: 760px) {
+  .linkedin-app__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .linkedin-app__profile {
+    flex-wrap: wrap;
+  }
+}
+
+/* GitHub — developer profile ------------------------------------------------- */
+
+.github-app {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  background: #0d1117;
+  color: #e6edf3;
+  container-type: inline-size;
+  container-name: github;
+}
+
+.github-app__topbar {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 18px;
+  border-bottom: 0.5px solid #30363d;
+  background: #010409;
+}
+
+.github-app__mark {
+  display: flex;
+  color: #e6edf3;
+}
+
+.github-app__mark svg {
+  width: 19px;
+  height: 19px;
+}
+
+.github-app__wordmark {
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.github-app__handle {
+  color: #8b949e;
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+
+.github-app__top-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+}
+
+.github-app__top-actions button,
+.github-app__top-actions a {
+  display: inline-flex;
+  min-height: 27px;
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  border: 0.5px solid #30363d;
+  border-radius: 6px;
+  background: #21262d;
+  color: #c9d1d9;
+  font: inherit;
+  font-size: 8px;
+  cursor: pointer;
+}
+
+.github-app__top-actions button:hover,
+.github-app__top-actions a:hover {
+  background: #30363d;
+}
+
+.github-app__top-actions button:disabled {
+  opacity: 0.55;
+}
+
+.github-app__scroll {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 26px 34px;
+}
+
+.github-app__error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 9px 11px;
+  border: 0.5px solid rgba(255, 123, 114, 0.3);
+  border-radius: 7px;
+  background: rgba(255, 123, 114, 0.08);
+  color: #ffa198;
+  font-size: 8.5px;
+}
+
+.github-app__error button {
+  margin-left: auto;
+  border: 0.5px solid rgba(255, 123, 114, 0.35);
+  border-radius: 4px;
+  padding: 3px 7px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 7.5px;
+}
+
+.github-app__hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.github-app__avatar {
+  display: flex;
+  width: 82px;
+  height: 82px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #30363d;
+  border-radius: 50%;
+  background: #161b22;
+  color: #e6edf3;
+  font-family: var(--font-display);
+  font-size: 25px;
+}
+
+.github-app__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.github-app__identity {
+  min-width: 0;
+  flex: 1;
+}
+
+.github-app__eyebrow {
+  display: block;
+  margin-bottom: 4px;
+  color: #8b949e;
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.github-app__identity h2 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.github-app__login {
+  display: block;
+  margin-top: 2px;
+  color: #8b949e;
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.github-app__identity p {
+  max-width: 540px;
+  margin-top: 7px;
+  color: #c9d1d9;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.github-app__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+  color: #8b949e;
+  font-size: 8px;
+}
+
+.github-app__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.github-app__hero-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 19px;
+}
+
+.github-app__primary,
+.github-app__hero-actions button {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 10px;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.github-app__primary {
+  border: 0.5px solid rgba(240, 246, 252, 0.1);
+  background: #238636;
+  color: #fff;
+}
+
+.github-app__hero-actions button {
+  border: 0.5px solid #30363d;
+  background: #21262d;
+  color: #c9d1d9;
+}
+
+.github-app__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-top: 18px;
+  overflow: hidden;
+  border: 0.5px solid #30363d;
+  border-radius: 7px;
+  background: #30363d;
+}
+
+.github-app__stats span {
+  display: flex;
+  min-height: 67px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 9px 12px;
+  background: #0d1117;
+  color: #8b949e;
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.github-app__stats strong {
+  color: #e6edf3;
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 450;
+  letter-spacing: -0.04em;
+}
+
+.github-app__columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(250px, 0.6fr);
+  gap: 14px;
+  margin-top: 16px;
+  align-items: start;
+}
+
+.github-app__main,
+.github-app__aside {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.github-app__card {
+  overflow: hidden;
+  border: 0.5px solid #30363d;
+  border-radius: 7px;
+  background: #0d1117;
+}
+
+.github-app__card-head {
+  display: flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 12px;
+  border-bottom: 0.5px solid #30363d;
+  background: #161b22;
+  color: #8b949e;
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.github-app__pinned {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #30363d;
+}
+
+.github-app__pinned a {
+  display: flex;
+  min-height: 110px;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px;
+  background: #0d1117;
+  color: inherit;
+}
+
+.github-app__pinned a:hover,
+.github-app__repo:hover {
+  background: #161b22;
+}
+
+.github-app__repo-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #58a6ff;
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+.github-app__pinned p,
+.github-app__repo p {
+  color: #8b949e;
+  font-size: 8.5px;
+  line-height: 1.45;
+}
+
+.github-app__repo {
+  display: flex;
+  min-height: 86px;
+  flex-direction: column;
+  gap: 5px;
+  padding: 11px 12px;
+  border-top: 0.5px solid #30363d;
+  color: inherit;
+}
+
+.github-app__repo:first-of-type {
+  border-top: 0;
+}
+
+.github-app__repo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  color: #8b949e;
+  font-family: var(--font-mono);
+  font-size: 7px;
+}
+
+.github-app__repo-meta i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e3b341;
+}
+
+.github-app__repo-meta span {
+  margin-left: auto;
+}
+
+.github-app__repo-meta span:first-of-type {
+  margin-left: auto;
+}
+
+.github-app__commit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 0.5px solid #30363d;
+  color: inherit;
+}
+
+.github-app__commit:first-of-type {
+  border-top: 0;
+}
+
+.github-app__commit > span {
+  flex: 0 0 auto;
+  color: #58a6ff;
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+}
+
+.github-app__commit strong {
+  overflow: hidden;
+  flex: 1;
+  font-size: 8.5px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.github-app__commit small {
+  flex: 0 0 auto;
+  color: #8b949e;
+  font-family: var(--font-mono);
+  font-size: 7px;
+}
+
+.github-app__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 12px;
+}
+
+.github-app__stack strong {
+  color: #c9d1d9;
+  font-size: 8.5px;
+  font-weight: 600;
+}
+
+.github-app__stack p {
+  margin-top: 2px;
+  color: #8b949e;
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  line-height: 1.5;
+}
+
+.github-app__empty {
+  padding: 12px;
+  color: #8b949e;
+  font-size: 8.5px;
+}
+
+@container github (max-width: 780px) {
+  .github-app__columns {
+    grid-template-columns: 1fr;
+  }
+
+  .github-app__hero {
+    flex-wrap: wrap;
+  }
+
+  .github-app__hero-actions {
+    flex-direction: row;
+    width: 100%;
+    padding-top: 4px;
+  }
+}

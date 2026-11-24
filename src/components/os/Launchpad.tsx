@@ -16,6 +16,7 @@ interface LaunchpadApp {
 const launchpadApps: LaunchpadApp[] = [
   { id: "finder", name: "Finder" },
   { id: "safari", name: "Safari" },
+  { id: "store", name: "Store" },
   { id: "mail", name: "Mail" },
   { id: "notes", name: "Notes" },
   { id: "photos", name: "Photos" },
@@ -23,6 +24,8 @@ const launchpadApps: LaunchpadApp[] = [
   { id: "music", name: "Music" },
   { id: "terminal", name: "Terminal" },
   { id: "devkit", name: "DevKit" },
+  { id: "linkedin", name: "LinkedIn" },
+  { id: "github", name: "GitHub" },
   { id: "career", name: "Career" },
   { id: "links", name: "Links" },
   { id: "settings", name: "System Settings" },

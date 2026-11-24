@@ -373,6 +373,9 @@ export function IOSAppIcon({
     case "devkit":
       icon = <DevKitIcon />;
       break;
+    case "store":
+      icon = <AppIcon app="store" size={size} />;
+      break;
     case "photos":
       icon = <AppIcon app="photos" size={size} />;
       break;

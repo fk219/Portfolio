@@ -5,6 +5,7 @@ import { useNow } from "@/lib/hooks";
 import { useOS } from "@/lib/os-context";
 import { useDubaiWeather, WEATHER_ICON_NAMES } from "@/lib/weather";
 import { featuredProjects, projects } from "@/data/projects";
+import { certifications } from "@/data/career";
 
 export function DesktopWidgets() {
   const { openApp } = useOS();
@@ -75,6 +76,29 @@ export function DesktopWidgets() {
         <span className="desktop-widget__caption">
           projects
           <small>{featuredProjects.length} case studies</small>
+        </span>
+        <span className="desktop-widget__arrow">
+          <SystemIcon name="arrow-right" size={11} />
+        </span>
+      </button>
+
+      <button
+        type="button"
+        className="desktop-widget desktop-widget--recruiter"
+        onClick={() => openApp("linkedin")}
+        aria-label="Open the recruiter profile on LinkedIn"
+      >
+        <span className="desktop-widget__topline">
+          <span className="desktop-widget__dot" aria-hidden="true" />
+          <span>Recruiter</span>
+        </span>
+        <span className="desktop-widget__recruiter">
+          Open to work
+          <small>Dubai · remote</small>
+        </span>
+        <span className="desktop-widget__caption">
+          {featuredProjects.length} case studies
+          <small>{certifications.length} certifications</small>
         </span>
         <span className="desktop-widget__arrow">
           <SystemIcon name="arrow-right" size={11} />

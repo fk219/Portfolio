@@ -7323,3 +7323,326 @@
   align-items: center;
   min-height: 24px;
 }
+
+/* Safari start page --------------------------------------------------------- */
+
+.safari__viewport.is-start {
+  overflow-y: auto;
+  background: #f7f5ef;
+  color: #1b201e;
+}
+
+.safari-start {
+  width: min(100%, 940px);
+  margin: 0 auto;
+  padding: 42px 48px 56px;
+}
+
+.safari-start__hero {
+  position: relative;
+  overflow: hidden;
+  padding: 30px 32px 28px;
+  border: 0.5px solid rgba(27, 32, 30, 0.1);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(84, 170, 138, 0.18), transparent 38%),
+    radial-gradient(circle at 4% 100%, rgba(52, 109, 200, 0.1), transparent 42%),
+    #fdfcf8;
+  box-shadow: 0 20px 44px rgba(28, 42, 35, 0.08);
+}
+
+.safari-start__hero::after {
+  position: absolute;
+  right: -60px;
+  bottom: -120px;
+  width: 330px;
+  height: 240px;
+  border: 1px solid rgba(35, 102, 79, 0.12);
+  border-radius: 50%;
+  content: "";
+  transform: rotate(-16deg);
+}
+
+.safari-start__mark {
+  display: flex;
+  width: 54px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background:
+    radial-gradient(circle at 30% 10%, rgba(255, 255, 255, 0.7), transparent 45%),
+    linear-gradient(145deg, #bfe8d8, #4c9a7f);
+  color: #0c2c21;
+  box-shadow:
+    0 10px 22px rgba(54, 119, 92, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.safari-start__kicker {
+  display: block;
+  margin-top: 18px;
+  color: rgba(27, 32, 30, 0.62);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.safari-start__hero h2 {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 560;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+}
+
+.safari-start__hero > p {
+  max-width: 520px;
+  margin-top: 10px;
+  color: rgba(27, 32, 30, 0.54);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.safari-start__form {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 640px;
+  min-height: 48px;
+  margin-top: 20px;
+  padding: 0 8px 0 14px;
+  border: 0.5px solid rgba(27, 32, 30, 0.15);
+  border-radius: 12px;
+  background: #ffffff;
+  color: rgba(27, 32, 30, 0.4);
+  box-shadow: 0 8px 22px rgba(28, 42, 35, 0.06);
+}
+
+.safari-start__form:focus-within {
+  border-color: rgba(50, 130, 100, 0.55);
+  box-shadow:
+    0 8px 22px rgba(28, 42, 35, 0.08),
+    0 0 0 3px rgba(80, 160, 128, 0.12);
+}
+
+.safari-start__form input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #1b201e;
+  font: inherit;
+  font-size: 12px;
+}
+
+.safari-start__form input::placeholder {
+  color: rgba(27, 32, 30, 0.34);
+}
+
+.safari-start__form button {
+  min-height: 34px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #236d56;
+  color: #f4fdf5;
+  font: inherit;
+  font-size: 9px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.safari-start__quick {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 11px;
+}
+
+.safari-start__quick button {
+  min-height: 27px;
+  padding: 0 9px;
+  border: 0.5px solid rgba(27, 32, 30, 0.16);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.55);
+  color: rgba(27, 32, 30, 0.7);
+  font: inherit;
+  font-size: 8px;
+  cursor: pointer;
+}
+
+.safari-start__quick button:hover {
+  border-color: rgba(50, 130, 100, 0.38);
+  color: #1b5c47;
+}
+
+.safari-start__favorites,
+.safari-start__recent {
+  margin-top: 24px;
+}
+
+.safari-start__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 9px;
+  color: rgba(27, 32, 30, 0.64);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.safari-start__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+
+.safari-favorite {
+  display: flex;
+  min-height: 82px;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  border: 0.5px solid rgba(27, 32, 30, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.66);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 160ms var(--ease-out),
+    border-color 160ms ease;
+}
+
+.safari-favorite:hover {
+  border-color: rgba(50, 130, 100, 0.3);
+  transform: translateY(-1px);
+}
+
+.safari-favorite__icon {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: #e9eee9;
+  color: #315c4c;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.safari-favorite.is-portfolio .safari-favorite__icon {
+  background: linear-gradient(145deg, #d9f2e7, #6fb39a);
+  color: #0d3527;
+}
+
+.safari-favorite.is-wikipedia .safari-favorite__icon {
+  background: #f4f0e7;
+  color: #3b3b36;
+  font-family: Georgia, serif;
+  font-size: 17px;
+}
+
+.safari-favorite.is-library .safari-favorite__icon {
+  background: #f5e9d2;
+  color: #8a5d1d;
+}
+
+.safari-favorite.is-search .safari-favorite__icon {
+  background: #e7edf6;
+  color: #2d5286;
+}
+
+.safari-favorite.is-github .safari-favorite__icon {
+  background: #20262d;
+  color: #fff;
+}
+
+.safari-favorite.is-linkedin .safari-favorite__icon {
+  background: #0a66c2;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: -0.06em;
+}
+
+.safari-favorite > strong {
+  display: block;
+  margin-top: 1px;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.safari-favorite > small {
+  display: block;
+  margin-top: 2px;
+  color: rgba(27, 32, 30, 0.64);
+  font-size: 7.5px;
+}
+
+.safari-start__recent-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.safari-start__recent-list button {
+  display: inline-flex;
+  max-width: 100%;
+  min-height: 27px;
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  overflow: hidden;
+  border: 0.5px solid rgba(27, 32, 30, 0.14);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.56);
+  color: rgba(27, 32, 30, 0.64);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.safari-start__note {
+  margin-top: 26px;
+  padding-top: 14px;
+  border-top: 0.5px solid rgba(27, 32, 30, 0.1);
+  color: rgba(27, 32, 30, 0.58);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .safari-start {
+    padding: 22px 20px 40px;
+  }
+
+  .safari-start__hero {
+    padding: 24px 22px;
+  }
+
+  .safari-start__hero h2 {
+    font-size: 32px;
+  }
+
+  .safari-start__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+

@@ -10,6 +10,9 @@ import { Calendar } from "@/components/apps/Calendar";
 import { Music } from "@/components/apps/Music";
 import { Terminal } from "@/components/apps/Terminal";
 import { DevKit } from "@/components/apps/DevKit";
+import { Store } from "@/components/apps/Store";
+import { LinkedIn } from "@/components/apps/LinkedIn";
+import { GitHub } from "@/components/apps/GitHub";
 import { Settings } from "@/components/apps/Settings";
 import { Trash } from "@/components/apps/Trash";
 import { Career } from "@/components/apps/Career";
@@ -38,6 +41,12 @@ export function WindowContent({ window }: { window: OSWindow }) {
       return <Terminal windowId={window.id} />;
     case "devkit":
       return <DevKit />;
+    case "store":
+      return <Store />;
+    case "linkedin":
+      return <LinkedIn />;
+    case "github":
+      return <GitHub />;
     case "settings":
       return <Settings section={window.payload?.section} />;
     case "trash":

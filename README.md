@@ -4,9 +4,9 @@ An interactive macOS and iPhone portfolio for Furqan Khan, built with Next.js 16
 
 **Live:** [furqankhan.dev](https://furqankhan.dev)
 
-The desktop is not a screenshot. It is a small working operating system: the menu bar opens real menus, the Dock launches applications, windows move and resize, desktop widgets sit behind the work, and the portfolio content lives inside Finder, Safari, Mail, Notes, Terminal, DevKit, Photos, Calendar, Music, Career, Links, Preview, and System Settings.
+The desktop is not a screenshot. It is a small working operating system: the menu bar opens real menus, the Dock launches applications, windows move and resize, desktop widgets sit behind the work, and the portfolio content lives inside Finder, Safari, Store, Mail, Notes, Terminal, DevKit, LinkedIn, GitHub, Photos, Calendar, Music, Career, Links, Preview, and System Settings.
 
-The same portfolio also has a full iPhone experience: a framed phone on desktop, an edge-to-edge home screen on phones, a Dynamic Island, a home indicator, Control Center, a lock screen, and dedicated iOS apps for Projects, Safari, Photos, Resume, Experience, Links, Music, DevKit, Clock, Contact, and Settings.
+The same portfolio also has a full iPhone experience: a framed phone on desktop, an edge-to-edge home screen on phones, a Dynamic Island, a home indicator, Control Center, a lock screen, and dedicated iOS apps for Projects, Safari, Store, Photos, Resume, Experience, Links, Music, Notes, DevKit, Clock, Contact, and Settings.
 
 ## Run locally
 
@@ -39,7 +39,11 @@ Use `?skipIntro=1` to skip the startup sequence during development or screenshot
 - Control Center with Wi-Fi, Bluetooth, Focus, appearance, brightness, wallpaper, and quick system actions.
 - Notification Center with live date, calendar widget, Focus control, and dismissible onboarding tips.
 - Finder with project filters, search, sort, grid/list views, a preview pane, and project case studies.
-- Safari with a complete personal site, every project, live project previews, anchor navigation, and a printable resume window.
+- Safari with a start page, Marginalia web search, readable embedded sites, recent pages, and a printable resume window.
+- Store with editorial collections, all projects as product pages, real screenshots, source and live links, a developer profile, and the Bug Hunt arcade.
+- Bug Hunt: a seven-round debugging game with code snippets, explanations, local best score, and a shareable score card.
+- Dedicated LinkedIn and GitHub apps on the Mac desktop, plus desktop icons, Launchpad, and Spotlight entries.
+- iPhone home widgets that include a recruiter snapshot, selected work, a now-building card, and a recruiter quick-action strip.
 - A dedicated print stylesheet renders a clean, print-ready resume for PDF export without the desktop chrome.
 - Mail composer with validation, mail-app handoff, and copy-address fallback.
 - Notes with search, shortcuts, checklists, links, and copy.
@@ -76,7 +80,7 @@ The desktop has a dedicated compact mode for phones, small tablets, and narrow b
 - Safe-area support for notched and home-indicator devices, 16 px form fields to avoid iOS input zoom, and landscape adaptations.
 - Large touch targets for navigation, form actions, photo controls, and playback controls.
 - Full-screen iPhone mode with a home-screen grid and dock, live status widgets, scrollable app views, Control Center, Search, and a lock screen. On larger screens the same experience is shown inside a scaled iPhone frame.
-- A Control Center and Settings path back to macOS alongside the status-bar Mac switch.
+- A recruiter-focused iPhone smart stack, quick actions, Store, Safari start page, and a status-bar Mac switch.
 
 ## Project structure
 
