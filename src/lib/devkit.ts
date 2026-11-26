@@ -5,7 +5,7 @@ import { featuredProjects, projects } from "@/data/projects";
 import { profile } from "@/data/profile";
 import { musicTracks } from "@/data/music";
 
-export const DEVKIT_REPO = "fk219/Portfolio";
+export const DEVKIT_REPO = "fk219/portfolio-os";
 export const DEVKIT_DOMAIN = "furqankhan.dev";
 
 export interface DevkitCommit {
