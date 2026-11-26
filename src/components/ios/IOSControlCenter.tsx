@@ -1,19 +1,23 @@
 "use client";
 
 import { useRef, type CSSProperties } from "react";
+import { Wallpaper } from "@/components/os/Wallpaper";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { useEscape, useFocusTrap } from "@/lib/hooks";
 import { useMediaPlayer } from "@/lib/media-player";
 import { useOS } from "@/lib/os-context";
+import type { IOSAppId } from "./ios-apps";
 
 export function IOSControlCenter({
   onClose,
   onLock,
+  onOpenApp,
   onOpenMusic,
   onSwitchToMac,
 }: {
   onClose: () => void;
   onLock: () => void;
+  onOpenApp: (app: IOSAppId) => void;
   onOpenMusic: () => void;
   onSwitchToMac: () => void;
 }) {
@@ -46,6 +50,10 @@ export function IOSControlCenter({
       aria-modal="true"
       aria-label="Control Center"
     >
+      <div className="ios-control-center__wallpaper" aria-hidden="true">
+        <Wallpaper id={settings.wallpaper} />
+        <span className="ios-control-center__wash" />
+      </div>
       <button
         type="button"
         className="ios-control-center__backdrop"
@@ -208,6 +216,28 @@ export function IOSControlCenter({
             <SystemIcon name="mac" size={18} />
             <span>Mac desktop</span>
           </button>
+
+          <div className="ios-cc-shortcuts" role="group" aria-label="Portfolio shortcuts">
+            <span className="ios-cc-section-label">Portfolio</span>
+            <div className="ios-cc-shortcuts__row">
+              <button type="button" onClick={() => onOpenApp("projects")}>
+                <SystemIcon name="folder" size={16} />
+                <span>Projects</span>
+              </button>
+              <button type="button" onClick={() => onOpenApp("store")}>
+                <SystemIcon name="bag" size={16} />
+                <span>Store</span>
+              </button>
+              <button type="button" onClick={() => onOpenApp("arcade")}>
+                <SystemIcon name="play" size={16} />
+                <span>Arcade</span>
+              </button>
+              <button type="button" onClick={() => onOpenApp("devkit")}>
+                <SystemIcon name="code" size={16} />
+                <span>DevKit</span>
+              </button>
+            </div>
+          </div>
 
           <button
             type="button"

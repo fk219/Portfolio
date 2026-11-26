@@ -455,6 +455,7 @@ export function IOSExperience() {
                   setControlCenter(false);
                   setLocked(true);
                 }}
+                onOpenApp={(app) => openApp(app)}
                 onOpenMusic={() => openApp("music")}
                 onSwitchToMac={goToMac}
               />

@@ -1,6 +1,11 @@
 "use client";
 
-import { useRef, type CSSProperties } from "react";
+import {
+  useRef,
+  type CSSProperties,
+  type MutableRefObject,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { formatMenuBarParts, useNow } from "@/lib/hooks";
 import { useMediaPlayer } from "@/lib/media-player";
@@ -19,7 +24,29 @@ export function IOSStatusBar({
   const now = useNow(10000);
   const { time } = formatMenuBarParts(now);
   const { currentTrack, isPlaying } = useMediaPlayer();
-  const notificationSwipe = useRef<number | null>(null);
+  const ccSwipe = useRef<number | null>(null);
+  const ncSwipe = useRef<number | null>(null);
+
+  const startSwipe =
+    (target: MutableRefObject<number | null>) =>
+    (event: ReactPointerEvent<HTMLButtonElement>) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      target.current = event.clientY;
+      try {
+        event.currentTarget.setPointerCapture(event.pointerId);
+      } catch {
+        // Pointer capture is an enhancement.
+      }
+    };
+
+  const finishSwipe =
+    (target: MutableRefObject<number | null>, action?: () => void) =>
+    (event: ReactPointerEvent<HTMLButtonElement>) => {
+      const start = target.current;
+      target.current = null;
+      if (start === null) return;
+      if (event.clientY - start > 14) action?.();
+    };
 
   const right = (
     <>
@@ -43,23 +70,10 @@ export function IOSStatusBar({
           type="button"
           className="ios-statusbar__time ios-statusbar__time-trigger"
           onClick={onOpenNotificationCenter}
-          onPointerDown={(event) => {
-            notificationSwipe.current = event.clientY;
-            try {
-              event.currentTarget.setPointerCapture(event.pointerId);
-            } catch {
-              // Pointer capture is an enhancement.
-            }
-          }}
-          onPointerUp={(event) => {
-            const start = notificationSwipe.current;
-            notificationSwipe.current = null;
-            if (start !== null && event.clientY - start > 16) {
-              onOpenNotificationCenter();
-            }
-          }}
+          onPointerDown={startSwipe(ncSwipe)}
+          onPointerUp={finishSwipe(ncSwipe, onOpenNotificationCenter)}
           onPointerCancel={() => {
-            notificationSwipe.current = null;
+            ncSwipe.current = null;
           }}
           aria-label="Open Notification Center"
           aria-haspopup="dialog"
@@ -119,6 +133,11 @@ export function IOSStatusBar({
             className="ios-statusbar__cc-trigger"
             aria-label="Open Control Center"
             onClick={onOpenControlCenter}
+            onPointerDown={startSwipe(ccSwipe)}
+            onPointerUp={finishSwipe(ccSwipe, onOpenControlCenter)}
+            onPointerCancel={() => {
+              ccSwipe.current = null;
+            }}
           >
             {right}
           </button>
