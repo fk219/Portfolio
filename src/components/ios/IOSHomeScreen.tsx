@@ -116,7 +116,7 @@ export function IOSHomeScreen({
       const midpoint = screenRect
         ? screenRect.left + screenRect.width / 2
         : start.x;
-      if (start.x < midpoint) onOpenNotificationCenter();
+      if (start.x <= midpoint) onOpenNotificationCenter();
       else onOpenControlCenter();
       return;
     }

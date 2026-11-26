@@ -66,28 +66,50 @@ export function IOSExperience() {
   const [closing, setClosing] = useState(false);
   const [controlCenter, setControlCenter] = useState(false);
   const [searching, setSearching] = useState(false);
+  const [searchClosing, setSearchClosing] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [notificationsClosing, setNotificationsClosing] = useState(false);
   const [locked, setLocked] = useState(false);
   const [immersive, setImmersive] = useState(false);
   const [appOrigin, setAppOrigin] = useState<IOSAppOrigin | null>(null);
   const [leaving, setLeaving] = useState(false);
   const closeTimer = useRef<number | null>(null);
+  const searchTimer = useRef<number | null>(null);
+  const notificationTimer = useRef<number | null>(null);
   const scale = useFrameScale();
+
+  const clearSearchTimer = useCallback(() => {
+    if (searchTimer.current) {
+      window.clearTimeout(searchTimer.current);
+      searchTimer.current = null;
+    }
+  }, []);
+
+  const clearNotificationTimer = useCallback(() => {
+    if (notificationTimer.current) {
+      window.clearTimeout(notificationTimer.current);
+      notificationTimer.current = null;
+    }
+  }, []);
 
   const openApp = useCallback(
     (app: IOSAppId, projectSlug = "", origin?: IOSAppOrigin) => {
       if (closeTimer.current) window.clearTimeout(closeTimer.current);
+      clearSearchTimer();
+      clearNotificationTimer();
       setPendingProjectSlug(projectSlug);
       setActiveApp(app);
       setClosing(false);
       setSearching(false);
+      setSearchClosing(false);
       setControlCenter(false);
       setNotificationsOpen(false);
+      setNotificationsClosing(false);
       setLocked(false);
       setImmersive(false);
       setAppOrigin(origin ?? null);
     },
-    [],
+    [clearNotificationTimer, clearSearchTimer],
   );
 
   const closeApp = useCallback(() => {
@@ -109,15 +131,55 @@ export function IOSExperience() {
     [openApp],
   );
 
+  const openSearch = useCallback(() => {
+    clearSearchTimer();
+    clearNotificationTimer();
+    setSearchClosing(false);
+    setSearching(true);
+    setControlCenter(false);
+    setNotificationsOpen(false);
+    setNotificationsClosing(false);
+  }, [clearNotificationTimer, clearSearchTimer]);
+
+  const closeSearch = useCallback(() => {
+    if (!searching || searchClosing) return;
+    setSearchClosing(true);
+    clearSearchTimer();
+    searchTimer.current = window.setTimeout(() => {
+      setSearching(false);
+      setSearchClosing(false);
+      searchTimer.current = null;
+    }, 260);
+  }, [clearSearchTimer, searchClosing, searching]);
+
   const openNotificationCenter = useCallback(() => {
+    clearNotificationTimer();
+    clearSearchTimer();
+    setNotificationsClosing(false);
     setNotificationsOpen(true);
     setControlCenter(false);
     setSearching(false);
-  }, []);
+    setSearchClosing(false);
+  }, [clearNotificationTimer, clearSearchTimer]);
+
+  const closeNotificationCenter = useCallback(() => {
+    if (!notificationsOpen || notificationsClosing) return;
+    setNotificationsClosing(true);
+    clearNotificationTimer();
+    notificationTimer.current = window.setTimeout(() => {
+      setNotificationsOpen(false);
+      setNotificationsClosing(false);
+      notificationTimer.current = null;
+    }, 300);
+  }, [clearNotificationTimer, notificationsClosing, notificationsOpen]);
 
   useEffect(() => {
-    if (locked) setNotificationsOpen(false);
-  }, [locked]);
+    if (locked) {
+      clearNotificationTimer();
+      setNotificationsOpen(false);
+      setNotificationsClosing(false);
+    }
+  }, [clearNotificationTimer, locked]);
 
   const goToMac = useCallback(() => {
     setLeaving(true);
@@ -132,7 +194,7 @@ export function IOSExperience() {
         return;
       }
       if (notificationsOpen) {
-        setNotificationsOpen(false);
+        closeNotificationCenter();
         return;
       }
       if (immersive) return;
@@ -141,7 +203,7 @@ export function IOSExperience() {
         return;
       }
       if (searching) {
-        setSearching(false);
+        closeSearch();
         return;
       }
       if (activeApp) closeApp();
@@ -151,6 +213,8 @@ export function IOSExperience() {
   }, [
     activeApp,
     closeApp,
+    closeNotificationCenter,
+    closeSearch,
     controlCenter,
     immersive,
     locked,
@@ -161,6 +225,8 @@ export function IOSExperience() {
   useEffect(() => {
     return () => {
       if (closeTimer.current) window.clearTimeout(closeTimer.current);
+      if (searchTimer.current) window.clearTimeout(searchTimer.current);
+      if (notificationTimer.current) window.clearTimeout(notificationTimer.current);
     };
   }, []);
 
@@ -328,7 +394,7 @@ export function IOSExperience() {
                   wallpaper={settings.wallpaper}
                   onOpenApp={(app, origin) => openApp(app, "", origin)}
                   onOpenProject={openProject}
-                  onOpenSearch={() => setSearching(true)}
+                  onOpenSearch={openSearch}
                   onOpenControlCenter={() => setControlCenter(true)}
                   onOpenNotificationCenter={openNotificationCenter}
                   inert={Boolean(
@@ -396,7 +462,8 @@ export function IOSExperience() {
 
             {searching && !locked && !controlCenter && (
               <IOSSearch
-                onClose={() => setSearching(false)}
+                closing={searchClosing}
+                onClose={closeSearch}
                 onOpenApp={(app) => openApp(app)}
                 onOpenProject={openProject}
               />
@@ -404,7 +471,8 @@ export function IOSExperience() {
 
             {notificationsOpen && !locked && !controlCenter && !searching && (
               <IOSNotificationCenter
-                onClose={() => setNotificationsOpen(false)}
+                closing={notificationsClosing}
+                onClose={closeNotificationCenter}
                 onOpenApp={(app) => openApp(app)}
               />
             )}

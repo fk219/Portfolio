@@ -2,27 +2,31 @@
 
 import { useRef, useState, type CSSProperties } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
-import { useEscape, useFocusTrap, useNow } from "@/lib/hooks";
+import { useFocusTrap, useNow } from "@/lib/hooks";
 import { useMediaPlayer } from "@/lib/media-player";
 import { useDubaiWeather, WEATHER_ICON_NAMES } from "@/lib/weather";
 import { projects } from "@/data/projects";
 import type { IOSAppId } from "./ios-apps";
 
 export function IOSNotificationCenter({
+  closing = false,
   onClose,
   onOpenApp,
 }: {
+  closing?: boolean;
   onClose: () => void;
   onOpenApp: (app: IOSAppId) => void;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
   useFocusTrap(panelRef, true);
-  useEscape(true, onClose);
   const now = useNow(15000);
   const weather = useDubaiWeather();
   const { currentTrack, isPlaying } = useMediaPlayer();
   const [cleared, setCleared] = useState(false);
-  const handleSwipe = useRef<number | null>(null);
+  const [dragY, setDragY] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const dragStart = useRef<number | null>(null);
+  const suppressClick = useRef(false);
   const current = now ?? new Date(2026, 10, 25, 9, 41);
   const weekday = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
@@ -39,7 +43,7 @@ export function IOSNotificationCenter({
 
   return (
     <div
-      className="ios-notification-center"
+      className={`ios-notification-center ${closing ? "is-closing" : ""}`}
       role="dialog"
       aria-modal="true"
       aria-label="Notification Center"
@@ -50,7 +54,11 @@ export function IOSNotificationCenter({
         onClick={onClose}
         aria-label="Close Notification Center"
       />
-      <div className="ios-nc__panel" ref={panelRef}>
+      <div
+        className={`ios-nc__panel ${dragging ? "is-dragging" : ""}`}
+        ref={panelRef}
+        style={{ "--nc-drag": `${dragY}px` } as CSSProperties}
+      >
         <header className="ios-nc__header">
           <div className="ios-nc__clock">
             <span className="ios-nc__eyebrow">Notification Center</span>
@@ -187,24 +195,45 @@ export function IOSNotificationCenter({
         <button
           type="button"
           className="ios-nc__handle"
-          onClick={onClose}
+          onClick={() => {
+            if (suppressClick.current) {
+              suppressClick.current = false;
+              return;
+            }
+            onClose();
+          }}
           onPointerDown={(event) => {
-            handleSwipe.current = event.clientY;
+            if (closing) return;
+            dragStart.current = event.clientY;
+            suppressClick.current = false;
+            setDragging(true);
             try {
               event.currentTarget.setPointerCapture(event.pointerId);
             } catch {
               // Pointer capture is an enhancement.
             }
           }}
+          onPointerMove={(event) => {
+            if (dragStart.current === null) return;
+            const raw = event.clientY - dragStart.current;
+            if (Math.abs(raw) > 8) suppressClick.current = true;
+            const delta = Math.min(0, raw);
+            setDragY(Math.max(-220, delta));
+          }}
           onPointerUp={(event) => {
-            const start = handleSwipe.current;
-            handleSwipe.current = null;
-            if (start !== null && start - event.clientY > 16) {
+            const start = dragStart.current;
+            dragStart.current = null;
+            setDragging(false);
+            if (start !== null && start - event.clientY > 56) {
               onClose();
+              return;
             }
+            setDragY(0);
           }}
           onPointerCancel={() => {
-            handleSwipe.current = null;
+            dragStart.current = null;
+            setDragging(false);
+            setDragY(0);
           }}
           aria-label="Close Notification Center"
         >

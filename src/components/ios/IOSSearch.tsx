@@ -4,15 +4,17 @@ import { useRef, useState } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { ProjectArtwork } from "@/components/apps/ProjectArtwork";
 import { projects } from "@/data/projects";
-import { useEscape, useFocusTrap } from "@/lib/hooks";
+import { useFocusTrap } from "@/lib/hooks";
 import { IOSAppIcon } from "./IOSAppIcon";
 import { IOS_DOCK_APPS, IOS_EXTRA_APPS, IOS_HOME_APPS, type IOSAppId } from "./ios-apps";
 
 export function IOSSearch({
+  closing = false,
   onClose,
   onOpenApp,
   onOpenProject,
 }: {
+  closing?: boolean;
   onClose: () => void;
   onOpenApp: (app: IOSAppId) => void;
   onOpenProject: (slug: string) => void;
@@ -21,7 +23,6 @@ export function IOSSearch({
   const rootRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   useFocusTrap(rootRef, true, inputRef);
-  useEscape(true, onClose);
 
   const needle = query.trim().toLowerCase();
   const apps = [...IOS_HOME_APPS, ...IOS_DOCK_APPS, ...IOS_EXTRA_APPS].filter(
@@ -34,7 +35,12 @@ export function IOSSearch({
   );
 
   return (
-    <div className="ios-spotlight" role="dialog" aria-modal="true" aria-label="Search">
+    <div
+      className={`ios-spotlight ${closing ? "is-closing" : ""}`}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Search"
+    >
       <button
         type="button"
         className="ios-spotlight__backdrop"
@@ -51,8 +57,26 @@ export function IOSSearch({
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search apps and projects"
             aria-label="Search apps and projects"
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="none"
+            spellCheck={false}
+            enterKeyHint="search"
           />
-          <button type="button" onClick={onClose}>
+          {query && (
+            <button
+              type="button"
+              className="ios-spotlight__clear"
+              onClick={() => {
+                setQuery("");
+                inputRef.current?.focus();
+              }}
+              aria-label="Clear search"
+            >
+              <SystemIcon name="close" size={11} />
+            </button>
+          )}
+          <button type="button" className="ios-spotlight__cancel" onClick={onClose}>
             Cancel
           </button>
         </div>
