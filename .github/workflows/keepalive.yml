@@ -23,17 +23,17 @@ jobs:
         run: |
           set -u
           urls=(
-            "https://ai-battle-arena-4jxh.onrender.com/health"
-            "https://insta-clone-backend-n518.onrender.com/health"
-            "https://moodify-backend-8rn5.onrender.com/health"
-            "https://perplexity-clone-7nda.onrender.com/health"
+            "https://model-compare-api.onrender.com/health"
+            "https://photo-social-api.onrender.com/health"
+            "https://mood-music-api-akb5.onrender.com/health"
+            "https://research-desk-api.onrender.com/health"
             "https://hookedoncakes.onrender.com/health"
             "https://klinikly-api.onrender.com/health"
             "https://foliofind.onrender.com/api/books?limit=1"
             "https://learnhub-api-6maa.onrender.com/api/health"
-            "https://upi-mesh-api-knu5.onrender.com/api/health"
-            "https://packet-analyzer-api-11k7.onrender.com/api/health"
-            "https://vector-ai-api.onrender.com/api/health"
+            "https://mesh-pay-api.onrender.com/api/health"
+            "https://packet-analyzer-api-ud0m.onrender.com/api/health"
+            "https://vector-search-api-je4n.onrender.com/api/health"
           )
 
           for url in "${urls[@]}"; do
