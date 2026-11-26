@@ -102,6 +102,17 @@ export function ProjectView({ slug }: ProjectViewProps) {
                   <SystemIcon name="external" size={11} />
                 </a>
               )}
+              {project.demo && project.repo && (
+                <a
+                  className="os-secondary-button"
+                  href={project.repo}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View source
+                  <SystemIcon name="external" size={11} />
+                </a>
+              )}
               {!project.demo && project.repo && (
                 <a
                   className="os-primary-button"
@@ -192,6 +203,36 @@ export function ProjectView({ slug }: ProjectViewProps) {
             </div>
           </section>
 
+          <section className="project-view__stack-section">
+            <div className="project-view__stack-heading">
+              <span className="project-view__section-number">03</span>
+              <div>
+                <h3>The stack, in detail</h3>
+                <p>How the pieces of {project.name} fit together.</p>
+              </div>
+            </div>
+            <div className="project-view__stack-grid">
+              {project.techStack.map((group, index) => (
+                <article className="project-view__tech" key={group.label}>
+                  <header>
+                    <span className="project-view__tech-index" aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <h4>{group.label}</h4>
+                      <p>{group.summary}</p>
+                    </div>
+                  </header>
+                  <ul>
+                    {group.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+
           {project.contextNote && (
             <section className="project-view__note">
               <SystemIcon name="info" size={16} />
@@ -205,7 +246,7 @@ export function ProjectView({ slug }: ProjectViewProps) {
           {project.screenshots.length > 1 && (
             <section className="project-view__gallery-section">
               <div className="project-view__gallery-heading">
-                <span className="project-view__section-number">03</span>
+                <span className="project-view__section-number">04</span>
                 <h3>A closer look</h3>
               </div>
               <div className="project-view__gallery">

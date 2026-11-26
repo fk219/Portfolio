@@ -13,6 +13,12 @@ export type ProjectMotif =
 
 export type ProjectStatus = "Case study" | "Experiment";
 
+export interface ProjectTechGroup {
+  label: string;
+  summary: string;
+  items: string[];
+}
+
 export interface ProjectScreenshot {
   src: string;
   alt: string;
@@ -30,6 +36,7 @@ export interface Project {
   tagline: string;
   description: string;
   stack: string[];
+  techStack: ProjectTechGroup[];
   highlights: string[];
   contextNote?: string;
   repo?: string;
@@ -54,7 +61,7 @@ export const projects: Project[] = [
     featured: true,
     tagline: "A complete social loop for photos, stories and messages.",
     description:
-      "PhotoSocial is a full social photo product behind a clean Instagram-style shell: a Following feed, an Explore grid, profiles, stories, direct messages, notifications, search and saved posts. The interesting work is underneath the familiar surface: cursor-paginated feeds, unread state without a socket server, threaded comments, block filtering, mention fan-out, 24-hour story expiry, and a warmed guest cache that keeps Explore fast. The folder, repo and domain keep the original PhotoSocial name so old links still work.",
+      "PhotoSocial is a full social photo product behind a clean Instagram-style shell: a Following feed, an Explore grid, profiles, stories, direct messages, notifications, search and saved posts. The interesting work is underneath the familiar surface: cursor-paginated feeds, unread state without a socket server, threaded comments, block filtering, mention fan-out, 24-hour story expiry, and a warmed guest cache that keeps Explore fast. The live demo runs on a shared account and a free-tier API, so it is ready to review without any setup.",
     stack: [
       "React 19",
       "Vite",
@@ -66,6 +73,28 @@ export const projects: Project[] = [
       "Render",
       "Vercel",
     ],
+    techStack: [
+      {
+        label: "Interface",
+        summary: "One shell for the whole social loop, from the feed to the inbox.",
+        items: ["React 19", "Vite", "Sass", "Cursor-paginated feeds"],
+      },
+      {
+        label: "Server",
+        summary: "Authenticated API, media uploads, and the unread state behind the badges.",
+        items: ["Express 5", "JWT", "ImageKit", "Incremental polling"],
+      },
+      {
+        label: "Data",
+        summary: "The social graph, stored so feed reads stay batched and cheap.",
+        items: ["MongoDB", "TTL story expiry", "Batched reads", "Warmed guest cache"],
+      },
+      {
+        label: "Delivery",
+        summary: "A free-tier API with a static frontend and a cache in front of Explore.",
+        items: ["Render", "Vercel", "Stale-while-revalidate"],
+      },
+    ],
     highlights: [
       "A full social graph: posts, stories, likes, nested comments and comment likes, follows, saves, blocks and reports.",
       "Direct messages with conversation unread counts, shared post cards, read receipts and incremental polling without a realtime service.",
@@ -76,7 +105,7 @@ export const projects: Project[] = [
     ],
     contextNote:
       "The live demo uses the shared demo_photo account, pre-filled on the sign-in page. The API runs on Render's free plan, so the first request after idle may take a moment.",
-    // Source is private. Add the repo URL here after making the repository public.
+    repo: "https://github.com/fk219/photo-social",
     demo: "https://photosocial.furqankhan.dev",
     screenshots: [
       {
@@ -125,6 +154,33 @@ export const projects: Project[] = [
       "ImageKit",
       "JWT",
     ],
+    techStack: [
+      {
+        label: "Interface",
+        summary: "A listening room, mood ring and journal that stay out of the music's way.",
+        items: ["React 19", "Vite", "Sass", "Mood ring"],
+      },
+      {
+        label: "On-device vision",
+        summary: "The expression read happens in the browser; no camera frame is uploaded.",
+        items: ["MediaPipe Face Landmarker", "Five-mood classifier", "Manual check-in fallback"],
+      },
+      {
+        label: "Server",
+        summary: "Accounts, catalog, uploads and the private journal behind the room.",
+        items: ["Express 5", "JWT cookies", "bcrypt", "Helmet", "Scoped rate limits"],
+      },
+      {
+        label: "Data & media",
+        summary: "A mood-tagged catalog and a per-listener journal with a seven-day window.",
+        items: ["MongoDB", "ImageKit", "Tagged MP3s", "Embedded covers"],
+      },
+      {
+        label: "Delivery",
+        summary: "The free-tier split used across the portfolio: API on Render, client on Vercel.",
+        items: ["Render", "Vercel"],
+      },
+    ],
     highlights: [
       "On-device MediaPipe face landmarks map an expression to neutral, happy, sad, angry, or surprised without sending a frame off the device.",
       "The manual check-in uses the same mood path, so the room works with or without camera access.",
@@ -134,7 +190,7 @@ export const projects: Project[] = [
     ],
     contextNote:
       "The live demo opens in one click from the sign-in page. The camera path runs in the browser, and the API uses Render's free plan, so the first request after idle may take a moment.",
-    // Source is private. Add the repo URL here after making the repository public.
+    repo: "https://github.com/fk219/mood-music",
     demo: "https://moodmusic.furqankhan.dev",
     screenshots: [
       {
@@ -178,6 +234,28 @@ export const projects: Project[] = [
       "Groq",
       "Zod",
     ],
+    techStack: [
+      {
+        label: "Interface",
+        summary: "A broadcast-style fight card with prompts, starters and a shareable report.",
+        items: ["React 19", "Vite", "Fight-card layout", "#b= report links"],
+      },
+      {
+        label: "Orchestration",
+        summary: "Two parallel answers and a judge that must return a typed scorecard.",
+        items: ["TypeScript", "LangGraph", "Zod", "Structured output", "Defensive JSON parsing"],
+      },
+      {
+        label: "Models",
+        summary: "A live catalog when a key is present, with a deliberate no-key demo pair.",
+        items: ["OpenRouter catalog", "Cohere", "Groq", "Parallel invocation"],
+      },
+      {
+        label: "Server & delivery",
+        summary: "Cost guards and cold-start tolerance for a public demo.",
+        items: ["Express 5", "LRU cache", "Per-IP limits", "60s timeout", "Render", "Vercel"],
+      },
+    ],
     highlights: [
       "Two model selectors backed by a curated OpenRouter catalog; the pair is saved locally and checked before a bout.",
       "Fighters answer in parallel while a separate judge uses structured output and defensive JSON parsing to return typed scores, feedback and a winner.",
@@ -187,7 +265,7 @@ export const projects: Project[] = [
     ],
     contextNote:
       "The live demo runs the no-key fallback pair, Cohere vs Groq. The OpenRouter catalog and selectors are wired and activate with an OpenRouter key. The API is on Render's free plan, so a cold start can take up to a minute.",
-    // Source is private. Add the repo URL here after making the repository public.
+    repo: "https://github.com/fk219/model-compare",
     demo: "https://modelcompare.furqankhan.dev",
     screenshots: [
       {
@@ -230,6 +308,33 @@ export const projects: Project[] = [
       "Tavily",
       "JWT",
     ],
+    techStack: [
+      {
+        label: "Interface",
+        summary: "An editorial research desk: threads, notes and a read-only report view.",
+        items: ["React 19", "Vite", "Redux Toolkit", "Markdown export"],
+      },
+      {
+        label: "Retrieval & reasoning",
+        summary: "Search runs server-side, and the sources are stored before the prose is written.",
+        items: ["Tavily", "Groq", "Source capture", "Numbered citations"],
+      },
+      {
+        label: "Server",
+        summary: "Accounts and quotas around every research call.",
+        items: ["Express 5", "JWT", "HTTP-only sessions", "Daily quotas"],
+      },
+      {
+        label: "Data",
+        summary: "Threads, notes and share links scoped to the account that made them.",
+        items: ["MongoDB", "Pinned threads", "Revocable share links"],
+      },
+      {
+        label: "Delivery",
+        summary: "The same free-tier split as the rest of the portfolio.",
+        items: ["Render", "Vercel"],
+      },
+    ],
     highlights: [
       "Tavily search results are captured by the backend; every answer stores numbered sources beside the prose.",
       "Threads are saved per account, grouped by date, renameable, pinnable, and exportable as Markdown.",
@@ -239,7 +344,7 @@ export const projects: Project[] = [
     ],
     contextNote:
       "The live API runs on Render's free plan and answers through Groq and Tavily. The one-click demo desk is shared and seeded with three sample notes.",
-    // Source is private. Add the repo URL here after making the repository public.
+    repo: "https://github.com/fk219/research-desk",
     demo: "https://researchdesk.furqankhan.dev",
     screenshots: [
       {
@@ -287,6 +392,28 @@ export const projects: Project[] = [
       "MongoDB",
       "Zod",
       "JWT",
+    ],
+    techStack: [
+      {
+        label: "Interface",
+        summary: "A bookshop catalogue and a Reading Room that behaves like a shelf, not a list.",
+        items: ["React", "Vite", "Tailwind CSS", "Book-spine shelf view"],
+      },
+      {
+        label: "API",
+        summary: "Validated listing, seller and shelf operations behind an account boundary.",
+        items: ["Node.js", "Express", "Zod", "JWT"],
+      },
+      {
+        label: "Data",
+        summary: "Copy-level records with the details that make a used book a specific object.",
+        items: ["MongoDB", "Edition & condition fields", "Account-scoped shelves"],
+      },
+      {
+        label: "Delivery",
+        summary: "One Render service serves the built client from the Express app.",
+        items: ["Render", "Vite production build"],
+      },
     ],
     highlights: [
       "Search by title or author, filter by category and price, sort results, and page through the catalogue on the API side.",
@@ -342,6 +469,33 @@ export const projects: Project[] = [
       "Zod",
       "JWT",
       "npm workspaces",
+    ],
+    techStack: [
+      {
+        label: "Patient app",
+        summary: "Specialist discovery, generated availability and a claim that can only succeed once.",
+        items: ["TypeScript", "React", "14-day calendar", "Atomic booking"],
+      },
+      {
+        label: "Hospital portal",
+        summary: "A tenant-scoped back office for the people and schedules behind the slots.",
+        items: ["React", "TypeScript", "Doctor CRUD", "Bulk slot generation"],
+      },
+      {
+        label: "API",
+        summary: "Validated endpoints with a hard tenant boundary and rotating sessions.",
+        items: ["Express", "Mongoose", "Zod", "JWT", "Refresh-token rotation"],
+      },
+      {
+        label: "Data",
+        summary: "The unique constraint that makes two patients unable to take the same slot.",
+        items: ["MongoDB", "Atomic claims", "Per-hospital isolation"],
+      },
+      {
+        label: "Workspace & delivery",
+        summary: "One repository for both clients and the shared API.",
+        items: ["npm workspaces", "Render"],
+      },
     ],
     highlights: [
       "A 14-day doctor calendar generated from weekly hospital schedules, with past slots excluded by the API.",
@@ -399,6 +553,33 @@ export const projects: Project[] = [
       "MongoDB",
       "Zod",
       "JWT",
+    ],
+    techStack: [
+      {
+        label: "Interface",
+        summary: "A course map that always makes the next piece of work visible.",
+        items: ["React", "Vite", "Tailwind CSS", "Course route"],
+      },
+      {
+        label: "API",
+        summary: "Catalogue, enrollment, progress and admin operations on one ledger.",
+        items: ["Express", "Mongoose", "Zod", "JWT"],
+      },
+      {
+        label: "Commerce",
+        summary: "A real checkout path kept in mock mode for the public demo.",
+        items: ["Stripe Checkout", "Webhook path", "Demo enrollment"],
+      },
+      {
+        label: "Data",
+        summary: "Progress that belongs to the learner, not the browser session.",
+        items: ["MongoDB", "Account-scoped progress", "Real admin counts"],
+      },
+      {
+        label: "Delivery",
+        summary: "Client, admin and API shipped from one npm workspace.",
+        items: ["npm workspaces", "Render"],
+      },
     ],
     highlights: [
       "A course route that labels lessons, labs, critiques, and projects, with an objective and duration for every step.",
@@ -460,6 +641,33 @@ export const projects: Project[] = [
       "Cloudinary",
       "JWT",
     ],
+    techStack: [
+      {
+        label: "Storefront",
+        summary: "A photographic patisserie with an atelier that estimates as you configure.",
+        items: ["React", "Vite", "Tailwind CSS", "GSAP"],
+      },
+      {
+        label: "Owner dashboard",
+        summary: "A separate admin app for the business behind the cakes.",
+        items: ["React", "Revenue charts", "Product CRUD", "Order desk"],
+      },
+      {
+        label: "API",
+        summary: "One API serving customers and the owner, with role-scoped access.",
+        items: ["Express", "Mongoose", "JWT", "Server-side orders"],
+      },
+      {
+        label: "Media & mail",
+        summary: "Cake photography and transactional messages around each order.",
+        items: ["Cloudinary", "Transactional email"],
+      },
+      {
+        label: "Delivery",
+        summary: "Storefront, admin app and API deployed together.",
+        items: ["Render", "Monorepo build scripts"],
+      },
+    ],
     highlights: [
       "A storefront with product search and filtering, cart, checkout, order history, profiles, addresses, and reviews.",
       "Cash-on-delivery checkout with server-side order records and owner-side status updates.",
@@ -467,6 +675,7 @@ export const projects: Project[] = [
       "A separate admin dashboard for revenue and order charts, product CRUD, inventory, order status, and customers.",
       "Cloudinary image uploads and transactional email notifications behind the shop.",
     ],
+    // Source stays private until the credentials in git history are rotated and purged.
     demo: "https://hookedoncakes.furqankhan.dev",
     adminDemo: "https://hookedoncakes-admin.furqankhan.dev/admin/",
     screenshots: [
@@ -508,6 +717,33 @@ export const projects: Project[] = [
       "MongoDB",
       "PCAP parsing",
       "DPI",
+    ],
+    techStack: [
+      {
+        label: "Lab UI",
+        summary: "Capture intake, a traffic preview and a readable flow table.",
+        items: ["React", "Vite", "Flow table", "Demo capture"],
+      },
+      {
+        label: "Parser",
+        summary: "The part that turns bytes into applications and domains.",
+        items: ["PCAP parsing", "TLS SNI", "DNS names", "HTTP Host", "Five-tuple flows"],
+      },
+      {
+        label: "API",
+        summary: "Analysis runs, saved runs and rule snapshots.",
+        items: ["Express", "Mongoose", "Rule snapshots"],
+      },
+      {
+        label: "Data",
+        summary: "Every analysis keeps the rules that were active when it ran.",
+        items: ["MongoDB", "Saved analyses", "Blocked state"],
+      },
+      {
+        label: "Reference",
+        summary: "The original C++ engine remains in the repository for comparison.",
+        items: ["C++ DPI engine", "Sample captures"],
+      },
     ],
     highlights: [
       "Classic PCAP parsing across little and big endian captures, microsecond and nanosecond timestamps, VLAN tags, and raw IP.",
@@ -561,6 +797,33 @@ export const projects: Project[] = [
       "RSA-OAEP",
       "Java reference",
     ],
+    techStack: [
+      {
+        label: "Control room",
+        summary: "A five-phone mesh you can watch route, stall, duplicate and settle.",
+        items: ["React", "Vite", "Mesh topology", "Live ledger"],
+      },
+      {
+        label: "Cryptography",
+        summary: "Per-payment keys, sealed on the sender and opened only at settlement.",
+        items: ["AES-256-GCM", "RSA-2048-OAEP", "SHA-256", "Per-hop TTL"],
+      },
+      {
+        label: "API",
+        summary: "Gossip intake, settlement and the demo failure modes.",
+        items: ["Express", "Mongoose", "Idempotent settlement"],
+      },
+      {
+        label: "Data",
+        summary: "The unique index that turns a duplicate packet into the same payment.",
+        items: ["MongoDB", "Ciphertext-hash key", "Unique index"],
+      },
+      {
+        label: "Reference",
+        summary: "The original Java and Spring Boot implementation stays in the repository.",
+        items: ["Java", "Spring Boot", "java-reference/"],
+      },
+    ],
     highlights: [
       "A five-phone mesh with four offline relays and one internet bridge, using gossip and per-hop TTL.",
       "Per-payment hybrid encryption: a fresh AES-256-GCM key wrapped with RSA-2048-OAEP.",
@@ -612,6 +875,33 @@ export const projects: Project[] = [
       "KD-tree",
       "PCA",
       "Render",
+    ],
+    techStack: [
+      {
+        label: "Lab UI",
+        summary: "A projected vector field next to the numbers that decide the result.",
+        items: ["React", "Vite", "PCA scatter", "Distance controls"],
+      },
+      {
+        label: "Indexes",
+        summary: "Three approaches to the same query, measured against each other.",
+        items: ["HNSW", "KD-tree", "Brute force", "Recall benchmark"],
+      },
+      {
+        label: "API",
+        summary: "Benchmark and retrieval endpoints over the seeded library.",
+        items: ["Express", "Mongoose", "Per-query timings"],
+      },
+      {
+        label: "Data & retrieval",
+        summary: "Deterministic embeddings and extractive answers that cite what they found.",
+        items: ["MongoDB", "Hash-256 embeddings", "Extractive RAG", "Cited passages"],
+      },
+      {
+        label: "Reference",
+        summary: "The original C++ vector database is preserved for comparison.",
+        items: ["C++ vector database", "engine/"],
+      },
     ],
     highlights: [
       "Three search indexes side by side: HNSW, KD-tree, and brute force, with cosine, Euclidean, and Manhattan distance.",

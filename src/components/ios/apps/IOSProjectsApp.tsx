@@ -148,12 +148,20 @@ export function IOSProjectsApp({
           </section>
 
           <section className="ios-group">
-            <h2>Built with</h2>
-            <div className="ios-chip-row">
-              {selected.stack.map((tool) => (
-                <span key={tool} className="ios-chip">
-                  {tool}
-                </span>
+            <h2>Stack, in detail</h2>
+            <div className="ios-stack-groups">
+              {selected.techStack.map((group) => (
+                <article className="ios-stack-group" key={group.label}>
+                  <h3>{group.label}</h3>
+                  <p>{group.summary}</p>
+                  <div className="ios-chip-row">
+                    {group.items.map((item) => (
+                      <span key={item} className="ios-chip">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </article>
               ))}
             </div>
           </section>

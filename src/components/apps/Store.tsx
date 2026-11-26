@@ -508,11 +508,19 @@ function ProjectStorePage({
             ))}
           </ul>
         </section>
-        <section>
-          <span className="store-eyebrow">Built with</span>
-          <div className="store-project__stack">
-            {project.stack.map((tool) => (
-              <span key={tool}>{tool}</span>
+        <section className="store-project__stack-section">
+          <span className="store-eyebrow">Stack, in detail</span>
+          <div className="store-project__stack-groups">
+            {project.techStack.map((group) => (
+              <article key={group.label}>
+                <h4>{group.label}</h4>
+                <p>{group.summary}</p>
+                <div className="store-project__stack">
+                  {group.items.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+              </article>
             ))}
           </div>
         </section>

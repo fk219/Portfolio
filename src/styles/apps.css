@@ -1131,6 +1131,108 @@
   line-height: 1.68;
 }
 
+.project-view__stack-section {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 16px;
+  padding: 26px 0;
+  border-top: 0.5px solid var(--separator);
+}
+
+.project-view__stack-heading {
+  display: contents;
+}
+
+.project-view__stack-heading h3 {
+  margin-bottom: 4px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.project-view__stack-heading p {
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.project-view__stack-grid {
+  display: grid;
+  grid-column: 2;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.project-view__tech {
+  position: relative;
+  overflow: hidden;
+  padding: 14px 15px 15px;
+  border: 0.5px solid var(--separator);
+  border-radius: 10px;
+  background:
+    radial-gradient(120% 100% at 0% 0%, var(--accent-soft), transparent 68%),
+    var(--panel);
+}
+
+.project-view__tech::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), transparent 82%);
+  opacity: 0.6;
+  content: "";
+}
+
+.project-view__tech header {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.project-view__tech-index {
+  flex: 0 0 auto;
+  padding-top: 1px;
+  color: var(--accent-text);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
+
+.project-view__tech h4 {
+  color: var(--text);
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+
+.project-view__tech header p {
+  margin-top: 4px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.project-view__tech ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 0.5px solid var(--separator);
+}
+
+.project-view__tech li {
+  padding: 3px 7px;
+  border: 0.5px solid var(--separator);
+  border-radius: 999px;
+  background: var(--field);
+  color: var(--text-secondary);
+  font-size: 9.5px;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
 .project-view__highlights {
   display: flex;
   flex-direction: column;
@@ -6719,6 +6821,22 @@
 
   .project-view__section p {
     font-size: 13px;
+  }
+
+  .project-view__stack-section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 5px;
+    padding: 20px 0;
+  }
+
+  .project-view__stack-heading {
+    display: block;
+  }
+
+  .project-view__stack-grid {
+    grid-column: 1;
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 10px;
   }
 
   .project-view__note {

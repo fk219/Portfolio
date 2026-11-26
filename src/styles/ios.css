@@ -1542,6 +1542,40 @@ button.ios-island--playing:hover {
   color: #ffbf5a;
 }
 
+.ios-stack-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.ios-stack-group {
+  padding-top: 12px;
+  border-top: 1px solid var(--ios-separator);
+}
+
+.ios-stack-group:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.ios-stack-group h3 {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.ios-stack-group p {
+  margin-top: 2px;
+  color: var(--ios-secondary);
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.ios-stack-group .ios-chip-row {
+  margin-top: 8px;
+}
+
 .ios-chip-row {
   display: flex;
   flex-wrap: wrap;

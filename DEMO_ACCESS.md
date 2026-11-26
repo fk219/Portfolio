@@ -6,7 +6,7 @@ For the step-by-step route, exact credentials, the first three clicks in each ap
 
 ## Source access
 
-The source repositories for ModelCompare, PhotoSocial, ResearchDesk, MoodMusic, and Hooked on Cakes are private. Their live demos are public; request a source walkthrough if you need to review the code.
+Eleven repositories are public, and every project page links its source next to the live demo. Hooked on Cakes stays private until the credentials exposed in its git history are rotated and the history is purged; see `SECURITY.md` in that repository. Each public repository has a full README covering the stack, architecture, setup, and API.
 
 ## Featured product demos
 
