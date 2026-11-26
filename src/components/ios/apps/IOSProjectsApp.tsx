@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { ProjectArtwork } from "@/components/apps/ProjectArtwork";
 import { SystemIcon } from "@/components/icons/SystemIcon";
@@ -52,7 +51,6 @@ export function IOSProjectsApp({
 
   if (selected) {
     const adjacent = getAdjacentProject(selected.slug, 1);
-    const screenshot = selected.screenshots[0];
     return (
       <div className="ios-app-view ios-projects-detail">
         <div className="ios-app-view__scroll">
@@ -77,18 +75,7 @@ export function IOSProjectsApp({
           </header>
 
           <div className="ios-project-detail__art">
-            {screenshot ? (
-              <Image
-                src={screenshot.src}
-                alt={screenshot.alt}
-                width={screenshot.width}
-                height={screenshot.height}
-                sizes="390px"
-                priority
-              />
-            ) : (
-              <ProjectArtwork project={selected} />
-            )}
+            <ProjectArtwork project={selected} />
           </div>
 
           <div className="ios-project-detail__meta">
@@ -246,9 +233,7 @@ export function IOSProjectsApp({
         </div>
 
         <div className="ios-project-list">
-          {visible.map((project) => {
-            const screenshot = project.screenshots[0];
-            return (
+          {visible.map((project) => (
               <button
                 key={project.slug}
                 type="button"
@@ -256,17 +241,7 @@ export function IOSProjectsApp({
                 onClick={() => setSelectedSlug(project.slug)}
               >
                 <span className="ios-project-card__art">
-                  {screenshot ? (
-                    <Image
-                      src={screenshot.src}
-                      alt=""
-                      width={screenshot.width}
-                      height={screenshot.height}
-                      sizes="(max-width: 620px) 90vw, 340px"
-                    />
-                  ) : (
-                    <ProjectArtwork project={project} compact />
-                  )}
+                  <ProjectArtwork project={project} compact />
                 </span>
                 <span className="ios-project-card__copy">
                   <span className="ios-project-card__meta">
@@ -290,8 +265,7 @@ export function IOSProjectsApp({
                   </span>
                 </span>
               </button>
-            );
-          })}
+          ))}
           {visible.length === 0 && (
             <p className="ios-empty-state">No projects match that search.</p>
           )}

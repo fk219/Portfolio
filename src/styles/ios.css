@@ -1177,15 +1177,66 @@ button.ios-island--playing:hover {
   margin-top: 8px;
 }
 
-.ios-page-dots i {
+.ios-page-dots button {
   width: 6px;
   height: 6px;
+  padding: 0;
+  border: 0;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.32);
+  cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease;
 }
 
-.ios-page-dots i.is-active {
+.ios-page-dots button:hover {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.ios-page-dots button.is-active {
   background: rgba(255, 255, 255, 0.94);
+  transform: scale(1.12);
+}
+
+.ios-page-head {
+  padding: 6px 2px 0;
+}
+
+.ios-page-head h2 {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.ios-page-head p {
+  max-width: 300px;
+  margin-top: 7px;
+  color: rgba(255, 255, 255, 0.47);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.ios-widget--index {
+  margin-top: 14px;
+  text-align: left;
+}
+
+.ios-index__cta {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 28px;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 0 10px;
+  border: 0.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 9px;
+  font-weight: 600;
 }
 
 .ios-dock {

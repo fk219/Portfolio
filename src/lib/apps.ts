@@ -166,6 +166,7 @@ export const APP_DEFINITIONS: Record<AppId, AppDefinition> = {
 export type DockEntry =
   | { kind: "app"; id: DockAppId; label: string; optional?: boolean }
   | { kind: "launchpad"; label: string }
+  | { kind: "mission-control"; label: string }
   | { kind: "preview"; label: string }
   | { kind: "trash"; label: string }
   | { kind: "separator" };
@@ -173,6 +174,7 @@ export type DockEntry =
 export const DOCK_ENTRIES: DockEntry[] = [
   { kind: "app", id: "finder", label: "Finder" },
   { kind: "launchpad", label: "Launchpad" },
+  { kind: "mission-control", label: "Mission Control" },
   { kind: "app", id: "safari", label: "Safari" },
   { kind: "app", id: "store", label: "Store", optional: true },
   { kind: "app", id: "mail", label: "Mail" },

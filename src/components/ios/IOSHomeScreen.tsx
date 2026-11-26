@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useEffect,
   useRef,
   useState,
   type MouseEvent as ReactMouseEvent,
@@ -15,7 +16,13 @@ import { certifications } from "@/data/career";
 import { useNow } from "@/lib/hooks";
 import type { ResolvedTheme, WallpaperId } from "@/lib/types";
 import { IOSAppIcon } from "./IOSAppIcon";
-import { IOS_DOCK_APPS, IOS_HOME_APPS, type IOSAppId, type IOSAppOrigin } from "./ios-apps";
+import {
+  IOS_DOCK_APPS,
+  IOS_EXTRA_APPS,
+  IOS_HOME_APPS,
+  type IOSAppId,
+  type IOSAppOrigin,
+} from "./ios-apps";
 
 export function IOSHomeScreen({
   theme,
@@ -38,9 +45,15 @@ export function IOSHomeScreen({
 }) {
   const featured = featuredProjects[0];
   const [widgetIndex, setWidgetIndex] = useState(0);
+  const [page, setPage] = useState(0);
+  const contentRef = useRef<HTMLDivElement>(null);
   const widgetSwipe = useRef<number | null>(null);
   const now = useNow(10000);
   const current = now ?? new Date(2026, 10, 22, 9, 41);
+
+  useEffect(() => {
+    contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page]);
   const time = new Intl.DateTimeFormat("en-US", {
     hour: "numeric",
     minute: "2-digit",
@@ -107,6 +120,12 @@ export function IOSHomeScreen({
       else onOpenControlCenter();
       return;
     }
+    if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy) * 1.35) {
+      setPage((current) =>
+        Math.max(0, Math.min(1, current + (dx < 0 ? 1 : -1))),
+      );
+      return;
+    }
     if (
       !start.fromTop &&
       dy > 56 &&
@@ -156,7 +175,9 @@ export function IOSHomeScreen({
         <span className="ios-home__wallpaper-tint" />
       </div>
 
-      <div className="ios-home__content">
+      <div className="ios-home__content" ref={contentRef}>
+        {page === 0 ? (
+          <>
         <button
           type="button"
           className="ios-widget ios-widget--hero"
@@ -396,10 +417,124 @@ export function IOSHomeScreen({
           <SystemIcon name="search" size={13} />
           <span>Search</span>
         </button>
+          </>
+        ) : (
+          <>
+            <div className="ios-page-head">
+              <span className="ios-eyebrow">Utilities / index</span>
+              <h2>More to explore.</h2>
+              <p>
+                Reference tools, the full project desk, and the quickest way
+                back into the work.
+              </p>
+            </div>
 
-        <span className="ios-page-dots" aria-hidden="true">
-          <i className="is-active" />
-        </span>
+            <div className="ios-app-grid">
+              {IOS_EXTRA_APPS.map((app, index) => (
+                <button
+                  key={app.id}
+                  type="button"
+                  className="ios-home-app"
+                  style={{ "--app-index": index } as React.CSSProperties}
+                  onClick={(event) => onOpenApp(app.id, originFor(event))}
+                  aria-label={`Open ${app.name}`}
+                >
+                  <IOSAppIcon app={app.id} size={60} />
+                  <span>{app.name}</span>
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="ios-widget ios-widget--now ios-widget--index"
+              onClick={(event) => onOpenApp("projects", originFor(event))}
+            >
+              <span className="ios-recruiter__top">
+                <span className="ios-feature__kicker">Portfolio index</span>
+                <span className="ios-now__live">
+                  <i aria-hidden="true" />
+                  {projects.length} projects
+                </span>
+              </span>
+              <strong className="ios-now__title">One desk, every system.</strong>
+              <small className="ios-now__blurb">
+                Case studies and engineering experiments, each with a live
+                demo and a source repository.
+              </small>
+              <span className="ios-recruiter__stats">
+                <span>
+                  <strong>{featuredProjects.length}</strong>
+                  case studies
+                </span>
+                <span>
+                  <strong>{projects.length - featuredProjects.length}</strong>
+                  experiments
+                </span>
+                <span>
+                  <strong>
+                    {new Set(projects.flatMap((project) => project.stack)).size}
+                  </strong>
+                  tools
+                </span>
+              </span>
+              <span className="ios-index__cta">
+                Open Projects
+                <SystemIcon name="arrow-right" size={12} />
+              </span>
+            </button>
+
+            <div
+              className="ios-recruiter-bar"
+              role="group"
+              aria-label="Direct links"
+            >
+              <span className="ios-recruiter-bar__label">
+                <i aria-hidden="true" />
+                <span>
+                  <strong>Direct</strong>
+                  <small>resume · email · linkedin</small>
+                </span>
+              </span>
+              <div className="ios-recruiter-bar__actions">
+                <button
+                  type="button"
+                  onClick={(event) => onOpenApp("resume", originFor(event))}
+                >
+                  Resume
+                </button>
+                <a href={`mailto:${profile.email}`}>Email</a>
+                <a href={profile.socials.linkedin} target="_blank" rel="noreferrer">
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="ios-search-pill"
+              onClick={onOpenSearch}
+              aria-label="Search apps and projects"
+            >
+              <SystemIcon name="search" size={13} />
+              <span>Search</span>
+            </button>
+          </>
+        )}
+
+        <div className="ios-page-dots" role="tablist" aria-label="Home screen pages">
+          {[0, 1].map((index) => (
+            <button
+              key={index}
+              type="button"
+              role="tab"
+              aria-selected={page === index}
+              aria-label={index === 0 ? "Portfolio" : "Utilities and index"}
+              className={page === index ? "is-active" : ""}
+              onClick={() => setPage(index)}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="ios-dock" role="group" aria-label="Dock">

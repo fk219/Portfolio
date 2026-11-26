@@ -11,11 +11,13 @@ import { DOCK_ENTRIES, type DockEntry } from "@/lib/apps";
 import { useNow } from "@/lib/hooks";
 import { useOS } from "@/lib/os-context";
 import { AppIcon } from "@/components/icons/AppIcon";
+import { SystemIcon } from "@/components/icons/SystemIcon";
 
 function isIconEntry(entry: DockEntry) {
   return (
     entry.kind === "app" ||
     entry.kind === "launchpad" ||
+    entry.kind === "mission-control" ||
     entry.kind === "preview" ||
     entry.kind === "trash"
   );
@@ -115,6 +117,10 @@ export function Dock() {
       openOverlay("launchpad");
       return;
     }
+    if (entry.kind === "mission-control") {
+      openOverlay("mission-control");
+      return;
+    }
     if (entry.kind === "preview" && previewWindow) {
       focusWindow(previewWindow.id);
       return;
@@ -167,7 +173,9 @@ export function Dock() {
                 ? "trash"
                 : entry.kind === "preview"
                   ? "preview"
-                  : "launchpad";
+                  : entry.kind === "mission-control"
+                    ? "launchpad"
+                    : "launchpad";
           const isPreviewEntry = entry.kind === "preview";
           const appWindows = isPreviewEntry
             ? windows.filter(
@@ -184,7 +192,9 @@ export function Dock() {
           const optionalClass = entry.kind === "app" && entry.optional
             ? " is-optional"
             : "";
-          const tooltipId = `dock-tooltip-${appId}`;
+          const entryKey =
+            entry.kind === "app" ? entry.id : entry.kind;
+          const tooltipId = `dock-tooltip-${entryKey}`;
 
           return (
             <button
@@ -217,11 +227,23 @@ export function Dock() {
                   height: iconSize,
                 }}
               >
-                <AppIcon
-                  app={appId}
-                  size={iconSize}
-                  date={now ?? undefined}
-                />
+                {entry.kind === "mission-control" ? (
+                  <span
+                    className="dock__mc-icon"
+                    style={{ width: iconSize, height: iconSize }}
+                  >
+                    <SystemIcon
+                      name="grid"
+                      size={Math.round(iconSize * 0.52)}
+                    />
+                  </span>
+                ) : (
+                  <AppIcon
+                    app={appId}
+                    size={iconSize}
+                    date={now ?? undefined}
+                  />
+                )}
               </span>
               <span className="dock__indicator" aria-hidden="true">
                 <span className={isOpen ? "is-open" : ""} />

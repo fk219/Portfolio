@@ -190,6 +190,12 @@ export function MenuBar() {
           disabled: !activeWindow,
           onSelect: withMenuClose(toggleMaximizeActiveWindow),
         },
+        {
+          type: "item",
+          label: "Mission Control",
+          shortcut: "F3",
+          onSelect: withMenuClose(() => openOverlay("mission-control")),
+        },
         { type: "separator" },
         {
           type: "item",

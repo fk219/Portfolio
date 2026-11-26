@@ -9,6 +9,7 @@ const shortcutGroups = [
     title: "Move around",
     shortcuts: [
       { keys: "⌘ K", action: "Open Spotlight search (Ctrl K on Windows)" },
+      { keys: "F3", action: "Open Mission Control (Ctrl ↑ also works)" },
       { keys: "F4", action: "Open Launchpad" },
       { keys: "Esc", action: "Close a search or panel" },
       { keys: "Tab", action: "Move keyboard focus" },

@@ -20,6 +20,7 @@ import { Dock } from "./Dock";
 import { HelpDialog } from "./HelpDialog";
 import { Launchpad } from "./Launchpad";
 import { MenuBar } from "./MenuBar";
+import { MissionControl } from "./MissionControl";
 import { NotificationCenter } from "./NotificationCenter";
 import { Spotlight } from "./Spotlight";
 import {
@@ -174,10 +175,16 @@ export function Desktop() {
         <div
           className="desktop-base"
           inert={
-            overlay === "launchpad" || overlay === "spotlight" || undefined
+            overlay === "launchpad" ||
+            overlay === "spotlight" ||
+            overlay === "mission-control" ||
+            undefined
           }
           aria-hidden={
-            overlay === "launchpad" || overlay === "spotlight" || undefined
+            overlay === "launchpad" ||
+            overlay === "spotlight" ||
+            overlay === "mission-control" ||
+            undefined
           }
         >
           <MenuBar />
@@ -232,7 +239,7 @@ export function Desktop() {
                 <strong>Welcome to Furqan&apos;s desktop</strong>
                 <p>
                   The work lives in Finder. Press ⌘K or Ctrl K to search
-                  everything.
+                  everything; F3 opens Mission Control.
                 </p>
                 <div className="welcome-banner__links">
                   <button
@@ -273,6 +280,7 @@ export function Desktop() {
         {overlay === "spotlight" && <Spotlight />}
         {overlay === "control-center" && <ControlCenter />}
         {overlay === "notification-center" && <NotificationCenter />}
+        {overlay === "mission-control" && <MissionControl />}
         {overlay === "help" && <HelpDialog />}
 
         {contextMenu && (

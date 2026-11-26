@@ -56,6 +56,7 @@ The metaphor is functional rather than decorative. Content is isolated in typed 
 - A macOS-style menu bar with Apple and application menus, plus File, Edit, View, Go, Window, and Help menus.
 - Focus-aware windows with drag, resize, minimize, zoom, close, and stacking.
 - A magnifying Dock with running indicators, tooltips, an optional Preview entry, launch bounce, and a compact mobile layout.
+- Mission Control: press `F3` or `Ctrl ↑`, use the View menu, or click the Dock tile to see every open window as a card. Click a card to jump back, or use Show desktop and Close all.
 - Launchpad with search and an app grid; Spotlight with keyboard navigation across apps, projects, and actions.
 - Control Center with Wi-Fi, Bluetooth, Focus, appearance, brightness, wallpaper, and quick system actions.
 - Notification Center with a live calendar, Focus control, and dismissible onboarding tips.
@@ -66,6 +67,7 @@ The metaphor is functional rather than decorative. Content is isolated in typed 
 
 - A scaled iPhone frame on wide screens and a full-screen experience on phones.
 - Dynamic Island, home indicator, iOS status bar, lock screen, Control Center, Search, and Notification Center.
+- Two swipeable home pages with real, clickable page dots. Page one carries the portfolio apps, the smart stack, recruiter bar, and search. Page two gathers the utility apps (Links, Notes, Clock, Calculator), the portfolio index, direct links, and search.
 - A home-screen smart stack with recruiter view, selected work, and a now-building card, plus a recruiter quick-action strip.
 - Lock-screen weather from Open-Meteo and now-playing state from the shared music player.
 - Sixteen iOS app entries: Projects, Safari, Contact, Settings, Photos, Resume, Profile, Experience, Arcade, Store, Music, DevKit, Links, Notes, Clock, and Calculator.
@@ -105,6 +107,8 @@ The site includes a print-only resume surface and a downloadable two-page PDF at
 - Window focus, stacking, drag, resize, minimize, zoom, and close all update the shared window state; the Dock reflects which apps are running.
 - Menu commands act on the active window, including close, close all, minimize, zoom, and quit.
 - Spotlight and Launchpad support keyboard navigation; Escape closes the active overlay; the documented shortcuts work across the desktop.
+- Mission Control tracks every non-minimized window, highlights the active one, and returns focus to the card you click. It reflects the same window state as the Dock and menu bar.
+- A phone or small tablet opens in the iPhone experience on a first visit. Choosing Mac or iPhone explicitly, or using `?experience=mac`, overrides that default and is remembered.
 - Appearance, wallpaper, Dock size and magnification, brightness, experience mode, and reset controls persist in local storage.
 - Music uses one shared HTML audio player, so playback and now-playing state follow the desktop, menu bar, and iPhone.
 - The first desktop entry is remembered for the browser session; settings survive a reload.
@@ -240,7 +244,7 @@ npm run build
 
 The build runs TypeScript checks and generates the route and social image; the application icon is a static SVG. GitHub Actions runs `npm ci` and `npm run build` on Node 22 for pushes to `main` and pull requests.
 
-The repository's documented manual QA pass covered the desktop at 1440×900, the iPhone at 390×844, 320×568, and 844×390 landscape, plus Safari, Career, Links, Search, Control Center, and the lock screen. The axe pass reported zero WCAG A/AA violations; some contrast checks over wallpaper-backed glass surfaces remained inconclusive.
+The repository's documented manual QA pass covered the desktop at 1440×900, the iPhone at 390×844, 320×568, and 844×390 landscape, plus Safari, Career, Links, Search, Control Center, the lock screen, both home pages, and Mission Control. The axe pass reported zero WCAG A/AA violations; some contrast checks over wallpaper-backed glass surfaces remained inconclusive.
 
 ## Deployment
 

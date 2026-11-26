@@ -26,6 +26,7 @@ export type OverlayId =
   | "spotlight"
   | "control-center"
   | "notification-center"
+  | "mission-control"
   | "help";
 
 export type Phase =

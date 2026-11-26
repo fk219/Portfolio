@@ -48,6 +48,7 @@ interface OSContextValue {
   hydrated: boolean;
   settingsReady: boolean;
   isCompact: boolean;
+  experienceChoice: ExperienceMode | null;
   windows: OSWindow[];
   activeWindow?: OSWindow;
   activeAppId: AppId;
@@ -98,6 +99,7 @@ const OSContext = createContext<OSContextValue | null>(null);
 
 const SESSION_KEY = "furqan-portfolio-os-entered";
 const SETTINGS_KEY = "furqan-portfolio-os-settings";
+const EXPERIENCE_CHOICE_KEY = "furqan-portfolio-os-experience-choice";
 
 const defaultSettings: OSSettings = {
   experience: "mac",
@@ -126,6 +128,8 @@ export function OSProvider({ children }: { children: ReactNode }) {
   const [phase, setPhase] = useState<Phase>("boot");
   const [hydrated, setHydrated] = useState(false);
   const [settingsReady, setSettingsReady] = useState(false);
+  const [experienceChoice, setExperienceChoice] =
+    useState<ExperienceMode | null>(null);
   const [settings, setSettings] = useState<OSSettings>(defaultSettings);
   const [overlay, setOverlay] = useState<OverlayId | null>(null);
   const [wifiEnabled, setWifiEnabled] = useState(true);
@@ -207,6 +211,10 @@ export function OSProvider({ children }: { children: ReactNode }) {
               : current.brightness,
         }));
       }
+      const storedChoice = window.localStorage.getItem(EXPERIENCE_CHOICE_KEY);
+      setExperienceChoice(
+        storedChoice === "ios" || storedChoice === "mac" ? storedChoice : null,
+      );
     } catch {
       // Storage can be unavailable in private or restricted contexts.
     } finally {
@@ -230,6 +238,12 @@ export function OSProvider({ children }: { children: ReactNode }) {
     const requestedExperience = params.get("experience");
     if (requestedExperience !== "ios" && requestedExperience !== "mac") {
       return;
+    }
+    setExperienceChoice(requestedExperience);
+    try {
+      window.localStorage.setItem(EXPERIENCE_CHOICE_KEY, requestedExperience);
+    } catch {
+      // The deep link still applies for this session.
     }
     setSettings((current) =>
       current.experience === requestedExperience
@@ -379,10 +393,24 @@ export function OSProvider({ children }: { children: ReactNode }) {
   }, [state.activeWindowId, state.windows]);
 
   const updateSettings = useCallback((patch: Partial<OSSettings>) => {
+    if (patch.experience) {
+      setExperienceChoice(patch.experience);
+      try {
+        window.localStorage.setItem(EXPERIENCE_CHOICE_KEY, patch.experience);
+      } catch {
+        // The choice still applies for this session.
+      }
+    }
     setSettings((current) => ({ ...current, ...patch }));
   }, []);
 
   const resetSettings = useCallback(() => {
+    setExperienceChoice(null);
+    try {
+      window.localStorage.removeItem(EXPERIENCE_CHOICE_KEY);
+    } catch {
+      // Reset still applies in memory.
+    }
     setSettings((current) => ({
       ...defaultSettings,
       experience: current.experience,
@@ -390,6 +418,12 @@ export function OSProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const switchExperience = useCallback((experience: ExperienceMode) => {
+    setExperienceChoice(experience);
+    try {
+      window.localStorage.setItem(EXPERIENCE_CHOICE_KEY, experience);
+    } catch {
+      // The switch still applies for this session.
+    }
     setSettings((current) => ({ ...current, experience }));
     setOverlay(null);
   }, []);
@@ -584,6 +618,21 @@ export function OSProvider({ children }: { children: ReactNode }) {
         return;
       }
 
+      if (
+        (!modifier && event.key === "F3") ||
+        (event.ctrlKey &&
+          !event.metaKey &&
+          !event.altKey &&
+          !event.shiftKey &&
+          event.key === "ArrowUp")
+      ) {
+        event.preventDefault();
+        setOverlay((current) =>
+          current === "mission-control" ? null : "mission-control",
+        );
+        return;
+      }
+
       if (!modifier && event.key === "F4" && !isTextInput(target)) {
         event.preventDefault();
         setOverlay((current) =>
@@ -613,6 +662,7 @@ export function OSProvider({ children }: { children: ReactNode }) {
       hydrated,
       settingsReady,
       isCompact,
+      experienceChoice,
       windows: state.windows,
       activeWindow,
       activeAppId,
@@ -669,6 +719,7 @@ export function OSProvider({ children }: { children: ReactNode }) {
       closeOverlay,
       closeWindow,
       enterDesktop,
+      experienceChoice,
       focusEnabled,
       focusWindow,
       hydrated,
