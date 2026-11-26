@@ -496,7 +496,7 @@ export function Safari({ section }: { section?: string }) {
               </div>
               <div className="safari-hero__aside-footer">
                 <span className="safari-live-dot" aria-hidden="true" />
-                <span>Portfolio OS is open</span>
+                <span>PortfolioOS is open</span>
               </div>
             </aside>
           </section>

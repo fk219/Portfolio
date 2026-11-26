@@ -50,7 +50,7 @@ export function HelpDialog() {
             <SystemIcon name="keyboard" size={24} />
           </span>
           <div>
-            <span className="help-dialog__eyebrow">Portfolio OS</span>
+            <span className="help-dialog__eyebrow">PortfolioOS</span>
             <h2 id="portfolio-help-title">Help and keyboard shortcuts</h2>
           </div>
           <button

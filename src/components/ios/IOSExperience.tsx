@@ -276,7 +276,7 @@ export function IOSExperience() {
         <span className="ios-stage__label">
           <span className="ios-stage__dot" aria-hidden="true" />
           iPhone experience
-          <small>Portfolio OS</small>
+          <small>PortfolioOS</small>
         </span>
         <button type="button" className="ios-stage__switch" onClick={goToMac}>
           <SystemIcon name="mac" size={15} />

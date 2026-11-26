@@ -123,7 +123,7 @@ export function IOSLockScreen({
           <span className="ios-notification__icon">FK</span>
           <span className="ios-notification__copy">
             <span>
-              <strong>Portfolio OS</strong>
+              <strong>PortfolioOS</strong>
               <small>now</small>
             </span>
             <p>Welcome to Furqan&apos;s iPhone. {projects.length} projects, one pocket.</p>

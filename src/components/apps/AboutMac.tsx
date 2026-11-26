@@ -30,7 +30,7 @@ export function AboutMac() {
       </div>
 
       <div className="about-mac__identity">
-        <h2>Portfolio OS</h2>
+        <h2>PortfolioOS</h2>
         <p>Version 1.0</p>
       </div>
 

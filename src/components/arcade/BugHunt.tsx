@@ -18,7 +18,7 @@ function gradeFor(score: number, total: number) {
 }
 
 function shareText(score: number, total: number, best: number) {
-  return `I caught ${score}/${total} bugs in Bug Hunt on Furqan's Portfolio OS. Best: ${best}/${total}.\nhttps://furqankhan.dev`;
+  return `I caught ${score}/${total} bugs in Bug Hunt on Furqan's PortfolioOS. Best: ${best}/${total}.\nhttps://furqankhan.dev`;
 }
 
 function vibrate(pattern: number | number[]) {

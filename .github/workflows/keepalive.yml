@@ -23,7 +23,11 @@ jobs:
         run: |
           set -u
           urls=(
-            "https://hookedoncakes.onrender.com/api/product/list"
+            "https://ai-battle-arena-4jxh.onrender.com/health"
+            "https://insta-clone-backend-n518.onrender.com/health"
+            "https://moodify-backend-8rn5.onrender.com/health"
+            "https://perplexity-clone-7nda.onrender.com/health"
+            "https://hookedoncakes.onrender.com/health"
             "https://klinikly-api.onrender.com/health"
             "https://foliofind.onrender.com/api/books?limit=1"
             "https://learnhub-api-6maa.onrender.com/api/health"

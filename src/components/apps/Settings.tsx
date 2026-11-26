@@ -83,7 +83,7 @@ export function Settings({ section }: { section?: string }) {
           </span>
           <div>
             <strong>{profile.name}</strong>
-            <span>Portfolio OS</span>
+            <span>PortfolioOS</span>
           </div>
         </div>
         <nav className="settings__nav" aria-label="Settings panes">
@@ -115,7 +115,7 @@ export function Settings({ section }: { section?: string }) {
           <section className="settings__pane" aria-labelledby="appearance-heading">
             <header className="settings__pane-header">
               <h2 id="appearance-heading">Appearance</h2>
-              <p>Choose how Portfolio OS looks. Both appearances work across every app.</p>
+              <p>Choose how PortfolioOS looks. Both appearances work across every app.</p>
             </header>
 
             <div className="settings__card">
@@ -304,7 +304,7 @@ export function Settings({ section }: { section?: string }) {
                 <div>
                   <h3>Brightness</h3>
                   <p>
-                    Dim the Portfolio OS display. This also appears in Control
+                    Dim the PortfolioOS display. This also appears in Control
                     Center.
                   </p>
                 </div>
@@ -408,7 +408,7 @@ export function Settings({ section }: { section?: string }) {
         {pane === "about" && (
           <section className="settings__pane" aria-labelledby="about-settings-heading">
             <header className="settings__pane-header">
-              <h2 id="about-settings-heading">About Portfolio OS</h2>
+              <h2 id="about-settings-heading">About PortfolioOS</h2>
               <p>A small operating system built as a portfolio.</p>
             </header>
 
@@ -417,7 +417,7 @@ export function Settings({ section }: { section?: string }) {
                 <SystemIcon name="apple" size={32} />
               </span>
               <div>
-                <h3>Portfolio OS 1.0</h3>
+                <h3>PortfolioOS 1.0</h3>
                 <p>
                   An interactive desktop for the work of Furqan Khan. Every
                   menu, window, app, toggle, and shortcut is part of the

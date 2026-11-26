@@ -1,8 +1,12 @@
-# Portfolio OS
+# PortfolioOS
 
 An interactive macOS and iPhone portfolio for Furqan Khan, built with Next.js 16, React 19, and TypeScript.
 
 **Live:** [furqankhan.dev](https://furqankhan.dev)
+
+![PortfolioOS desktop](docs/portfolio-desktop.png)
+
+![PortfolioOS iPhone home screen](docs/portfolio-iphone.png)
 
 The desktop is not a screenshot. It is a small working operating system: the menu bar opens real menus, the Dock launches applications, windows move and resize, desktop widgets sit behind the work, and the portfolio content lives inside Finder, Safari, Store, Mail, Notes, Terminal, DevKit, LinkedIn, GitHub, Photos, Calendar, Music, Career, Links, Preview, and System Settings.
 
@@ -121,7 +125,7 @@ Most content is isolated from the shell:
 
 The current profile uses Furqan Khan's name, FKodeLabs, Dubai, `furqank219@gmail.com`, `github.com/fk219`, `linkedin.com/in/fk219`, and the `@fk219` X handle. The professional timeline, education, and nine certifications were collected from Furqan's public LinkedIn profile. The X handle should be confirmed before publishing because the account is protected.
 
-The project content, screenshots, live URLs, and repository links were collected from the existing project folders, their documentation, and their live deployments. Before publishing, review the provenance and current canonical branch for the experiment projects (`Packet Lab`, `UPI Offline Mesh`, and `Vector Field`), especially where the repositories preserve predecessor implementations.
+The project content, screenshots, live URLs, and repository links were collected from the existing project folders, their documentation, and their live deployments. Before publishing, review the provenance and current canonical branch for the experiment projects (`PacketAnalyzer`, `MeshPay`, and `VectorSearch`), especially where the repositories preserve predecessor implementations.
 
 ## Design notes
 
@@ -154,9 +158,9 @@ All windows, forms, menus, and launchers are keyboard reachable. Focus indicator
 
 - Mail is a front-end composer. It opens the visitor's mail app with a prefilled message; nothing is sent by the website.
 - Calendar events are stored locally in the browser.
-- Music is synthesized in the browser with the Web Audio API. There are no recordings.
+- Music plays three original 32-second MP3 loops from `public/music/`; the shared player is implemented in `src/lib/media-player.tsx`.
 - There is no server or database in this project. Project links point to their existing live deployments and repositories.
-- The Hooked on Cakes repository is private, so its project entry links to the live storefront and admin demo instead of a source repository.
+- The source repositories for ModelCompare, PhotoSocial, ResearchDesk, MoodMusic, and Hooked on Cakes are private. Their project entries link to the live demos; a source walkthrough is available on request. Add the GitHub URL back to `projects.ts` after making a repository public.
 - The screenshots under `public/projects` were captured from the projects' live deployments.
 - `public/furqan-khan-resume.pdf` is generated from the print-only resume surface. Regenerate it after changing `career.ts` or `profile.ts`.
 - The X account at `@fk219` matches the portfolio handles but is protected; confirm it is the intended public profile before distribution.
@@ -171,3 +175,7 @@ npm run build
 The build includes TypeScript checks, static page generation, and the custom application icon.
 
 The final QA pass covered the macOS desktop at 1440×900, the iPhone experience at 390×844, 320×568, and 844×390 landscape, the desktop and mobile Safari site, Career, Links, Search, Control Center, and the lock screen. The final axe run reported zero WCAG A/AA violations; the remaining incomplete contrast checks depend on the wallpaper behind glass surfaces. The downloadable resume at `public/furqan-khan-resume.pdf` opens as a two-page PDF.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

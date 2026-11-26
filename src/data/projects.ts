@@ -46,15 +46,15 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "mosaic",
-    name: "Mosaic",
-    shortName: "Mosaic",
+    slug: "photo-social",
+    name: "PhotoSocial",
+    shortName: "PhotoSocial",
     category: "Social photo app",
     status: "Case study",
     featured: true,
     tagline: "A complete social loop for photos, stories and messages.",
     description:
-      "Mosaic is a full social photo product behind a clean Instagram-style shell: a Following feed, an Explore grid, profiles, stories, direct messages, notifications, search and saved posts. The interesting work is underneath the familiar surface: cursor-paginated feeds, unread state without a socket server, threaded comments, block filtering, mention fan-out, 24-hour story expiry, and a warmed guest cache that keeps Explore fast. The folder, repo and domain keep the original Insta Clone name so old links still work.",
+      "PhotoSocial is a full social photo product behind a clean Instagram-style shell: a Following feed, an Explore grid, profiles, stories, direct messages, notifications, search and saved posts. The interesting work is underneath the familiar surface: cursor-paginated feeds, unread state without a socket server, threaded comments, block filtering, mention fan-out, 24-hour story expiry, and a warmed guest cache that keeps Explore fast. The folder, repo and domain keep the original PhotoSocial name so old links still work.",
     stack: [
       "React 19",
       "Vite",
@@ -75,25 +75,25 @@ export const projects: Project[] = [
       "Cursor pagination, a warmed stale-while-revalidate guest feed cache and batched reads keep the feed fast on a free Render instance.",
     ],
     contextNote:
-      "The live demo uses the shared demo_mosaic account, pre-filled on the sign-in page. The API runs on Render's free plan, so the first request after idle may take a moment.",
-    repo: "https://github.com/fk219/Insta-Clone",
-    demo: "https://insta-clone.furqankhan.dev",
+      "The live demo uses the shared demo_photo account, pre-filled on the sign-in page. The API runs on Render's free plan, so the first request after idle may take a moment.",
+    // Source is private. Add the repo URL here after making the repository public.
+    demo: "https://photosocial.furqankhan.dev",
     screenshots: [
       {
-        src: "/projects/mosaic/home.png",
-        alt: "Mosaic Following feed with a story rail, post card and unread notification badge",
+        src: "/projects/photo-social/home.png",
+        alt: "PhotoSocial Following feed with a story rail, post card and unread notification badge",
         width: 1425,
         height: 1000,
       },
       {
-        src: "/projects/mosaic/messages.png",
-        alt: "Mosaic direct messages with a conversation list, shared post card and read receipt",
+        src: "/projects/photo-social/messages.png",
+        alt: "PhotoSocial direct messages with a conversation list, shared post card and read receipt",
         width: 1425,
         height: 1000,
       },
       {
-        src: "/projects/mosaic/profile.png",
-        alt: "Mosaic profile for @demo_mosaic with a six-photo grid and follower counts",
+        src: "/projects/photo-social/profile.png",
+        alt: "PhotoSocial profile for @demo_photo with a six-photo grid and follower counts",
         width: 1425,
         height: 1000,
       },
@@ -106,15 +106,15 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "moodify",
-    name: "Moodify",
-    shortName: "Moodify",
+    slug: "mood-music",
+    name: "MoodMusic",
+    shortName: "MoodMusic",
     category: "Mood-aware listening room",
     status: "Case study",
     featured: true,
     tagline: "A listening room that reads the room, then tunes the queue.",
     description:
-      "Moodify starts with a question most music apps never ask: how does today feel? A browser-side MediaPipe face model reads an expression into one of five moods, a manual check-in covers the camera-shy, and the room builds a queue that matches. Every check-in stays in a private seven-day journal, while a protected Studio lets the owner grow the catalog with tagged MP3s. The camera path is entirely on-device; no frame is uploaded.",
+      "MoodMusic starts with a question most music apps never ask: how does today feel? A browser-side MediaPipe face model reads an expression into one of five moods, a manual check-in covers the camera-shy, and the room builds a queue that matches. Every check-in stays in a private seven-day journal, while a protected Studio lets the owner grow the catalog with tagged MP3s. The camera path is entirely on-device; no frame is uploaded.",
     stack: [
       "React 19",
       "Vite",
@@ -134,18 +134,18 @@ export const projects: Project[] = [
     ],
     contextNote:
       "The live demo opens in one click from the sign-in page. The camera path runs in the browser, and the API uses Render's free plan, so the first request after idle may take a moment.",
-    repo: "https://github.com/fk219/Moodify",
-    demo: "https://moodify.furqankhan.dev",
+    // Source is private. Add the repo URL here after making the repository public.
+    demo: "https://moodmusic.furqankhan.dev",
     screenshots: [
       {
-        src: "/projects/moodify/home.png",
-        alt: "Moodify listening room with a happy mood ring, manual check-in and now-playing bar",
+        src: "/projects/mood-music/home.png",
+        alt: "MoodMusic listening room with a happy mood ring, manual check-in and now-playing bar",
         width: 1425,
         height: 1000,
       },
       {
-        src: "/projects/moodify/journal.png",
-        alt: "Moodify private weekly journal with mood bars, dominant mood and recent check-ins",
+        src: "/projects/mood-music/journal.png",
+        alt: "MoodMusic private weekly journal with mood bars, dominant mood and recent check-ins",
         width: 1425,
         height: 1000,
       },
@@ -158,15 +158,15 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "model-arena",
-    name: "Model Arena",
-    shortName: "Model Arena",
+    slug: "model-compare",
+    name: "ModelCompare",
+    shortName: "ModelCompare",
     category: "AI model evaluation",
     status: "Case study",
     featured: true,
     tagline: "Pick two models. A third judge keeps score.",
     description:
-      "Public benchmarks are averages; a developer's actual question is not. Model Arena sends one prompt to two selectable models from an OpenRouter catalog, runs them in parallel, then asks a judge model to score both answers, explain its reasoning, and call a winner. The result is a shareable fight card, a Markdown report, and a local leaderboard of who keeps winning your prompts. When no OpenRouter key is configured, the arena deliberately falls back to Cohere and Groq so the live demo still works.",
+      "Public benchmarks are averages; a developer's actual question is not. ModelCompare sends one prompt to two selectable models from an OpenRouter catalog, runs them in parallel, then asks a judge model to score both answers, explain its reasoning, and call a winner. The result is a shareable fight card, a Markdown report, and a local leaderboard of who keeps winning your prompts. When no OpenRouter key is configured, the arena deliberately falls back to Cohere and Groq so the live demo still works.",
     stack: [
       "React 19",
       "Vite",
@@ -187,18 +187,18 @@ export const projects: Project[] = [
     ],
     contextNote:
       "The live demo runs the no-key fallback pair, Cohere vs Groq. The OpenRouter catalog and selectors are wired and activate with an OpenRouter key. The API is on Render's free plan, so a cold start can take up to a minute.",
-    repo: "https://github.com/fk219/AI-Battle-Arena",
-    demo: "https://ai-battle-arena.furqankhan.dev",
+    // Source is private. Add the repo URL here after making the repository public.
+    demo: "https://modelcompare.furqankhan.dev",
     screenshots: [
       {
-        src: "/projects/model-arena/home.png",
-        alt: "Model Arena battle card with the demo fighter pair, prompt starters and composer",
+        src: "/projects/model-compare/home.png",
+        alt: "ModelCompare battle card with the demo fighter pair, prompt starters and composer",
         width: 1440,
         height: 1000,
       },
       {
-        src: "/projects/model-arena/battle.png",
-        alt: "Model Arena judges' scorecard with Cohere and Groq answers, scores and written reasoning",
+        src: "/projects/model-compare/battle.png",
+        alt: "ModelCompare judges' scorecard with Cohere and Groq answers, scores and written reasoning",
         width: 1440,
         height: 1000,
       },
@@ -212,14 +212,14 @@ export const projects: Project[] = [
   },
   {
     slug: "research-desk",
-    name: "Research Desk",
-    shortName: "Research Desk",
+    name: "ResearchDesk",
+    shortName: "ResearchDesk",
     category: "Sourced research workspace",
     status: "Case study",
     featured: true,
     tagline: "Answers with the sources still attached.",
     description:
-      "Search gives you an answer, then loses the trail. Research Desk keeps the trail: Tavily retrieves live results, Groq reasons over them, and the answer is filed as a reading note with numbered sources. Threads can be reopened, renamed, pinned, exported as Markdown, or published as a read-only report. The point is not a faster chat window; it is an answer you can defend later.",
+      "Search gives you an answer, then loses the trail. ResearchDesk keeps the trail: Tavily retrieves live results, Groq reasons over them, and the answer is filed as a reading note with numbered sources. Threads can be reopened, renamed, pinned, exported as Markdown, or published as a read-only report. The point is not a faster chat window; it is an answer you can defend later.",
     stack: [
       "React 19",
       "Vite",
@@ -239,24 +239,24 @@ export const projects: Project[] = [
     ],
     contextNote:
       "The live API runs on Render's free plan and answers through Groq and Tavily. The one-click demo desk is shared and seeded with three sample notes.",
-    repo: "https://github.com/fk219/Perplexity-Clone",
-    demo: "https://perplexity.furqankhan.dev",
+    // Source is private. Add the repo URL here after making the repository public.
+    demo: "https://researchdesk.furqankhan.dev",
     screenshots: [
       {
         src: "/projects/research-desk/home.png",
-        alt: "Research Desk reading room with a research composer and suggested lines of inquiry",
+        alt: "ResearchDesk reading room with a research composer and suggested lines of inquiry",
         width: 1440,
         height: 1000,
       },
       {
         src: "/projects/research-desk/answer.png",
-        alt: "Research Desk research memo with a sourced answer and numbered citations",
+        alt: "ResearchDesk research memo with a sourced answer and numbered citations",
         width: 1440,
         height: 1000,
       },
       {
         src: "/projects/research-desk/sources.png",
-        alt: "Research Desk source cards with numbered references and source links",
+        alt: "ResearchDesk source cards with numbered references and source links",
         width: 1440,
         height: 1000,
       },
@@ -491,15 +491,15 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "packet-lab",
-    name: "Packet Lab",
-    shortName: "Packet Lab",
+    slug: "packet-analyzer",
+    name: "PacketAnalyzer",
+    shortName: "PacketAnalyzer",
     category: "Network analysis lab",
     status: "Experiment",
     featured: false,
     tagline: "Deep packet inspection, in plain sight.",
     description:
-      "Packet Lab is a browser-based PCAP analysis lab. It parses packet captures, identifies applications and domains, aggregates traffic into flows, and applies DPI-style blocking rules. The project is a MERN rebuild of an earlier C++ packet-inspection engine, which is preserved in the repository.",
+      "PacketAnalyzer is a browser-based PCAP analysis lab. It parses packet captures, identifies applications and domains, aggregates traffic into flows, and applies DPI-style blocking rules. The project is a MERN rebuild of an earlier C++ packet-inspection engine, which is preserved in the repository.",
     stack: [
       "React",
       "Vite",
@@ -518,18 +518,18 @@ export const projects: Project[] = [
     ],
     contextNote:
       "The browser implementation rebuilds an earlier DPI project. Its original C++ engine and sample captures remain in the repository.",
-    repo: "https://github.com/fk219/Packet_Analyzer",
-    demo: "https://packetlab.furqankhan.dev",
+    repo: "https://github.com/fk219/packet-analyzer",
+    demo: "https://packetanalyzer.furqankhan.dev",
     screenshots: [
       {
-        src: "/projects/packet-lab/home.png",
-        alt: "Packet Lab capture intake with PCAP upload, blocking rules, and a live traffic preview",
+        src: "/projects/packet-analyzer/home.png",
+        alt: "PacketAnalyzer capture intake with PCAP upload, blocking rules, and a live traffic preview",
         width: 1425,
         height: 1000,
       },
       {
-        src: "/projects/packet-lab/analysis.png",
-        alt: "Packet Lab analysis of a demo capture with application breakdown, flow counts, and blocked packets",
+        src: "/projects/packet-analyzer/analysis.png",
+        alt: "PacketAnalyzer analysis of a demo capture with application breakdown, flow counts, and blocked packets",
         width: 1425,
         height: 1000,
       },
@@ -542,9 +542,9 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "upi-offline-mesh",
-    name: "UPI Offline Mesh",
-    shortName: "UPI Mesh",
+    slug: "mesh-pay",
+    name: "MeshPay",
+    shortName: "MeshPay",
     category: "Payments systems experiment",
     status: "Experiment",
     featured: false,
@@ -570,18 +570,18 @@ export const projects: Project[] = [
     ],
     contextNote:
       "This is a simulation, not a connection to UPI or a bank. It also shows a real limitation: a receiver cannot verify funds offline, so an offline double-spend is possible until one packet settles.",
-    repo: "https://github.com/fk219/UPI_Without_Internet",
-    demo: "https://upimesh.furqankhan.dev",
+    repo: "https://github.com/fk219/mesh-pay",
+    demo: "https://meshpay.furqankhan.dev",
     screenshots: [
       {
-        src: "/projects/upi-offline-mesh/home.png",
-        alt: "UPI Offline Mesh control room with settled volume, ledger accounts, and a payment ready to seal",
+        src: "/projects/mesh-pay/home.png",
+        alt: "MeshPay control room with settled volume, ledger accounts, and a payment ready to seal",
         width: 1425,
         height: 1000,
       },
       {
-        src: "/projects/upi-offline-mesh/ledger.png",
-        alt: "UPI Offline Mesh ledger showing a settled transaction keyed by its ciphertext hash",
+        src: "/projects/mesh-pay/ledger.png",
+        alt: "MeshPay ledger showing a settled transaction keyed by its ciphertext hash",
         width: 1425,
         height: 1000,
       },
@@ -594,15 +594,15 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "vector-field",
-    name: "Vector Field",
-    shortName: "Vector Field",
+    slug: "vector-search",
+    name: "VectorSearch",
+    shortName: "VectorSearch",
     category: "Vector search and RAG lab",
     status: "Experiment",
     featured: false,
     tagline: "HNSW, KD-tree, and RAG, measured against brute force.",
     description:
-      "Vector Field is a live nearest-neighbour lab and retrieval shelf. Twenty 16-dimensional vectors are projected with PCA, then HNSW, a KD-tree, and brute force are compared on the same query. Its MongoDB document library uses deterministic hash-256 embeddings and answers questions extractively, citing the passages it retrieved. The original C++ vector database remains in the repository for reference.",
+      "VectorSearch is a live nearest-neighbour lab and retrieval shelf. Twenty 16-dimensional vectors are projected with PCA, then HNSW, a KD-tree, and brute force are compared on the same query. Its MongoDB document library uses deterministic hash-256 embeddings and answers questions extractively, citing the passages it retrieved. The original C++ vector database remains in the repository for reference.",
     stack: [
       "React",
       "Vite",
@@ -622,18 +622,18 @@ export const projects: Project[] = [
     ],
     contextNote:
       "The live demo uses lexical hash-256 embeddings rather than a transformer, and the interface says so. The original C++ vector database is preserved in the repository.",
-    repo: "https://github.com/fk219/Your-OWN-AI",
-    demo: "https://vectorfield.furqankhan.dev",
+    repo: "https://github.com/fk219/vector-search",
+    demo: "https://vectorsearch.furqankhan.dev",
     screenshots: [
       {
-        src: "/projects/vector-field/home.png",
-        alt: "Vector Field lab with a projected 16-dimensional scatter plot and nearest-neighbour results",
+        src: "/projects/vector-search/home.png",
+        alt: "VectorSearch lab with a projected 16-dimensional scatter plot and nearest-neighbour results",
         width: 1425,
         height: 1000,
       },
       {
-        src: "/projects/vector-field/answer.png",
-        alt: "Vector Field extractive answer with retrieved source passages and timings",
+        src: "/projects/vector-search/answer.png",
+        alt: "VectorSearch extractive answer with retrieved source passages and timings",
         width: 1425,
         height: 1000,
       },

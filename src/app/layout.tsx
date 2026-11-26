@@ -30,10 +30,10 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Furqan Khan | Portfolio OS",
+  title: "Furqan Khan | PortfolioOS",
   description:
     "An interactive macOS and iPhone portfolio for Furqan Khan, founder of FKodeLabs, full-stack developer, and MCA graduate based in Dubai.",
-  applicationName: "Portfolio OS",
+  applicationName: "PortfolioOS",
   authors: [{ name: "Furqan Khan", url: "https://github.com/fk219" }],
   creator: "Furqan Khan",
   keywords: [
@@ -50,17 +50,17 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Furqan Khan | Portfolio OS",
+    title: "Furqan Khan | PortfolioOS",
     description:
       "Explore Furqan Khan's work through an interactive macOS desktop and iPhone: projects, experience, certifications, and contact details.",
     type: "website",
     locale: "en_US",
     url: "/",
-    siteName: "Furqan Khan | Portfolio OS",
+    siteName: "Furqan Khan | PortfolioOS",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Furqan Khan | Portfolio OS",
+    title: "Furqan Khan | PortfolioOS",
     description:
       "An interactive macOS-inspired portfolio for full-stack developer Furqan Khan.",
   },

@@ -127,7 +127,7 @@ export function ResumeSheet() {
           Full employment history, certification credentials, references, and
           project context are available on request.
         </p>
-        <span>{profile.name} · Portfolio OS</span>
+        <span>{profile.name} · PortfolioOS</span>
       </footer>
     </article>
   );

@@ -216,7 +216,7 @@ export function Finder({ section }: { section?: string }) {
           </span>
           <div>
             <strong>{profile.name}</strong>
-            <span>Portfolio OS</span>
+            <span>PortfolioOS</span>
           </div>
         </div>
       </aside>
@@ -448,7 +448,7 @@ export function Finder({ section }: { section?: string }) {
 
             <div className="finder__path-bar" aria-hidden="true">
               <SystemIcon name="folder" size={12} />
-              <span>Portfolio OS</span>
+              <span>PortfolioOS</span>
               <SystemIcon name="chevron-right" size={9} />
               <span>Projects</span>
               <SystemIcon name="chevron-right" size={9} />

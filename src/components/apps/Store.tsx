@@ -36,7 +36,7 @@ const collections = [
     kicker: "Built with AI",
     title: "Models, retrieval, and mood.",
     blurb: "Three products where the model is part of the product, not a sticker.",
-    slugs: ["model-arena", "research-desk", "moodify"],
+    slugs: ["model-compare", "research-desk", "mood-music"],
   },
   {
     id: "fullstack",
@@ -86,7 +86,7 @@ export function Store() {
           <span className="store__mark">FK</span>
           <span>
             <strong>Store</strong>
-            <small>Portfolio OS</small>
+            <small>PortfolioOS</small>
           </span>
         </div>
 

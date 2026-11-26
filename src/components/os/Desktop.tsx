@@ -300,7 +300,7 @@ export function Desktop() {
 
       {/* The first paint has no stored phase. Keep the shell stable while
           session storage is checked after hydration. */}
-      {!hydrated && <span className="sr-only">Loading Portfolio OS</span>}
+      {!hydrated && <span className="sr-only">Loading PortfolioOS</span>}
     </div>
   );
 }

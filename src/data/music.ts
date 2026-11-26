@@ -17,7 +17,7 @@ export const musicTracks: MusicTrack[] = [
   {
     id: "hunza-dawn",
     title: "Hunza Dawn",
-    album: "Sessions for Portfolio OS",
+    album: "Sessions for PortfolioOS",
     artist: "FKodeLabs",
     description:
       "Warm chords, a slow arpeggio, and mountain air. Built for the first hour of work.",
@@ -32,7 +32,7 @@ export const musicTracks: MusicTrack[] = [
   {
     id: "rain-on-glass",
     title: "Rain on Glass",
-    album: "Sessions for Portfolio OS",
+    album: "Sessions for PortfolioOS",
     artist: "FKodeLabs",
     description:
       "Filtered rain, soft keys, and a window seat. A low-volume companion for deep work.",
@@ -47,7 +47,7 @@ export const musicTracks: MusicTrack[] = [
   {
     id: "night-drift",
     title: "Night Drift",
-    album: "Sessions for Portfolio OS",
+    album: "Sessions for PortfolioOS",
     artist: "FKodeLabs",
     description:
       "Low tones and a little air. For the last pass before the lights go out.",

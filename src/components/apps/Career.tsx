@@ -192,7 +192,7 @@ export function Career() {
         </section>
 
         <footer className="career-app__footer">
-          <span>{profile.name} · Portfolio OS</span>
+          <span>{profile.name} · PortfolioOS</span>
           <span>{experienceNote}</span>
         </footer>
       </div>

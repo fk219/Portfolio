@@ -79,7 +79,7 @@ export default function OpenGraphImage() {
                 textTransform: "uppercase",
               }}
             >
-              Portfolio OS
+              PortfolioOS
             </span>
           </div>
 

@@ -24,7 +24,7 @@ interface TerminalLine {
 const welcomeLines: TerminalLine[] = [
   {
     id: "welcome-1",
-    text: "Portfolio OS shell 1.0.0",
+    text: "PortfolioOS shell 1.0.0",
     tone: "muted",
   },
   {
@@ -178,7 +178,7 @@ export function Terminal({ windowId }: { windowId?: string }) {
           ]);
         } else if (lowerArgument === "portfolio.md") {
           append([
-            output("# Portfolio OS"),
+            output("# PortfolioOS"),
             output(
               "An interactive macOS-inspired portfolio for Furqan Khan.",
             ),
@@ -342,7 +342,7 @@ export function Terminal({ windowId }: { windowId?: string }) {
             "accent",
           ),
           output("          __ :'__        ------------"),
-          output("       .'`  `-'  ````.   OS: Portfolio OS 1.0"),
+          output("       .'`  `-'  ````.   OS: PortfolioOS 1.0"),
           output("      :               :  Shell: portfolio-sh"),
           output("      :               :  UI: Next.js + React"),
           output(

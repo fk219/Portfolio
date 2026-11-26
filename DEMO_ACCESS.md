@@ -2,33 +2,39 @@
 
 Every live project is reviewable without creating an account. Seeded accounts are for demos only; do not enter personal, medical, or payment information.
 
+For the step-by-step route, exact credentials, the first three clicks in each app, and the theme switch, see [`../DEMO_GUIDE.md`](../DEMO_GUIDE.md). Every app has a floating sun/moon switch at the bottom-right; PortfolioOS uses **System Settings → Appearance**, Control Center, or the Terminal `theme light` command.
+
+## Source access
+
+The source repositories for ModelCompare, PhotoSocial, ResearchDesk, MoodMusic, and Hooked on Cakes are private. Their live demos are public; request a source walkthrough if you need to review the code.
+
 ## Featured product demos
 
-### Mosaic
+### PhotoSocial
 
-- Live: https://insta-clone.furqankhan.dev
-- Demo: `demo_mosaic` / `DemoMosaic2026!`
+- Live: https://photosocial.furqankhan.dev
+- Demo: `demo_photo` / `DemoPhotoSocial2026!`
 - Press **Use demo account** on the sign-in page. The account is shared and already has posts, stories, messages, notifications and a saved post.
 - The API runs on Render's free plan, so the first request after idle may take up to a minute.
 
-### Model Arena
+### ModelCompare
 
-- Live: https://ai-battle-arena.furqankhan.dev
+- Live: https://modelcompare.furqankhan.dev
 - No login. Choose a starter prompt or write one, then send it.
 - The deployed demo runs the fixed Cohere vs Groq pair. The OpenRouter model catalog and selectors are wired and activate when an OpenRouter key is configured.
 
-### Research Desk
+### ResearchDesk
 
-- Live: https://perplexity.furqankhan.dev
+- Live: https://researchdesk.furqankhan.dev
 - Press **Open the demo desk** on the sign-in page. No credentials are required.
 - The shared demo desk is seeded with three sample research notes, each with numbered sources.
 - The API runs on Render's free plan, so the first request after idle may take up to a minute.
 
-### Moodify
+### MoodMusic
 
-- Live: https://moodify.furqankhan.dev
+- Live: https://moodmusic.furqankhan.dev
 - Press **Enter the demo room** on the sign-in page for one-click access.
-- Fallback credentials: `demo@moodify.local` / `DemoRoom2026!`
+- Fallback credentials: `demo@moodmusic.local` / `DemoRoom2026!`
 - The demo room is shared and already has a seeded weekly journal. The camera is optional; the manual check-in works without it.
 
 ## Hooked on Cakes
@@ -64,23 +70,23 @@ Every live project is reviewable without creating an account. Seeded accounts ar
 - Demo admin: `admin@learnhub.example` / `LearnHub123!`
 - Use the demo buttons on either sign-in page.
 
-## UPI Offline Mesh
+## MeshPay
 
-- App: https://upimesh.furqankhan.dev
+- App: https://meshpay.furqankhan.dev
 - No login. Four seeded accounts: `alice@demo`, `bob@demo`, `carol@demo`, `dave@demo`.
 - Any 4+ digit PIN works. Use **Reset demo** to restore balances.
 
-## Packet Lab
+## PacketAnalyzer
 
-- App: https://packetlab.furqankhan.dev
+- App: https://packetanalyzer.furqankhan.dev
 - No login. Press **Analyze demo capture** to load the built-in synthetic capture.
 
-## Vector Field
+## VectorSearch
 
-- App: https://vectorfield.furqankhan.dev
+- App: https://vectorsearch.furqankhan.dev
 - No login. The library and demo vectors are seeded; Ask and benchmark work immediately.
 
-## Portfolio OS
+## PortfolioOS
 
-- Portfolio: https://projects.furqankhan.dev
+- Portfolio: https://furqankhan.dev
 - No login. Press **Enter desktop** on the lock screen.

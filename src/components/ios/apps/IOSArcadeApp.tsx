@@ -20,7 +20,7 @@ export function IOSArcadeApp() {
             <span />
           </span>
           <span className="ios-arcade__title">
-            <span className="ios-eyebrow">Portfolio OS</span>
+            <span className="ios-eyebrow">PortfolioOS</span>
             <h1>Arcade</h1>
           </span>
           <span className="ios-arcade__status">

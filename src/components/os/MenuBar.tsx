@@ -44,6 +44,7 @@ export function MenuBar() {
     focusEnabled,
     wifiEnabled,
     settings,
+    resolvedTheme,
     updateSettings,
     closeOverlay,
     toggleOverlay,
@@ -107,7 +108,7 @@ export function MenuBar() {
       entries: [
         {
           type: "item",
-          label: "About Portfolio OS",
+          label: "About PortfolioOS",
           onSelect: withMenuClose(openAbout),
         },
         {
@@ -280,7 +281,7 @@ export function MenuBar() {
       entries: [
         {
           type: "item",
-          label: "Portfolio OS Help",
+          label: "PortfolioOS Help",
           onSelect: withMenuClose(() => openOverlay("help")),
         },
         {
@@ -570,6 +571,19 @@ export function MenuBar() {
           onClick={() => toggleOverlay("control-center")}
         >
           <SystemIcon name="control-center" size={16} />
+        </button>
+        <button
+          type="button"
+          className="menu-bar__status menu-bar__status--icon"
+          aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} appearance`}
+          title={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} appearance`}
+          onClick={() =>
+            updateSettings({
+              appearance: resolvedTheme === "dark" ? "light" : "dark",
+            })
+          }
+        >
+          <SystemIcon name={resolvedTheme === "dark" ? "sun" : "moon"} size={16} />
         </button>
         <button
           type="button"

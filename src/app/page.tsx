@@ -31,7 +31,7 @@ export default function HomePage() {
         `}</style>
         <main className="no-js-portfolio">
           <div className="no-js-portfolio__inner">
-            <p>Portfolio OS</p>
+            <p>PortfolioOS</p>
             <h1>{profile.name}</h1>
             <p>
               {profile.role}. {profile.education}. {profile.summary}

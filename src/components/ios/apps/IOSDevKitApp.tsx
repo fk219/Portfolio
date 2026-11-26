@@ -107,7 +107,7 @@ export function IOSDevKitApp() {
         <header className="ios-devkit__header">
           <span className="ios-devkit__mark">DK</span>
           <span className="ios-devkit__title">
-            <span className="ios-eyebrow">Portfolio OS</span>
+            <span className="ios-eyebrow">PortfolioOS</span>
             <h1>DevKit</h1>
           </span>
           <span className="ios-devkit__mode">

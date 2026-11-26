@@ -354,7 +354,7 @@ export function Notes() {
               <span>
                 {featuredProjects.length} case studies · {projects.length} projects
               </span>
-              <span>Portfolio OS</span>
+              <span>PortfolioOS</span>
             </footer>
           </div>
         </div>

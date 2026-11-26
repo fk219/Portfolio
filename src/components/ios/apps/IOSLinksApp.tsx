@@ -109,7 +109,7 @@ export function IOSLinksApp() {
             <SystemIcon name="download" size={14} />
           </a>
           <a
-            href="https://github.com/fk219/Portfolio"
+            href="https://github.com/fk219/portfolio-os"
             target="_blank"
             rel="noreferrer"
             className="ios-list-row"

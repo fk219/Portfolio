@@ -220,7 +220,7 @@ export function IOSControlCenter({
         </div>
 
         <p className="ios-control-center__footnote">
-          {settings.experience === "ios" ? "iPhone experience" : "Portfolio OS"}
+          {settings.experience === "ios" ? "iPhone experience" : "PortfolioOS"}
         </p>
         <button
           type="button"

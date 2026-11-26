@@ -24,7 +24,7 @@ export function BootScreen() {
     <div className="system-screen boot-screen" role="status" aria-live="polite">
       <div className="boot-screen__brand">
         <SystemIcon name="apple" size={68} className="boot-screen__apple" />
-        <span className="sr-only">Starting Portfolio OS</span>
+        <span className="sr-only">Starting PortfolioOS</span>
       </div>
       <div className="boot-screen__progress" aria-hidden="true">
         <span className="boot-screen__progress-fill" />
@@ -70,7 +70,7 @@ export function LoginScreen({ locked = false }: { locked?: boolean }) {
           <h1 id="login-user-name">{profile.name}</h1>
           <p>
             {isLocked
-              ? "Portfolio OS is locked"
+              ? "PortfolioOS is locked"
               : `${profile.role} · ${profile.education}`}
           </p>
         </div>
@@ -105,7 +105,7 @@ export function LoginScreen({ locked = false }: { locked?: boolean }) {
       </div>
 
       <div className="login-screen__footer">
-        <span>Portfolio OS 1.0</span>
+        <span>PortfolioOS 1.0</span>
         <span className="login-screen__footer-dot" aria-hidden="true" />
         <span>Built with Next.js</span>
       </div>
@@ -121,7 +121,7 @@ export function SleepScreen() {
       type="button"
       className="system-screen sleep-screen"
       onClick={wakeFromSleep}
-      aria-label="Wake Portfolio OS"
+      aria-label="Wake PortfolioOS"
     >
       <span className="sleep-screen__mark" aria-hidden="true">
         <SystemIcon name="moon" size={18} />
@@ -139,12 +139,12 @@ export function OffScreen() {
       type="button"
       className="system-screen off-screen"
       onClick={powerOn}
-      aria-label="Power on Portfolio OS"
+      aria-label="Power on PortfolioOS"
     >
       <span className="off-screen__power" aria-hidden="true">
         <SystemIcon name="power" size={24} />
       </span>
-      <span className="off-screen__text">Click to start Portfolio OS</span>
+      <span className="off-screen__text">Click to start PortfolioOS</span>
     </button>
   );
 }

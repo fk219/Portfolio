@@ -107,7 +107,7 @@ export function IOSNotificationCenter({
                 <span className="ios-nc__icon ios-nc__icon--portfolio">FK</span>
                 <span className="ios-notification__copy">
                   <span>
-                    <strong>Portfolio OS</strong>
+                    <strong>PortfolioOS</strong>
                     <small>now</small>
                   </span>
                   <p>
@@ -157,7 +157,7 @@ export function IOSNotificationCenter({
                   <p>
                     {currentTrack.title} &middot; {currentTrack.artist}
                     <br />
-                    Original audio sessions for Portfolio OS.
+                    Original audio sessions for PortfolioOS.
                   </p>
                 </span>
               </button>

@@ -71,7 +71,7 @@ export function IOSStoreApp({
           <>
             <header className="ios-store__masthead">
               <span className="ios-store__title">
-                <span className="ios-eyebrow">Portfolio OS</span>
+                <span className="ios-eyebrow">PortfolioOS</span>
                 <h1>Store</h1>
               </span>
               <button
@@ -117,7 +117,7 @@ export function IOSStoreApp({
                     <span>{3} apps</span>
                   </header>
                   <div className="ios-store-carousel">
-                    {["model-arena", "research-desk", "moodify"].map((slug) => {
+                    {["model-compare", "research-desk", "mood-music"].map((slug) => {
                       const project = findProject(slug);
                       if (!project) return null;
                       return (

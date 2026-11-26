@@ -322,7 +322,7 @@ export function IOSHomeScreen({
                   active
                 </span>
               </span>
-              <strong className="ios-now__title">Portfolio OS 2.0</strong>
+              <strong className="ios-now__title">PortfolioOS 2.0</strong>
               <small className="ios-now__blurb">
                 Store, Arcade, recruiter view, and a real developer toolkit.
               </small>

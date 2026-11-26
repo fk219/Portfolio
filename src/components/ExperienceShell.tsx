@@ -10,7 +10,7 @@ export function ExperienceShell() {
   if (!hydrated || !settingsReady) {
     return (
       <div className="experience-loading" aria-hidden="true">
-        <span>Portfolio OS</span>
+        <span>PortfolioOS</span>
       </div>
     );
   }

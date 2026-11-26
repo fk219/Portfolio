@@ -32,7 +32,7 @@ export function IOSSettingsApp({
     <div className="ios-app-view ios-settings">
       <div className="ios-app-view__scroll">
         <header className="ios-large-header">
-          <span className="ios-eyebrow">Portfolio OS</span>
+          <span className="ios-eyebrow">PortfolioOS</span>
           <h1>Settings</h1>
         </header>
 
@@ -45,7 +45,7 @@ export function IOSSettingsApp({
           <span className="ios-account-card__avatar">FK</span>
           <span>
             <strong>Furqan Khan</strong>
-            <small>Portfolio OS · iPhone</small>
+            <small>PortfolioOS · iPhone</small>
           </span>
           <SystemIcon name="chevron-right" size={14} />
         </button>
@@ -150,7 +150,7 @@ export function IOSSettingsApp({
           <h2>About</h2>
           <div className="ios-settings-row ios-settings-row--static">
             <span>
-              <strong>Portfolio OS</strong>
+              <strong>PortfolioOS</strong>
               <small>Version 2.0 · iPhone experience</small>
             </span>
           </div>
@@ -197,7 +197,7 @@ export function IOSSettingsApp({
         </section>
 
         <p className="ios-settings__footer">
-          Portfolio OS is an independent portfolio experience, not affiliated
+          PortfolioOS is an independent portfolio experience, not affiliated
           with Apple.
         </p>
       </div>

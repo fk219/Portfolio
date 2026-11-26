@@ -226,7 +226,7 @@ export function Music() {
       </div>
 
       <p className="music__footnote">
-        Three original instrumental loops written for Portfolio OS. Audio plays
+        Three original instrumental loops written for PortfolioOS. Audio plays
         locally from this site, with no accounts, ads, or external streams.
       </p>
     </div>

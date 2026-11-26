@@ -130,7 +130,7 @@ export function Spotlight() {
           resolvedTheme === "dark"
             ? "Switch to light appearance"
             : "Switch to dark appearance",
-        subtitle: "Change how Portfolio OS looks",
+        subtitle: "Change how PortfolioOS looks",
         keywords: "theme dark light appearance settings",
         icon: (
           <span className="spotlight__action-icon">
