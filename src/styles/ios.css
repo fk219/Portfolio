@@ -616,7 +616,7 @@ button.ios-island--playing:hover {
   display: flex;
   height: 100%;
   flex-direction: column;
-  padding: 15px 22px 0;
+  padding: 15px 22px 104px;
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
