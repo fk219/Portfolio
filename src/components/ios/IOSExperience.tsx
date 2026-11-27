@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
 } from "react";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { Wallpaper } from "@/components/os/Wallpaper";
@@ -76,6 +77,7 @@ export function IOSExperience() {
   const closeTimer = useRef<number | null>(null);
   const searchTimer = useRef<number | null>(null);
   const notificationTimer = useRef<number | null>(null);
+  const topSwipe = useRef<{ x: number; y: number } | null>(null);
   const scale = useFrameScale();
 
   const clearSearchTimer = useCallback(() => {
@@ -172,6 +174,38 @@ export function IOSExperience() {
       notificationTimer.current = null;
     }, 300);
   }, [clearNotificationTimer, notificationsClosing, notificationsOpen]);
+
+  const openControlCenter = useCallback(() => {
+    setControlCenter(true);
+    setNotificationsOpen(false);
+    setNotificationsClosing(false);
+    setSearching(false);
+    setSearchClosing(false);
+    clearNotificationTimer();
+    clearSearchTimer();
+  }, [clearNotificationTimer, clearSearchTimer]);
+
+  const startTopSwipe = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    topSwipe.current = { x: event.clientX, y: event.clientY };
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      // Pointer capture is an enhancement.
+    }
+  };
+
+  const finishTopSwipe = (
+    event: ReactPointerEvent<HTMLButtonElement>,
+    action: () => void,
+  ) => {
+    const start = topSwipe.current;
+    topSwipe.current = null;
+    if (!start) return;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    if (dy > 16 && Math.abs(dy) > Math.abs(dx) * 1.1) action();
+  };
 
   useEffect(() => {
     if (locked) {
@@ -427,9 +461,7 @@ export function IOSExperience() {
             <IOSStatusBar
               tone={statusTone}
               onOpenControlCenter={
-                locked || controlCenter
-                  ? undefined
-                  : () => setControlCenter(true)
+                locked || controlCenter ? undefined : openControlCenter
               }
               onOpenNotificationCenter={
                 locked || notificationsOpen
@@ -440,6 +472,41 @@ export function IOSExperience() {
                 locked ? undefined : () => openApp("music")
               }
             />
+
+            {!locked &&
+              !controlCenter &&
+              !searching &&
+              !notificationsOpen &&
+              !immersive && (
+                <div className="ios-top-swipe" aria-hidden="true">
+                  <button
+                    type="button"
+                    tabIndex={-1}
+                    aria-label="Open Notification Center"
+                    onClick={openNotificationCenter}
+                    onPointerDown={startTopSwipe}
+                    onPointerUp={(event) =>
+                      finishTopSwipe(event, openNotificationCenter)
+                    }
+                    onPointerCancel={() => {
+                      topSwipe.current = null;
+                    }}
+                  />
+                  <button
+                    type="button"
+                    tabIndex={-1}
+                    aria-label="Open Control Center"
+                    onClick={openControlCenter}
+                    onPointerDown={startTopSwipe}
+                    onPointerUp={(event) =>
+                      finishTopSwipe(event, openControlCenter)
+                    }
+                    onPointerCancel={() => {
+                      topSwipe.current = null;
+                    }}
+                  />
+                </div>
+              )}
 
             {!locked && activeApp && !controlCenter && !searching && (
               <IOSHomeIndicator

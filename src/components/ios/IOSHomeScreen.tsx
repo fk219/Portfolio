@@ -25,6 +25,14 @@ import {
   type IOSAppOrigin,
 } from "./ios-apps";
 
+const APP_LIBRARY_APPS = [
+  ...IOS_DOCK_APPS,
+  ...IOS_HOME_APPS,
+  ...IOS_EXTRA_APPS,
+];
+
+const HOME_PAGE_LABELS = ["Portfolio", "Utilities and index", "App Library"];
+
 export function IOSHomeScreen({
   theme,
   wallpaper,
@@ -72,7 +80,6 @@ export function IOSHomeScreen({
     y: number;
     fromTop: boolean;
   } | null>(null);
-  const hotspotStart = useRef<number | null>(null);
 
   const originFor = (
     event: ReactMouseEvent<HTMLElement>,
@@ -124,7 +131,7 @@ export function IOSHomeScreen({
     }
     if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy) * 1.35) {
       setPage((current) =>
-        Math.max(0, Math.min(1, current + (dx < 0 ? 1 : -1))),
+        Math.max(0, Math.min(2, current + (dx < 0 ? 1 : -1))),
       );
       return;
     }
@@ -135,28 +142,6 @@ export function IOSHomeScreen({
       event.clientY > 140
     ) {
       onOpenSearch();
-    }
-  };
-
-  const startHotspotSwipe = (event: ReactPointerEvent<HTMLButtonElement>) => {
-    hotspotStart.current = event.clientY;
-    event.stopPropagation();
-    try {
-      event.currentTarget.setPointerCapture(event.pointerId);
-    } catch {
-      // Pointer capture is an enhancement.
-    }
-  };
-
-  const endHotspotSwipe = (
-    event: ReactPointerEvent<HTMLButtonElement>,
-    action: () => void,
-  ) => {
-    const start = hotspotStart.current;
-    hotspotStart.current = null;
-    event.stopPropagation();
-    if (start !== null && event.clientY - start > 16) {
-      action();
     }
   };
 
@@ -411,7 +396,7 @@ export function IOSHomeScreen({
         </div>
 
           </>
-        ) : (
+        ) : page === 1 ? (
           <>
             <div className="ios-page-head">
               <span className="ios-eyebrow">Utilities / index</span>
@@ -530,6 +515,33 @@ export function IOSHomeScreen({
             </div>
 
           </>
+        ) : (
+          <>
+            <div className="ios-page-head">
+              <span className="ios-eyebrow">App Library</span>
+              <h2>Every app, one place.</h2>
+              <p>
+                All sixteen possibilities, including the four in the Dock and
+                the tools on the previous page.
+              </p>
+            </div>
+
+            <div className="ios-app-library">
+              {APP_LIBRARY_APPS.map((app, index) => (
+                <button
+                  key={app.id}
+                  type="button"
+                  className="ios-home-app"
+                  style={{ "--app-index": index } as React.CSSProperties}
+                  onClick={(event) => onOpenApp(app.id, originFor(event))}
+                  aria-label={`Open ${app.name}`}
+                >
+                  <IOSAppIcon app={app.id} size={54} />
+                  <span>{app.name}</span>
+                </button>
+              ))}
+            </div>
+          </>
         )}
 
         <div className="ios-home__footer">
@@ -547,13 +559,13 @@ export function IOSHomeScreen({
             role="tablist"
             aria-label="Home screen pages"
           >
-            {[0, 1].map((index) => (
+            {[0, 1, 2].map((index) => (
               <button
                 key={index}
                 type="button"
                 role="tab"
                 aria-selected={page === index}
-                aria-label={index === 0 ? "Portfolio" : "Utilities and index"}
+                aria-label={HOME_PAGE_LABELS[index]}
                 className={page === index ? "is-active" : ""}
                 onClick={() => setPage(index)}
               />
@@ -578,28 +590,6 @@ export function IOSHomeScreen({
 
       <span className="ios-home__indicator" aria-hidden="true" />
 
-      <button
-        type="button"
-        className="ios-notification-hotspot"
-        aria-label="Open Notification Center"
-        onClick={onOpenNotificationCenter}
-        onPointerDown={startHotspotSwipe}
-        onPointerUp={(event) => endHotspotSwipe(event, onOpenNotificationCenter)}
-        onPointerCancel={() => {
-          hotspotStart.current = null;
-        }}
-      />
-      <button
-        type="button"
-        className="ios-control-center-hotspot"
-        aria-label="Open Control Center"
-        onClick={onOpenControlCenter}
-        onPointerDown={startHotspotSwipe}
-        onPointerUp={(event) => endHotspotSwipe(event, onOpenControlCenter)}
-        onPointerCancel={() => {
-          hotspotStart.current = null;
-        }}
-      />
     </div>
   );
 }
