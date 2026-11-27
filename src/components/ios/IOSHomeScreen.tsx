@@ -14,6 +14,7 @@ import { featuredProjects, projects } from "@/data/projects";
 import { profile } from "@/data/profile";
 import { certifications } from "@/data/career";
 import { useNow } from "@/lib/hooks";
+import { useDubaiWeather, WEATHER_ICON_NAMES } from "@/lib/weather";
 import type { ResolvedTheme, WallpaperId } from "@/lib/types";
 import { IOSAppIcon } from "./IOSAppIcon";
 import {
@@ -44,6 +45,7 @@ export function IOSHomeScreen({
   inert?: boolean;
 }) {
   const featured = featuredProjects[0];
+  const weather = useDubaiWeather();
   const [widgetIndex, setWidgetIndex] = useState(0);
   const [page, setPage] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -175,7 +177,7 @@ export function IOSHomeScreen({
         <span className="ios-home__wallpaper-tint" />
       </div>
 
-      <div className="ios-home__content" ref={contentRef}>
+      <div className="ios-home__content" ref={contentRef} key={page}>
         {page === 0 ? (
           <>
         <button
@@ -386,7 +388,7 @@ export function IOSHomeScreen({
         </div>
 
         <div
-          className="ios-recruiter-bar"
+          className="ios-recruiter-bar ios-recruiter-bar--home"
           role="group"
           aria-label="Recruiter quick actions"
         >
@@ -408,15 +410,6 @@ export function IOSHomeScreen({
           </div>
         </div>
 
-        <button
-          type="button"
-          className="ios-search-pill"
-          onClick={onOpenSearch}
-          aria-label="Search apps and projects"
-        >
-          <SystemIcon name="search" size={13} />
-          <span>Search</span>
-        </button>
           </>
         ) : (
           <>
@@ -484,6 +477,32 @@ export function IOSHomeScreen({
               </span>
             </button>
 
+            <div className="ios-widget ios-widget--weather">
+              <span className="ios-recruiter__top">
+                <span className="ios-feature__kicker">Dubai / live</span>
+                <span className="ios-now__live">
+                  <i aria-hidden="true" />
+                  Open-Meteo
+                </span>
+              </span>
+              <span className="ios-weather__main">
+                <span className="ios-weather__temp">
+                  {weather ? `${weather.temperature}\u00b0` : "\u2014"}
+                </span>
+                <span className="ios-weather__copy">
+                  <strong>{weather?.condition ?? "Live weather"}</strong>
+                  <small>
+                    {weather?.city ?? "Dubai"} &middot;{" "}
+                    {weather ? "now" : "connecting"}
+                  </small>
+                </span>
+                <SystemIcon
+                  name={weather ? WEATHER_ICON_NAMES[weather.icon] : "cloud"}
+                  size={30}
+                />
+              </span>
+            </div>
+
             <div
               className="ios-recruiter-bar"
               role="group"
@@ -510,30 +529,36 @@ export function IOSHomeScreen({
               </div>
             </div>
 
-            <button
-              type="button"
-              className="ios-search-pill"
-              onClick={onOpenSearch}
-              aria-label="Search apps and projects"
-            >
-              <SystemIcon name="search" size={13} />
-              <span>Search</span>
-            </button>
           </>
         )}
 
-        <div className="ios-page-dots" role="tablist" aria-label="Home screen pages">
-          {[0, 1].map((index) => (
-            <button
-              key={index}
-              type="button"
-              role="tab"
-              aria-selected={page === index}
-              aria-label={index === 0 ? "Portfolio" : "Utilities and index"}
-              className={page === index ? "is-active" : ""}
-              onClick={() => setPage(index)}
-            />
-          ))}
+        <div className="ios-home__footer">
+          <button
+            type="button"
+            className="ios-search-pill"
+            onClick={onOpenSearch}
+            aria-label="Search apps and projects"
+          >
+            <SystemIcon name="search" size={13} />
+            <span>Search</span>
+          </button>
+          <div
+            className="ios-page-dots"
+            role="tablist"
+            aria-label="Home screen pages"
+          >
+            {[0, 1].map((index) => (
+              <button
+                key={index}
+                type="button"
+                role="tab"
+                aria-selected={page === index}
+                aria-label={index === 0 ? "Portfolio" : "Utilities and index"}
+                className={page === index ? "is-active" : ""}
+                onClick={() => setPage(index)}
+              />
+            ))}
+          </div>
         </div>
       </div>
 

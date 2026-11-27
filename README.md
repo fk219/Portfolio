@@ -67,7 +67,8 @@ The metaphor is functional rather than decorative. Content is isolated in typed 
 
 - A scaled iPhone frame on wide screens and a full-screen experience on phones.
 - Dynamic Island, home indicator, iOS status bar, lock screen, Control Center, Search, and Notification Center.
-- Two swipeable home pages with real, clickable page dots. Page one carries the portfolio apps, the smart stack, recruiter bar, and search. Page two gathers the utility apps (Links, Notes, Clock, Calculator), the portfolio index, direct links, and search.
+- Two swipeable home pages with real, clickable page dots and a smooth page transition. Page one carries the portfolio apps and the smart stack; page two gathers the utility apps (Links, Notes, Clock, Calculator), the portfolio index, direct links, and a live Dubai weather card from Open-Meteo. Search and the page dots sit in a shared footer above the dock.
+- Phone-specific polish: the software Dynamic Island is hidden when nothing is playing, the redundant recruiter strip is removed, and the home footer clears the Dock and safe area.
 - Pull-down Control Center from the top-right (or tap the status icons): connectivity, now playing, Focus, brightness and volume, appearance, Mac switch, project shortcuts, and lock. The top-left pull-down opens Notification Center.
 - A home-screen smart stack with recruiter view, selected work, and a now-building card, plus a recruiter quick-action strip.
 - Lock-screen weather from Open-Meteo and now-playing state from the shared music player.

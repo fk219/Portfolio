@@ -29,24 +29,27 @@ function ProjectsIcon() {
       </defs>
       <rect width="64" height="64" rx="15" fill="url(#ios-projects-bg)" />
       <rect
-        x="11.5"
-        y="16.5"
-        width="41"
-        height="31"
-        rx="5"
-        fill="#ffffff"
-        opacity=".97"
+        x="10.5"
+        y="11.5"
+        width="43"
+        height="41"
+        rx="6"
+        fill="#f7fbff"
       />
-      <rect x="16" y="21" width="32" height="6" rx="2" fill="#b9d8ff" />
-      <rect x="16" y="31" width="14" height="11" rx="2" fill="#f5b74d" />
-      <rect x="33" y="31" width="15" height="4" rx="2" fill="#a9c7ec" />
-      <rect x="33" y="38" width="11" height="4" rx="2" fill="#cddff4" />
+      <rect x="15" y="16" width="15" height="12" rx="2.5" fill="#f5b74d" />
+      <rect x="34" y="16" width="15" height="12" rx="2.5" fill="#6fb9ff" />
+      <rect x="15" y="32" width="15" height="12" rx="2.5" fill="#5ad1a0" />
+      <rect x="34" y="32" width="15" height="12" rx="2.5" fill="#b79cff" />
+      <rect x="15" y="20" width="9" height="2" rx="1" fill="#ffffff" opacity=".72" />
+      <rect x="34" y="20" width="9" height="2" rx="1" fill="#ffffff" opacity=".72" />
+      <rect x="15" y="36" width="9" height="2" rx="1" fill="#ffffff" opacity=".72" />
+      <rect x="34" y="36" width="9" height="2" rx="1" fill="#ffffff" opacity=".72" />
       <rect
-        x="11.5"
-        y="16.5"
-        width="41"
-        height="31"
-        rx="5"
+        x="10.5"
+        y="11.5"
+        width="43"
+        height="41"
+        rx="6"
         fill="none"
         stroke="#ffffff"
         strokeOpacity=".4"
