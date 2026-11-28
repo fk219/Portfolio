@@ -164,6 +164,7 @@ export function ProjectView({ slug }: ProjectViewProps) {
                   width={project.screenshots[0].width}
                   height={project.screenshots[0].height}
                   sizes="(max-width: 940px) 100vw, 900px"
+                  priority
                 />
               </div>
             </a>

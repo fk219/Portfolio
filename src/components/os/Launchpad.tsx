@@ -5,6 +5,7 @@ import { AppIcon } from "@/components/icons/AppIcon";
 import { FolderIcon } from "@/components/icons/FileIcon";
 import { SystemIcon } from "@/components/icons/SystemIcon";
 import { useEscape, useFocusTrap, useNow } from "@/lib/hooks";
+import { prefetchApp } from "@/lib/app-loaders";
 import { useOS } from "@/lib/os-context";
 import type { DockAppId } from "@/lib/types";
 
@@ -117,6 +118,12 @@ export function Launchpad() {
                 type="button"
                 className="launchpad__app"
                 style={{ "--app-index": index } as React.CSSProperties}
+                onPointerEnter={() => {
+                  if (app.id !== "projects") prefetchApp(app.id);
+                }}
+                onFocus={() => {
+                  if (app.id !== "projects") prefetchApp(app.id);
+                }}
                 onClick={() => open(app)}
               >
                 <span className="launchpad__app-icon">

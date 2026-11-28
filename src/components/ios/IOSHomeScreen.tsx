@@ -14,6 +14,7 @@ import { featuredProjects, projects } from "@/data/projects";
 import { profile } from "@/data/profile";
 import { certifications } from "@/data/career";
 import { useNow } from "@/lib/hooks";
+import { prefetchIOSApp } from "@/lib/ios-app-loaders";
 import { useDubaiWeather, WEATHER_ICON_NAMES } from "@/lib/weather";
 import type { ResolvedTheme, WallpaperId } from "@/lib/types";
 import { IOSAppIcon } from "./IOSAppIcon";
@@ -32,6 +33,62 @@ const APP_LIBRARY_APPS = [
 ];
 
 const HOME_PAGE_LABELS = ["Portfolio", "Utilities and index", "App Library"];
+
+function HomeClock() {
+  const now = useNow(10000);
+  const current = now ?? new Date(2026, 10, 22, 9, 41);
+  const time = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(current);
+  const weekday = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+  }).format(current);
+  const monthDay = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+  }).format(current);
+
+  return (
+    <>
+      <span className="ios-widget__clock">{time}</span>
+      <span className="ios-widget__date">
+        {weekday}, {monthDay}
+      </span>
+    </>
+  );
+}
+
+function WeatherWidget() {
+  const weather = useDubaiWeather();
+
+  return (
+    <div className="ios-widget ios-widget--weather">
+      <span className="ios-recruiter__top">
+        <span className="ios-feature__kicker">Dubai / live</span>
+        <span className="ios-now__live">
+          <i aria-hidden="true" />
+          Open-Meteo
+        </span>
+      </span>
+      <span className="ios-weather__main">
+        <span className="ios-weather__temp">
+          {weather ? `${weather.temperature}\u00b0` : "\u2014"}
+        </span>
+        <span className="ios-weather__copy">
+          <strong>{weather?.condition ?? "Live weather"}</strong>
+          <small>
+            {weather?.city ?? "Dubai"} &middot; {weather ? "now" : "connecting"}
+          </small>
+        </span>
+        <SystemIcon
+          name={weather ? WEATHER_ICON_NAMES[weather.icon] : "cloud"}
+          size={30}
+        />
+      </span>
+    </div>
+  );
+}
 
 export function IOSHomeScreen({
   theme,
@@ -53,28 +110,14 @@ export function IOSHomeScreen({
   inert?: boolean;
 }) {
   const featured = featuredProjects[0];
-  const weather = useDubaiWeather();
   const [widgetIndex, setWidgetIndex] = useState(0);
   const [page, setPage] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
   const widgetSwipe = useRef<number | null>(null);
-  const now = useNow(10000);
-  const current = now ?? new Date(2026, 10, 22, 9, 41);
 
   useEffect(() => {
     contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
-  const time = new Intl.DateTimeFormat("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(current);
-  const weekday = new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-  }).format(current);
-  const monthDay = new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    day: "numeric",
-  }).format(current);
   const gestureStart = useRef<{
     x: number;
     y: number;
@@ -178,10 +221,7 @@ export function IOSHomeScreen({
               Open to work
             </span>
           </span>
-          <span className="ios-widget__clock">{time}</span>
-          <span className="ios-widget__date">
-            {weekday}, {monthDay}
-          </span>
+          <HomeClock />
           <span className="ios-widget__footer">
             <span>
               Furqan Khan
@@ -224,6 +264,9 @@ export function IOSHomeScreen({
               type="button"
               className="ios-home-app"
               style={{ "--app-index": index } as React.CSSProperties}
+              onPointerDown={() => prefetchIOSApp(app.id)}
+              onPointerEnter={() => prefetchIOSApp(app.id)}
+              onFocus={() => prefetchIOSApp(app.id)}
               onClick={(event) => onOpenApp(app.id, originFor(event))}
               aria-label={`Open ${app.name}`}
             >
@@ -414,6 +457,9 @@ export function IOSHomeScreen({
                   type="button"
                   className="ios-home-app"
                   style={{ "--app-index": index } as React.CSSProperties}
+                  onPointerDown={() => prefetchIOSApp(app.id)}
+                  onPointerEnter={() => prefetchIOSApp(app.id)}
+                  onFocus={() => prefetchIOSApp(app.id)}
                   onClick={(event) => onOpenApp(app.id, originFor(event))}
                   aria-label={`Open ${app.name}`}
                 >
@@ -462,31 +508,7 @@ export function IOSHomeScreen({
               </span>
             </button>
 
-            <div className="ios-widget ios-widget--weather">
-              <span className="ios-recruiter__top">
-                <span className="ios-feature__kicker">Dubai / live</span>
-                <span className="ios-now__live">
-                  <i aria-hidden="true" />
-                  Open-Meteo
-                </span>
-              </span>
-              <span className="ios-weather__main">
-                <span className="ios-weather__temp">
-                  {weather ? `${weather.temperature}\u00b0` : "\u2014"}
-                </span>
-                <span className="ios-weather__copy">
-                  <strong>{weather?.condition ?? "Live weather"}</strong>
-                  <small>
-                    {weather?.city ?? "Dubai"} &middot;{" "}
-                    {weather ? "now" : "connecting"}
-                  </small>
-                </span>
-                <SystemIcon
-                  name={weather ? WEATHER_ICON_NAMES[weather.icon] : "cloud"}
-                  size={30}
-                />
-              </span>
-            </div>
+            <WeatherWidget />
 
             <div
               className="ios-recruiter-bar"
@@ -533,6 +555,9 @@ export function IOSHomeScreen({
                   type="button"
                   className="ios-home-app"
                   style={{ "--app-index": index } as React.CSSProperties}
+                  onPointerDown={() => prefetchIOSApp(app.id)}
+                  onPointerEnter={() => prefetchIOSApp(app.id)}
+                  onFocus={() => prefetchIOSApp(app.id)}
                   onClick={(event) => onOpenApp(app.id, originFor(event))}
                   aria-label={`Open ${app.name}`}
                 >
@@ -580,6 +605,9 @@ export function IOSHomeScreen({
             key={app.id}
             type="button"
             className="ios-dock__app"
+            onPointerDown={() => prefetchIOSApp(app.id)}
+            onPointerEnter={() => prefetchIOSApp(app.id)}
+            onFocus={() => prefetchIOSApp(app.id)}
             onClick={(event) => onOpenApp(app.id, originFor(event))}
             aria-label={`Open ${app.name}`}
           >

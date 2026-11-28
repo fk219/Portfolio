@@ -233,11 +233,12 @@ export function IOSProjectsApp({
         </div>
 
         <div className="ios-project-list">
-          {visible.map((project) => (
+          {visible.map((project, index) => (
               <button
                 key={project.slug}
                 type="button"
                 className="ios-project-card"
+                style={{ "--card-index": index } as React.CSSProperties}
                 onClick={() => setSelectedSlug(project.slug)}
               >
                 <span className="ios-project-card__art">

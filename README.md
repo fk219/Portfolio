@@ -134,6 +134,15 @@ The site includes a print-only resume surface and a downloadable two-page PDF at
 | Integrations | GitHub REST API, Open-Meteo | GitHub app, DevKit commit history, lock-screen weather |
 | Delivery | Vercel, GitHub Actions | Production hosting and the build check; no server or database |
 
+## Performance and motion
+
+- Every Mac app and every iPhone app loads as its own client chunk. The shell, wallpaper, icons, and data stay in the initial bundle; opening an app fetches only that app's code.
+- Dock and Launchpad items prefetch their chunk on hover, focus, or pointer-down, and iOS app icons prefetch on the same intent. A lightweight app-loading state covers the gap without shifting layout.
+- The Dubai weather request starts only when the Utilities page or lock screen is opened, not on the first home-screen paint.
+- The project stack, project gallery, and later iOS project cards use `content-visibility: auto` with intrinsic placeholder sizes, so offscreen work is skipped without moving the scrollbar.
+- Window and app transitions animate transform and opacity with spring easing. Project cards stagger in, and reduced-motion users get the final state without spatial animation.
+- The wallpaper drift and equalizer animations pause when the document is hidden; the wallpaper is static on phones. Window backdrop blur is dropped while dragging or resizing to keep interaction smooth.
+
 ## Architecture
 
 `src/app/page.tsx` renders `ExperienceShell`, which chooses the desktop or the iPhone from persisted settings. `OSProvider` owns the boot phase, open windows, appearance, wallpaper, overlays, and settings persistence; `MediaPlayerProvider` owns playback. The desktop composes the OS chrome around `WindowContent`. The iPhone has its own shell and app suite over the same data modules.

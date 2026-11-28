@@ -885,7 +885,7 @@
   color: var(--text);
   pointer-events: auto;
   transform-origin: bottom center;
-  animation: window-open 210ms var(--ease-out);
+  animation: window-open 240ms var(--ease-spring);
 }
 
 .os-window:focus,
@@ -943,6 +943,9 @@
 .os-window.is-dragging,
 .os-window.is-resizing {
   transition: none;
+  background: var(--window-solid);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .os-window.is-dragging .os-window__titlebar {
@@ -2398,3 +2401,76 @@
 }
 
 
+
+/* Lazy app loading ---------------------------------------------------------- */
+
+.app-loading {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--window-solid);
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  opacity: 0;
+  animation: app-loading-reveal 180ms 120ms ease forwards;
+}
+
+.app-loading__mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.35), transparent 50%),
+    linear-gradient(145deg, #536a86, #172334);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+}
+
+.app-loading__bar {
+  position: relative;
+  width: 124px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--control);
+}
+
+.app-loading__bar::after {
+  display: block;
+  width: 40%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  animation: app-loading-shimmer 900ms ease-in-out infinite alternate;
+  content: "";
+}
+
+@keyframes app-loading-reveal {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes app-loading-shimmer {
+  from {
+    transform: translateX(-20%);
+  }
+  to {
+    transform: translateX(190%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-loading {
+    opacity: 1;
+    animation: none;
+  }
+
+  .app-loading__bar::after {
+    width: 100%;
+    opacity: 0.5;
+    animation: none;
+  }
+}

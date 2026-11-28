@@ -1137,6 +1137,8 @@
   gap: 16px;
   padding: 26px 0;
   border-top: 0.5px solid var(--separator);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
 }
 
 .project-view__stack-heading {
@@ -1295,6 +1297,8 @@
 .project-view__gallery-section {
   padding: 24px 0 10px;
   border-top: 0.5px solid var(--separator);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
 }
 
 .project-view__gallery-heading {

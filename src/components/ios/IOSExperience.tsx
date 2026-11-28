@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import {
   useCallback,
   useEffect,
@@ -18,23 +19,83 @@ import { IOSSearch } from "./IOSSearch";
 import { IOSStatusBar } from "./IOSStatusBar";
 import { IOSHomeIndicator } from "./IOSChrome";
 import type { IOSAppId, IOSAppOrigin } from "./ios-apps";
-import { IOSProjectsApp } from "./apps/IOSProjectsApp";
-import { IOSSafariApp } from "./apps/IOSSafariApp";
-import { IOSPhotosApp } from "./apps/IOSPhotosApp";
-import { IOSResumeApp } from "./apps/IOSResumeApp";
-import { IOSProfileApp } from "./apps/IOSProfileApp";
-import { IOSCareerApp } from "./apps/IOSCareerApp";
-import { IOSLinksApp } from "./apps/IOSLinksApp";
-import { IOSNotesApp } from "./apps/IOSNotesApp";
-import { IOSCalculatorApp } from "./apps/IOSCalculatorApp";
-import { IOSMusicApp } from "./apps/IOSMusicApp";
-import { IOSDevKitApp } from "./apps/IOSDevKitApp";
-import { IOSStoreApp } from "./apps/IOSStoreApp";
-import { IOSArcadeApp } from "./apps/IOSArcadeApp";
-import { IOSClockApp } from "./apps/IOSClockApp";
-import { IOSContactApp } from "./apps/IOSContactApp";
-import { IOSSettingsApp } from "./apps/IOSSettingsApp";
 import { IOSNotificationCenter } from "./IOSNotificationCenter";
+import { iosAppLoaders } from "@/lib/ios-app-loaders";
+
+function IOSAppLoading({ label }: { label: string }) {
+  return (
+    <div className="ios-app-loading" role="status">
+      <span className="ios-app-loading__mark" aria-hidden="true" />
+      <span>Opening {label}</span>
+      <span className="ios-app-loading__bar" aria-hidden="true" />
+    </div>
+  );
+}
+
+const IOSProjectsApp = dynamic(
+  () => iosAppLoaders.projects().then((mod) => mod.IOSProjectsApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Projects" /> },
+);
+const IOSSafariApp = dynamic(
+  () => iosAppLoaders.safari().then((mod) => mod.IOSSafariApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Safari" /> },
+);
+const IOSPhotosApp = dynamic(
+  () => iosAppLoaders.photos().then((mod) => mod.IOSPhotosApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Photos" /> },
+);
+const IOSResumeApp = dynamic(
+  () => iosAppLoaders.resume().then((mod) => mod.IOSResumeApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Resume" /> },
+);
+const IOSProfileApp = dynamic(
+  () => iosAppLoaders.profile().then((mod) => mod.IOSProfileApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Profile" /> },
+);
+const IOSCareerApp = dynamic(
+  () => iosAppLoaders.experience().then((mod) => mod.IOSCareerApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Experience" /> },
+);
+const IOSLinksApp = dynamic(
+  () => iosAppLoaders.links().then((mod) => mod.IOSLinksApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Links" /> },
+);
+const IOSNotesApp = dynamic(
+  () => iosAppLoaders.notes().then((mod) => mod.IOSNotesApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Notes" /> },
+);
+const IOSCalculatorApp = dynamic(
+  () => iosAppLoaders.calculator().then((mod) => mod.IOSCalculatorApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Calculator" /> },
+);
+const IOSMusicApp = dynamic(
+  () => iosAppLoaders.music().then((mod) => mod.IOSMusicApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Music" /> },
+);
+const IOSDevKitApp = dynamic(
+  () => iosAppLoaders.devkit().then((mod) => mod.IOSDevKitApp),
+  { ssr: false, loading: () => <IOSAppLoading label="DevKit" /> },
+);
+const IOSStoreApp = dynamic(
+  () => iosAppLoaders.store().then((mod) => mod.IOSStoreApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Store" /> },
+);
+const IOSArcadeApp = dynamic(
+  () => iosAppLoaders.arcade().then((mod) => mod.IOSArcadeApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Arcade" /> },
+);
+const IOSClockApp = dynamic(
+  () => iosAppLoaders.clock().then((mod) => mod.IOSClockApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Clock" /> },
+);
+const IOSContactApp = dynamic(
+  () => iosAppLoaders.contact().then((mod) => mod.IOSContactApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Contact" /> },
+);
+const IOSSettingsApp = dynamic(
+  () => iosAppLoaders.settings().then((mod) => mod.IOSSettingsApp),
+  { ssr: false, loading: () => <IOSAppLoading label="Settings" /> },
+);
 
 const FRAME_WIDTH = 418;
 const FRAME_HEIGHT = 872;

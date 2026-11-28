@@ -633,3 +633,39 @@ kbd {
   align-items: center;
   min-height: 24px;
 }
+
+/* Motion budget ------------------------------------------------------------- */
+
+html[data-page-hidden="true"] .wallpaper__slow-drift,
+html[data-page-hidden="true"] .menu-bar__equalizer i,
+html[data-page-hidden="true"] .music__wave,
+html[data-page-hidden="true"] .music__mini-bars span,
+html[data-page-hidden="true"] .ios-island__bars i,
+html[data-page-hidden="true"] .ios-music__equalizer i,
+html[data-page-hidden="true"] .ios-music__tiny-bars i {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wallpaper__slow-drift,
+  .menu-bar__equalizer i,
+  .music__wave,
+  .music__mini-bars span,
+  .ios-island__bars i,
+  .ios-music__equalizer i,
+  .ios-music__tiny-bars i {
+    animation: none !important;
+  }
+
+  .os-window,
+  .menu-popover,
+  .desktop-menu,
+  .welcome-banner,
+  .dock__item.is-bouncing {
+    animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+}

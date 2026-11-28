@@ -384,6 +384,7 @@ function StoreProject({
             width={screenshot.width}
             height={screenshot.height}
             sizes="(max-width: 940px) 100vw, 390px"
+            priority
           />
         </div>
       )}

@@ -1502,7 +1502,7 @@ button.ios-island--playing:hover {
   overflow: hidden;
   border-radius: 0;
   background: var(--ios-bg);
-  animation: ios-app-open 400ms var(--ease-out) both;
+  animation: ios-app-open 440ms var(--ease-ios-spring) both;
 }
 
 .ios-app-window.has-origin {
@@ -1964,6 +1964,24 @@ button.ios-island--playing:hover {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   text-align: left;
   cursor: pointer;
+  animation: ios-project-card-in 320ms var(--ease-out) both;
+  animation-delay: calc(var(--card-index, 0) * 30ms);
+}
+
+.ios-project-card:nth-child(n + 4) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 300px;
+}
+
+@keyframes ios-project-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .ios-project-card__art {
@@ -5846,6 +5864,10 @@ button.ios-island--playing:hover {
     display: none;
   }
 
+  .wallpaper__slow-drift {
+    animation: none;
+  }
+
   /* On a real phone the hardware already has a camera cutout and a status
      bar; keep the software island for Now Playing only. */
   .ios-island:not(.ios-island--playing) {
@@ -6245,18 +6267,27 @@ button.ios-island--playing:hover {
   .ios-experience,
   .ios-frame,
   .ios-home-app,
+  .ios-home__content,
+  .ios-project-card,
   .ios-app-window,
   .ios-control-center,
   .ios-control-center__panel,
   .ios-notification-center,
   .ios-nc__panel,
   .ios-spotlight,
-  .ios-spotlight__panel {
+  .ios-spotlight__panel,
+  .ios-island__bars i,
+  .ios-music__equalizer i,
+  .ios-music__tiny-bars i {
     animation: none !important;
   }
 
   .ios-app-window.is-closing {
     opacity: 0;
+  }
+
+  .ios-page-dots button {
+    transition: none;
   }
 }
 
@@ -6545,3 +6576,76 @@ button.ios-island--playing:hover {
   transition: opacity 160ms ease;
 }
 
+
+/* Lazy iOS app loading ------------------------------------------------------ */
+
+.ios-app-loading {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 11px;
+  background: var(--ios-bg);
+  color: var(--ios-secondary);
+  font-size: 11px;
+  opacity: 0;
+  animation: ios-app-loading-reveal 180ms 100ms ease forwards;
+}
+
+.ios-app-loading__mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.34), transparent 48%),
+    linear-gradient(145deg, #4d7da8, #14263b);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.ios-app-loading__bar {
+  position: relative;
+  width: 128px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--ios-fill);
+}
+
+.ios-app-loading__bar::after {
+  display: block;
+  width: 40%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--ios-blue);
+  animation: ios-app-loading-shimmer 900ms ease-in-out infinite alternate;
+  content: "";
+}
+
+@keyframes ios-app-loading-reveal {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ios-app-loading-shimmer {
+  from {
+    transform: translateX(-20%);
+  }
+  to {
+    transform: translateX(190%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ios-app-loading {
+    opacity: 1;
+    animation: none;
+  }
+
+  .ios-app-loading__bar::after {
+    width: 100%;
+    opacity: 0.5;
+    animation: none;
+  }
+}

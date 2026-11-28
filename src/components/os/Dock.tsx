@@ -8,6 +8,7 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { DOCK_ENTRIES, type DockEntry } from "@/lib/apps";
+import { prefetchApp } from "@/lib/app-loaders";
 import { useNow } from "@/lib/hooks";
 import { useOS } from "@/lib/os-context";
 import { AppIcon } from "@/components/icons/AppIcon";
@@ -215,8 +216,17 @@ export function Dock() {
               aria-label={`${entry.label}${isRunning ? ", running" : ""}`}
               aria-describedby={tooltipId}
               onClick={() => activateEntry(entry)}
-              onPointerEnter={() => setHoveredIndex(currentIndex)}
-              onFocus={() => setHoveredIndex(currentIndex)}
+              onPointerDown={() => {
+                if (entry.kind === "app") prefetchApp(entry.id);
+              }}
+              onPointerEnter={() => {
+                setHoveredIndex(currentIndex);
+                if (entry.kind === "app") prefetchApp(entry.id);
+              }}
+              onFocus={() => {
+                setHoveredIndex(currentIndex);
+                if (entry.kind === "app") prefetchApp(entry.id);
+              }}
               onBlur={() => setHoveredIndex(null)}
             >
               <span
